@@ -6,6 +6,7 @@ import time
 import cv2
 import numpy as np
 
+
 from maskrcnn_benchmark.config import cfg
 from demo.predictor import COCODemo
 
@@ -49,6 +50,11 @@ def main(vocab_path, settings_path, sequence_path, coco_path, device):
         right_mask -= right_mask_dil
         tframe = timestamps[idx]
 
+        if idx == 1:
+            cv2.imwrite('lm.png',left_mask)
+            print("saving lm image")
+            break
+
         if left_image is None:
             print("failed to load image at {0}".format(left_filenames[idx]))
             return 1
@@ -71,6 +77,8 @@ def main(vocab_path, settings_path, sequence_path, coco_path, device):
 
         if ttrack < t:
             time.sleep(t - ttrack)
+        # if idx == 99:
+        #     break
         print('{}. image is finished'.format(idx))
     save_trajectory(slam.get_trajectory_points(), 'trajectory.txt')
 
