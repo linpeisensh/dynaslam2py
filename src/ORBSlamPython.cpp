@@ -1,10 +1,10 @@
 #define PY_ARRAY_UNIQUE_SYMBOL pbcvt_ARRAY_API
 #include <opencv2/core/core.hpp>
 #include <pyboostcvconverter/pyboostcvconverter.hpp>
-#include <ORB_SLAM2/KeyFrame.h>
-#include <ORB_SLAM2/Converter.h>
-#include <ORB_SLAM2/Tracking.h>
-#include <ORB_SLAM2/MapPoint.h>
+#include <KeyFrame.h>
+#include <Converter.h>
+#include <Tracking.h>
+#include <MapPoint.h>
 #include "ORBSlamPython.h"
 
 #if (PY_VERSION_HEX >= 0x03000000)
