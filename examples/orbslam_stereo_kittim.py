@@ -71,7 +71,7 @@ def main(vocab_path, settings_path, sequence_path, coco_path, device):
 
         if ttrack < t:
             time.sleep(t - ttrack)
-        print('{.} image is finished'.format(idx))
+        print('{}. image is finished'.format(idx))
     save_trajectory(slam.get_trajectory_points(), 'trajectory.txt')
 
     slam.shutdown()
