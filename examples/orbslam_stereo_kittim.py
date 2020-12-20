@@ -43,10 +43,11 @@ def main(vocab_path, settings_path, sequence_path, coco_path, device):
         left_image = cv2.imread(left_filenames[idx], cv2.IMREAD_UNCHANGED)
         left_mask = get_mask(coco_demo,left_image).astype(np.uint8)
         left_mask_dil = cv2.dilate(left_mask,kernel)[:, :, None]
-        if idx == 1:
-            cv2.imwrite("lm.png",left_mask*255)
-            cv2.imwrite("lmd.png",left_mask_dil*255)
-        left_mask -= left_mask_dil
+        # if idx == 1:
+        #     cv2.imwrite("lm.png",left_mask*255)
+        #     cv2.imwrite("lmd.png",left_mask_dil*255)
+        # left_mask -= left_mask_dil
+        left_mask = np.ones_like(left_mask) - left_mask_dil
         if idx == 1:
             cv2.imwrite("lma.png",left_mask*255)
             break
