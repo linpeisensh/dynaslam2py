@@ -61,7 +61,7 @@ def main(vocab_path, settings_path, sequence_path, coco_path, device):
             return 1
 
         t1 = time.time()
-        slam.process_image_stereo(left_image[:,:,::-1], right_image[:,:,::-1], left_mask, right_mask, tframe)
+        slam.process_image_stereo(left_image[:, :, ::-1], right_image[:, :, ::-1], left_mask, right_mask, tframe)
         t2 = time.time()
 
         ttrack = t2 - t1
