@@ -43,6 +43,10 @@ def main(vocab_path, settings_path, sequence_path, coco_path, device):
         left_image = cv2.imread(left_filenames[idx], cv2.IMREAD_UNCHANGED)
         left_mask = get_mask(coco_demo,left_image).astype(np.uint8)
         left_mask_dil = cv2.dilate(left_mask,kernel)[:, :, None]
+        if idx == 1:
+            cv2.imwrite('lmb.png',left_mask)
+            cv2.imwrite('lmd.png', left_mask)
+            break
         left_mask -= left_mask_dil
         right_image = cv2.imread(right_filenames[idx], cv2.IMREAD_UNCHANGED)
         right_mask = get_mask(coco_demo, right_image).astype(np.uint8)
