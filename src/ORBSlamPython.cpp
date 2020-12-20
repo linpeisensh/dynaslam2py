@@ -40,12 +40,12 @@ BOOST_PYTHON_MODULE(orbslam2)
     boost::python::class_<ORBSlamPython, boost::noncopyable>("System", boost::python::init<const char*, const char*, boost::python::optional<ORB_SLAM2::System::eSensor>>())
         .def(boost::python::init<std::string, std::string, boost::python::optional<ORB_SLAM2::System::eSensor>>())
         .def("initialize", &ORBSlamPython::initialize)
-        .def("load_and_process_mono", &ORBSlamPython::loadAndProcessMono)
-        .def("process_image_mono", &ORBSlamPython::processMono)
-        .def("load_and_process_stereo", &ORBSlamPython::loadAndProcessStereo)
+//        .def("load_and_process_mono", &ORBSlamPython::loadAndProcessMono)
+//        .def("process_image_mono", &ORBSlamPython::processMono)
+//        .def("load_and_process_stereo", &ORBSlamPython::loadAndProcessStereo)
         .def("process_image_stereo", &ORBSlamPython::processStereo)
-        .def("load_and_process_rgbd", &ORBSlamPython::loadAndProcessRGBD)
-        .def("process_image_rgbd", &ORBSlamPython::processRGBD)
+//        .def("load_and_process_rgbd", &ORBSlamPython::loadAndProcessRGBD)
+//        .def("process_image_rgbd", &ORBSlamPython::processRGBD)
         .def("shutdown", &ORBSlamPython::shutdown)
         .def("is_running", &ORBSlamPython::isRunning)
         .def("reset", &ORBSlamPython::reset)
@@ -110,60 +110,60 @@ void ORBSlamPython::reset()
     }
 }
 
-bool ORBSlamPython::loadAndProcessMono(std::string imageFile, double timestamp)
-{
-    if (!system)
-    {
-        return false;
-    }
-    cv::Mat im = cv::imread(imageFile, cv::IMREAD_COLOR);
-    if (bUseRGB)
-    {
-        cv::cvtColor(im, im, cv::COLOR_BGR2RGB);
-    }
-    return this->processMono(im, timestamp);
-}
+//bool ORBSlamPython::loadAndProcessMono(std::string imageFile, double timestamp)
+//{
+//    if (!system)
+//    {
+//        return false;
+//    }
+//    cv::Mat im = cv::imread(imageFile, cv::IMREAD_COLOR);
+//    if (bUseRGB)
+//    {
+//        cv::cvtColor(im, im, cv::COLOR_BGR2RGB);
+//    }
+//    return this->processMono(im, timestamp);
+//}
+//
+//bool ORBSlamPython::processMono(cv::Mat image, double timestamp)
+//{
+//    if (!system)
+//    {
+//        return false;
+//    }
+//    if (image.data)
+//    {
+//        cv::Mat pose = system->TrackMonocular(image, timestamp);
+//        return !pose.empty();
+//    }
+//    else
+//    {
+//        return false;
+//    }
+//}
 
-bool ORBSlamPython::processMono(cv::Mat image, double timestamp)
-{
-    if (!system)
-    {
-        return false;
-    }
-    if (image.data)
-    {
-        cv::Mat pose = system->TrackMonocular(image, timestamp);
-        return !pose.empty();
-    }
-    else
-    {
-        return false;
-    }
-}
+//bool ORBSlamPython::loadAndProcessStereo(std::string leftImageFile, std::string rightImageFile, double timestamp)
+//{
+//    if (!system)
+//    {
+//        return false;
+//    }
+//    cv::Mat leftImage = cv::imread(leftImageFile, cv::IMREAD_COLOR);
+//    cv::Mat rightImage = cv::imread(rightImageFile, cv::IMREAD_COLOR);
+//    if (bUseRGB) {
+//        cv::cvtColor(leftImage, leftImage, cv::COLOR_BGR2RGB);
+//        cv::cvtColor(rightImage, rightImage, cv::COLOR_BGR2RGB);
+//    }
+//    return this->processStereo(leftImage, rightImage, timestamp);
+//}
 
-bool ORBSlamPython::loadAndProcessStereo(std::string leftImageFile, std::string rightImageFile, double timestamp)
-{
-    if (!system)
-    {
-        return false;
-    }
-    cv::Mat leftImage = cv::imread(leftImageFile, cv::IMREAD_COLOR);
-    cv::Mat rightImage = cv::imread(rightImageFile, cv::IMREAD_COLOR);
-    if (bUseRGB) {
-        cv::cvtColor(leftImage, leftImage, cv::COLOR_BGR2RGB);
-        cv::cvtColor(rightImage, rightImage, cv::COLOR_BGR2RGB);
-    }
-    return this->processStereo(leftImage, rightImage, timestamp);
-}
-
-bool ORBSlamPython::processStereo(cv::Mat leftImage, cv::Mat rightImage, double timestamp)
+bool ORBSlamPython::processStereo(cv::Mat leftImage, cv::Mat rightImage, cv::Mat maskLeft, cv::Mat maskRight, double timestamp)
 {
     if (!system)
     {
         return false;
     }
     if (leftImage.data && rightImage.data) {
-        cv::Mat pose = system->TrackStereo(leftImage, rightImage, timestamp);
+        cv::Mat pose = system->TrackStereo(leftImage, rightImage, maskLeft, maskRight timestamp);
         return !pose.empty();
     }
     else
@@ -172,37 +172,37 @@ bool ORBSlamPython::processStereo(cv::Mat leftImage, cv::Mat rightImage, double 
     }
 }
 
-bool ORBSlamPython::loadAndProcessRGBD(std::string imageFile, std::string depthImageFile, double timestamp)
-{
-    if (!system)
-    {
-        return false;
-    }
-    cv::Mat im = cv::imread(imageFile, cv::IMREAD_COLOR);
-    if (bUseRGB)
-    {
-        cv::cvtColor(im, im, cv::COLOR_BGR2RGB);
-    }
-    cv::Mat imDepth = cv::imread(depthImageFile, cv::IMREAD_UNCHANGED);
-    return this->processRGBD(im, imDepth, timestamp);
-}
-
-bool ORBSlamPython::processRGBD(cv::Mat image, cv::Mat depthImage, double timestamp)
-{
-    if (!system)
-    {
-        return false;
-    }
-    if (image.data && depthImage.data)
-    {
-        cv::Mat pose = system->TrackRGBD(image, depthImage, timestamp);
-        return !pose.empty();
-    }
-    else
-    {
-        return false;
-    }
-}
+//bool ORBSlamPython::loadAndProcessRGBD(std::string imageFile, std::string depthImageFile, double timestamp)
+//{
+//    if (!system)
+//    {
+//        return false;
+//    }
+//    cv::Mat im = cv::imread(imageFile, cv::IMREAD_COLOR);
+//    if (bUseRGB)
+//    {
+//        cv::cvtColor(im, im, cv::COLOR_BGR2RGB);
+//    }
+//    cv::Mat imDepth = cv::imread(depthImageFile, cv::IMREAD_UNCHANGED);
+//    return this->processRGBD(im, imDepth, timestamp);
+//}
+//
+//bool ORBSlamPython::processRGBD(cv::Mat image, cv::Mat depthImage, double timestamp)
+//{
+//    if (!system)
+//    {
+//        return false;
+//    }
+//    if (image.data && depthImage.data)
+//    {
+//        cv::Mat pose = system->TrackRGBD(image, depthImage, timestamp);
+//        return !pose.empty();
+//    }
+//    else
+//    {
+//        return false;
+//    }
+//}
 
 void ORBSlamPython::shutdown()
 {

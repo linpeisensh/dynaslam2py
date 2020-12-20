@@ -36,11 +36,17 @@ def main(vocab_path, settings_path, sequence_path, coco_path, device):
         min_image_size=800,
         confidence_threshold=0.7,
     )
+    dilation = 5
+    kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE,(2*dilation+1,2*dilation+1))
     for idx in range(num_images):
         left_image = cv2.imread(left_filenames[idx], cv2.IMREAD_UNCHANGED)
-        left_image = get_mask(coco_demo,left_image)
+        left_mask = get_mask(coco_demo,left_image)
+        left_mask_dil = cv2.dilate(left_mask,kernel)
+        left_mask -= left_mask_dil
         right_image = cv2.imread(right_filenames[idx], cv2.IMREAD_UNCHANGED)
-        right_image = get_mask(coco_demo, right_image)
+        right_mask = get_mask(coco_demo, right_image)
+        right_mask_dil = cv2.dilate(right_mask, kernel)
+        right_mask -= right_mask_dil
         tframe = timestamps[idx]
 
         if left_image is None:
@@ -51,7 +57,7 @@ def main(vocab_path, settings_path, sequence_path, coco_path, device):
             return 1
 
         t1 = time.time()
-        slam.process_image_stereo(left_image[:, :, ::-1], right_image[:, :, ::-1], tframe)
+        slam.process_image_stereo(left_image[:, :, ::-1], right_image[:, :, ::-1], left_mask, right_mask, tframe)
         t2 = time.time()
 
         ttrack = t2 - t1
@@ -82,15 +88,11 @@ def get_mask(coco_demo,image):
     prediction = coco_demo.compute_prediction(image)
     top = coco_demo.select_top_predictions(prediction)
     masks = top.get_field("mask").numpy()
-    if masks:
-        rmmask = np.zeros_like(masks[0][0, :, :, None])
-        for mask in masks:
-            rmmask |= mask[0, :, :, None]
-        mmask = np.ones_like(rmmask) - np.array(rmmask).astype(np.uint8)
-        iam = image * mmask
-    else:
-        iam = image
-    return iam
+    h,w,c = image.shape
+    rmask = np.zeros((h,w,1))
+    for mask in masks:
+        rmask |= mask[0, :, :, None]
+    return rmask
 
 
 def load_images(path_to_sequence):
