@@ -104,7 +104,7 @@ def get_mask(coco_demo,image):
     rmask = np.zeros((h,w,1)).astype(np.bool)
     for mask in masks:
         rmask |= mask[0, :, :, None]
-    rmask = np.ones_like(rmask) - rmask.astype(np.uint8)
+    # rmask = np.ones_like(rmask) - rmask.astype(np.uint8)
     return rmask
 
 
