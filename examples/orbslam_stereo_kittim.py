@@ -89,7 +89,7 @@ def get_mask(coco_demo,image):
     top = coco_demo.select_top_predictions(prediction)
     masks = top.get_field("mask").numpy()
     h,w,c = image.shape
-    rmask = np.zeros((h,w,1))
+    rmask = np.zeros((h,w,1)).astype(np.bool)
     for mask in masks:
         rmask |= mask[0, :, :, None]
     return rmask
