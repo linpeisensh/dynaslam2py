@@ -50,8 +50,8 @@ def main(vocab_path, settings_path, sequence_path, coco_path, device):
         # right_mask -= right_mask_dil
         tframe = timestamps[idx]
         h, w, c = left_image.shape
-        left_mask = np.ones((h,w,1))
-        right_mask = np.ones((h,w,1))
+        left_mask = np.ones((h,w,1)).astype(np.bool)
+        right_mask = np.ones((h,w,1)).astype(np.bool)
 
         if left_image is None:
             print("failed to load image at {0}".format(left_filenames[idx]))
