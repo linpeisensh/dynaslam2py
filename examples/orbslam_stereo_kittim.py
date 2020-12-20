@@ -41,17 +41,17 @@ def main(vocab_path, settings_path, sequence_path, coco_path, device):
     kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE,(2*dilation+1,2*dilation+1))
     for idx in range(num_images):
         left_image = cv2.imread(left_filenames[idx], cv2.IMREAD_UNCHANGED)
-        # left_mask = get_mask(coco_demo,left_image).astype(np.uint8)
-        # left_mask_dil = cv2.dilate(left_mask,kernel)[:, :, None]
-        # left_mask -= left_mask_dil
+        left_mask = get_mask(coco_demo,left_image).astype(np.uint8)
+        left_mask_dil = cv2.dilate(left_mask,kernel)[:, :, None]
+        left_mask -= left_mask_dil
         right_image = cv2.imread(right_filenames[idx], cv2.IMREAD_UNCHANGED)
-        # right_mask = get_mask(coco_demo, right_image).astype(np.uint8)
-        # right_mask_dil = cv2.dilate(right_mask, kernel)[:, :, None]
-        # right_mask -= right_mask_dil
+        right_mask = get_mask(coco_demo, right_image).astype(np.uint8)
+        right_mask_dil = cv2.dilate(right_mask, kernel)[:, :, None]
+        right_mask -= right_mask_dil
         tframe = timestamps[idx]
-        h, w, c = left_image.shape
-        left_mask = np.ones((h,w,1)).astype(np.uint8)
-        right_mask = np.ones((h,w,1)).astype(np.uint8)
+        # h, w, c = left_image.shape
+        # left_mask = np.ones((h,w,1)).astype(np.uint8)
+        # right_mask = np.ones((h,w,1)).astype(np.uint8)
 
         if left_image is None:
             print("failed to load image at {0}".format(left_filenames[idx]))
@@ -98,6 +98,7 @@ def get_mask(coco_demo,image):
     rmask = np.zeros((h,w,1)).astype(np.bool)
     for mask in masks:
         rmask |= mask[0, :, :, None]
+    rmask = np.ones_like(rmask) - rmask.astype(np.uint8)
     return rmask
 
 
