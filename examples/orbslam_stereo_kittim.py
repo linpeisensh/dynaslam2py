@@ -47,19 +47,19 @@ def main(vocab_path, settings_path, sequence_path, coco_path, device):
         #     cv2.imwrite("lm.png",left_mask*255)
         #     cv2.imwrite("lmd.png",left_mask_dil*255)
         # left_mask -= left_mask_dil
-        # left_mask = np.ones_like(left_mask) - left_mask_dil
+        left_mask = np.ones_like(left_mask) - left_mask_dil
         # if idx == 1:
         #     cv2.imwrite("lma.png",left_mask*255)
         #     break
         right_image = cv2.imread(right_filenames[idx], cv2.IMREAD_UNCHANGED)
-        # right_mask = get_mask(coco_demo, right_image).astype(np.uint8)
-        # right_mask_dil = cv2.dilate(right_mask, kernel)[:, :, None]
+        right_mask = get_mask(coco_demo, right_image).astype(np.uint8)
+        right_mask_dil = cv2.dilate(right_mask, kernel)[:, :, None]
         # right_mask -= right_mask_dil
-        # right_mask = np.ones_like(right_mask) - right_mask_dil
+        right_mask = np.ones_like(right_mask) - right_mask_dil
         tframe = timestamps[idx]
-        h, w, c = left_image.shape
-        left_mask = np.ones((h,w,1)).astype(np.uint8)
-        right_mask = np.ones((h,w,1)).astype(np.uint8)
+        # h, w, c = left_image.shape
+        # left_mask = np.ones((h,w,1)).astype(np.uint8)
+        # right_mask = np.ones((h,w,1)).astype(np.uint8)
 
         if left_image is None:
             print("failed to load image at {0}".format(left_filenames[idx]))
@@ -83,8 +83,8 @@ def main(vocab_path, settings_path, sequence_path, coco_path, device):
 
         if ttrack < t:
             time.sleep(t - ttrack)
-        if idx == 30:
-            break
+        # if idx == 20:
+        #     break
         print('{}. image is finished'.format(idx))
     save_trajectory(slam.get_trajectory_points(), 'trajectory.txt')
 
