@@ -10,20 +10,20 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/ORBSlamPython.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="184">
-              <caret line="23" column="22" selection-start-line="23" selection-start-column="9" selection-end-line="23" selection-end-column="22" />
+            <state relative-caret-position="79">
+              <caret line="9" column="19" selection-start-line="9" selection-start-column="6" selection-end-line="9" selection-end-column="19" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/ORBSlamPython.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="317">
-              <caret line="165" column="86" selection-start-line="165" selection-start-column="86" selection-end-line="165" selection-end-column="86" />
+            <state relative-caret-position="184">
+              <caret line="45" column="66" selection-start-line="45" selection-start-column="53" selection-end-line="45" selection-end-column="66" />
             </state>
           </provider>
         </entry>
@@ -43,8 +43,8 @@
     <findStrings>
       <find>process_image_stereo</find>
       <find>loadAndProcessStereo</find>
-      <find>processStereo</find>
       <find>load_images</find>
+      <find>processStereo</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -122,12 +122,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1608451046024</updated>
-      <workItem from="1608451047894" duration="5272000" />
+      <workItem from="1608451047894" duration="5566000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="5272000" />
+    <option name="totallyTimeSpent" value="5566000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1376" height="744" extended-state="6" />
@@ -167,13 +167,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/ORBSlamPython.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="184">
-          <caret line="23" column="22" selection-start-line="23" selection-start-column="9" selection-end-line="23" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/examples/orbslam_stereo_kittim.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="131">
@@ -183,8 +176,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/ORBSlamPython.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="317">
-          <caret line="165" column="86" selection-start-line="165" selection-start-column="86" selection-end-line="165" selection-end-column="86" />
+        <state relative-caret-position="184">
+          <caret line="45" column="66" selection-start-line="45" selection-start-column="53" selection-end-line="45" selection-end-column="66" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ORBSlamPython.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="79">
+          <caret line="9" column="19" selection-start-line="9" selection-start-column="6" selection-end-line="9" selection-end-column="19" />
         </state>
       </provider>
     </entry>
