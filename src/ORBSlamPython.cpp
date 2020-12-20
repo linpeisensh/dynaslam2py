@@ -163,7 +163,7 @@ bool ORBSlamPython::processStereo(cv::Mat leftImage, cv::Mat rightImage, cv::Mat
         return false;
     }
     if (leftImage.data && rightImage.data) {
-        cv::Mat pose = system->TrackStereo(leftImage, rightImage, maskLeft, maskRight timestamp);
+        cv::Mat pose = system->TrackStereo(leftImage, rightImage, maskLeft, maskRight, timestamp);
         return !pose.empty();
     }
     else
