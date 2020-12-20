@@ -41,14 +41,17 @@ def main(vocab_path, settings_path, sequence_path, coco_path, device):
     kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE,(2*dilation+1,2*dilation+1))
     for idx in range(num_images):
         left_image = cv2.imread(left_filenames[idx], cv2.IMREAD_UNCHANGED)
-        left_mask = get_mask(coco_demo,left_image).astype(np.uint8)
-        left_mask_dil = cv2.dilate(left_mask,kernel)[:, :, None]
-        left_mask -= left_mask_dil
+        # left_mask = get_mask(coco_demo,left_image).astype(np.uint8)
+        # left_mask_dil = cv2.dilate(left_mask,kernel)[:, :, None]
+        # left_mask -= left_mask_dil
         right_image = cv2.imread(right_filenames[idx], cv2.IMREAD_UNCHANGED)
-        right_mask = get_mask(coco_demo, right_image).astype(np.uint8)
-        right_mask_dil = cv2.dilate(right_mask, kernel)[:, :, None]
-        right_mask -= right_mask_dil
+        # right_mask = get_mask(coco_demo, right_image).astype(np.uint8)
+        # right_mask_dil = cv2.dilate(right_mask, kernel)[:, :, None]
+        # right_mask -= right_mask_dil
         tframe = timestamps[idx]
+        h, w, c = left_image.shape
+        left_mask = np.ones((h,w,1))
+        right_mask = np.ones((h,w,1))
 
         if left_image is None:
             print("failed to load image at {0}".format(left_filenames[idx]))
@@ -58,7 +61,7 @@ def main(vocab_path, settings_path, sequence_path, coco_path, device):
             return 1
 
         t1 = time.time()
-        slam.process_image_stereo(left_image, right_image, left_mask, right_mask, tframe)
+        slam.process_image_stereo(left_image[:,:,::-1], right_image[:,:,::-1], left_mask, right_mask, tframe)
         t2 = time.time()
 
         ttrack = t2 - t1
@@ -72,7 +75,7 @@ def main(vocab_path, settings_path, sequence_path, coco_path, device):
 
         if ttrack < t:
             time.sleep(t - ttrack)
-        if idx == 99:
+        if idx == 50:
             break
         print('{}. image is finished'.format(idx))
     save_trajectory(slam.get_trajectory_points(), 'trajectory.txt')
