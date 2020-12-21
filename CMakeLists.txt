@@ -6,8 +6,8 @@ IF(NOT CMAKE_BUILD_TYPE)
 ENDIF()
 
 MESSAGE("Build type: " ${CMAKE_BUILD_TYPE})
-set(CMAKE_MODULE_PATH "/usr/stud/linp/storage/user/linp/dynat/DynaSLAM_PYTHON_BINDING/cmake_modules")
-LIST(APPEND CMAKE_MODULE_PATH "/usr/stud/linp/storage/user/linp/dynat/DynaSLAM_PYTHON_BINDING/cmake_modules")
+set(CMAKE_MODULE_PATH "/usr/stud/linp/storage/user/linp/DynaSLAM_PYTHON_BINDING/cmake_modules")
+LIST(APPEND CMAKE_MODULE_PATH "/usr/stud/linp/storage/user/linp/DynaSLAM_PYTHON_BINDING/cmake_modules")
 
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS}  -Wall  -O3 -march=native ")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall   -O3 -march=native")
@@ -31,8 +31,8 @@ endif()
 find_package(Pangolin)
 
 # RPATH fiddling for the library, so that the installed version can find the linked libraries
-set(CMAKE_INSTALL_RPATH "/usr/stud/linp/storage/anaconda3/envs/dyna/")
-set(DynaSLAM_INCLUDE_DIR "/usr/stud/linp/storage/user/linp/dynat/Dyna/include;/usr/stud/linp/storage/user/linp/dynat/Dyna")
+set(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
+set(DynaSLAM_INCLUDE_DIR "/usr/stud/linp/storage/user/linp/DynaSLAM/include;/usr/stud/linp/storage/user/linp/DynaSLAM")
 set(Boost_INCLUDE_DIRS "/usr/include/boost")
 set(PYTHON_INCLUDE_DIRS "/usr/include/python3.6m")
 set(PYTHON_NUMPY_INCLUDE_DIR "/usr/include")
@@ -75,5 +75,5 @@ if (Pangolin_FOUND)
   target_link_libraries(${TARGET_MODULE_NAME} ${Pangolin_LIBRARIES})
 endif()
 
-install(TARGETS ${TARGET_MODULE_NAME} DESTINATION lib/python3.6/dist-packages)
+install(TARGETS ${TARGET_MODULE_NAME} DESTINATION lib/python3.6/)
 
