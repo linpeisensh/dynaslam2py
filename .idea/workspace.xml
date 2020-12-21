@@ -31,8 +31,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/examples/orbslam_stereo_kittim.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="291">
-              <caret line="85" column="8" selection-start-line="85" selection-start-column="10" selection-end-line="86" selection-end-column="19" />
+            <state relative-caret-position="19">
+              <caret line="58" column="32" lean-forward="true" selection-start-line="58" selection-start-column="32" selection-end-line="58" selection-end-column="32" />
               <folding>
                 <element signature="e#23#33#0" expanded="true" />
               </folding>
@@ -52,6 +52,7 @@
       <find>getTrajectoryPoints</find>
       <find>bool</find>
       <find>converter</find>
+      <find>device</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -129,12 +130,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1608451046024</updated>
-      <workItem from="1608451047894" duration="22641000" />
+      <workItem from="1608451047894" duration="23894000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="22641000" />
+    <option name="totallyTimeSpent" value="23894000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1376" height="744" extended-state="6" />
@@ -190,8 +191,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/examples/orbslam_stereo_kittim.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="291">
-          <caret line="85" column="8" selection-start-line="85" selection-start-column="10" selection-end-line="86" selection-end-column="19" />
+        <state relative-caret-position="19">
+          <caret line="58" column="32" lean-forward="true" selection-start-line="58" selection-start-column="32" selection-end-line="58" selection-end-column="32" />
           <folding>
             <element signature="e#23#33#0" expanded="true" />
           </folding>
