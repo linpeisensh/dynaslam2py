@@ -46,7 +46,8 @@ def main(vocab_path, settings_path, sequence_path, coco_path, device):
         # if idx == 1:
         #     cv2.imwrite("lm.png",left_mask*255)
         #     cv2.imwrite("lmd.png",left_mask_dil*255)
-        left_mask -= left_mask_dil
+        # left_mask -= left_mask_dil
+        left_mask = left_mask_dil - left_mask
         left_mask = np.ones_like(left_mask) - left_mask
         # left_mask = np.ones_like(left_mask) - left_mask_dil
         # if idx == 1:
@@ -55,7 +56,8 @@ def main(vocab_path, settings_path, sequence_path, coco_path, device):
         right_image = cv2.imread(right_filenames[idx], cv2.IMREAD_UNCHANGED)
         right_mask = get_mask(coco_demo, right_image).astype(np.uint8)
         right_mask_dil = cv2.dilate(right_mask, kernel)[:, :, None]
-        right_mask -= right_mask_dil
+        # right_mask -= right_mask_dil
+        right_mask = right_mask_dil - right_mask
         right_mask = np.ones_like(right_mask) - right_mask
         # right_mask = np.ones_like(right_mask) - right_mask_dil
         tframe = timestamps[idx]
