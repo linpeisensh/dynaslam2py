@@ -13,26 +13,26 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/ORBSlamPython.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="144">
-              <caret line="23" column="99" selection-start-line="23" selection-start-column="99" selection-end-line="23" selection-end-column="99" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/ORBSlamPython.cpp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-95">
-              <caret line="4" column="19" selection-start-line="4" selection-start-column="10" selection-end-line="4" selection-end-column="19" />
+            <state relative-caret-position="184">
+              <caret line="18" column="19" selection-start-line="18" selection-start-column="9" selection-end-line="18" selection-end-column="19" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/ORBSlamPython.cpp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="184">
+              <caret line="93" column="30" selection-start-line="93" selection-start-column="20" selection-end-line="93" selection-end-column="30" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/examples/orbslam_stereo_kittim.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="361">
-              <caret line="58" column="8" lean-forward="true" selection-start-line="58" selection-start-column="8" selection-end-line="58" selection-end-column="8" />
+            <state relative-caret-position="190">
+              <caret line="49" column="45" selection-start-line="49" selection-start-column="45" selection-end-line="49" selection-end-column="45" />
               <folding>
                 <element signature="e#23#33#0" expanded="true" />
               </folding>
@@ -53,6 +53,8 @@
       <find>bool</find>
       <find>converter</find>
       <find>device</find>
+      <find>ini</find>
+      <find>initialize</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -68,9 +70,10 @@
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-99" />
+    <option name="x" value="628" />
+    <option name="y" value="1" />
     <option name="width" value="762" />
-    <option name="height" value="710" />
+    <option name="height" value="758" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
@@ -130,12 +133,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1608451046024</updated>
-      <workItem from="1608451047894" duration="25325000" />
+      <workItem from="1608451047894" duration="26705000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="25325000" />
+    <option name="totallyTimeSpent" value="26705000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1376" height="744" extended-state="6" />
@@ -175,27 +178,41 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/examples/orbslam_stereo_kittim.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="190">
+          <caret line="49" column="45" selection-start-line="49" selection-start-column="45" selection-end-line="49" selection-end-column="45" />
+          <folding>
+            <element signature="e#23#33#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pyboost_cv2_converter.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="184">
+          <caret line="127" column="37" selection-start-line="127" selection-start-column="34" selection-end-line="127" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pyboost_cv3_converter.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="184">
+          <caret line="144" column="37" selection-start-line="144" selection-start-column="34" selection-end-line="144" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/ORBSlamPython.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="23" column="99" selection-start-line="23" selection-start-column="99" selection-end-line="23" selection-end-column="99" />
+        <state relative-caret-position="184">
+          <caret line="18" column="19" selection-start-line="18" selection-start-column="9" selection-end-line="18" selection-end-column="19" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/ORBSlamPython.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-95">
-          <caret line="4" column="19" selection-start-line="4" selection-start-column="10" selection-end-line="4" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/examples/orbslam_stereo_kittim.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="361">
-          <caret line="58" column="8" lean-forward="true" selection-start-line="58" selection-start-column="8" selection-end-line="58" selection-end-column="8" />
-          <folding>
-            <element signature="e#23#33#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="184">
+          <caret line="93" column="30" selection-start-line="93" selection-start-column="20" selection-end-line="93" selection-end-column="30" />
         </state>
       </provider>
     </entry>
