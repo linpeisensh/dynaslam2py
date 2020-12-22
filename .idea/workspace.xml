@@ -13,26 +13,26 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/ORBSlamPython.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="184">
-              <caret line="18" column="19" selection-start-line="18" selection-start-column="9" selection-end-line="18" selection-end-column="19" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/ORBSlamPython.cpp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="184">
-              <caret line="93" column="30" selection-start-line="93" selection-start-column="20" selection-end-line="93" selection-end-column="30" />
+            <state relative-caret-position="279">
+              <caret line="23" column="109" lean-forward="true" selection-start-line="23" selection-start-column="9" selection-end-line="23" selection-end-column="109" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/ORBSlamPython.cpp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="241">
+              <caret line="93" column="30" selection-start-line="93" selection-start-column="20" selection-end-line="93" selection-end-column="30" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/examples/orbslam_stereo_kittim.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="190">
-              <caret line="49" column="45" selection-start-line="49" selection-start-column="45" selection-end-line="49" selection-end-column="45" />
+            <state relative-caret-position="836">
+              <caret line="77" lean-forward="true" selection-start-line="77" selection-end-line="77" />
               <folding>
                 <element signature="e#23#33#0" expanded="true" />
               </folding>
@@ -52,8 +52,8 @@
       <find>getTrajectoryPoints</find>
       <find>bool</find>
       <find>converter</find>
-      <find>device</find>
       <find>ini</find>
+      <find>device</find>
       <find>initialize</find>
     </findStrings>
   </component>
@@ -133,12 +133,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1608451046024</updated>
-      <workItem from="1608451047894" duration="26705000" />
+      <workItem from="1608451047894" duration="28336000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="26705000" />
+    <option name="totallyTimeSpent" value="28336000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1376" height="744" extended-state="6" />
@@ -178,16 +178,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/examples/orbslam_stereo_kittim.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="190">
-          <caret line="49" column="45" selection-start-line="49" selection-start-column="45" selection-end-line="49" selection-end-column="45" />
-          <folding>
-            <element signature="e#23#33#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/pyboost_cv2_converter.cpp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="184">
@@ -202,17 +192,27 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/ORBSlamPython.h">
+    <entry file="file://$PROJECT_DIR$/src/ORBSlamPython.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="184">
-          <caret line="18" column="19" selection-start-line="18" selection-start-column="9" selection-end-line="18" selection-end-column="19" />
+        <state relative-caret-position="241">
+          <caret line="93" column="30" selection-start-line="93" selection-start-column="20" selection-end-line="93" selection-end-column="30" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/ORBSlamPython.cpp">
+    <entry file="file://$PROJECT_DIR$/src/ORBSlamPython.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="184">
-          <caret line="93" column="30" selection-start-line="93" selection-start-column="20" selection-end-line="93" selection-end-column="30" />
+        <state relative-caret-position="279">
+          <caret line="23" column="109" lean-forward="true" selection-start-line="23" selection-start-column="9" selection-end-line="23" selection-end-column="109" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/examples/orbslam_stereo_kittim.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="836">
+          <caret line="77" lean-forward="true" selection-start-line="77" selection-end-line="77" />
+          <folding>
+            <element signature="e#23#33#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
