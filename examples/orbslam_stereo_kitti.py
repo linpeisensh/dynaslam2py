@@ -73,10 +73,10 @@ def load_images(path_to_sequence):
                 timestamps.append(float(line))
 
     return [
-        os.path.join(path_to_sequence, 'image_0', "{0:06}.png".format(idx))
+        os.path.join(path_to_sequence, 'image_2', "{0:06}.png".format(idx))
         for idx in range(len(timestamps))
     ], [
-        os.path.join(path_to_sequence, 'image_1', "{0:06}.png".format(idx))
+        os.path.join(path_to_sequence, 'image_3', "{0:06}.png".format(idx))
         for idx in range(len(timestamps))
     ], timestamps
 
