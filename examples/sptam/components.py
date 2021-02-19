@@ -8,9 +8,9 @@ from queue import Queue
 from enum import Enum
 from collections import defaultdict
 
-from covisibility import GraphKeyFrame
-from covisibility import GraphMapPoint
-from covisibility import GraphMeasurement
+from .covisibility import GraphKeyFrame
+from .covisibility import GraphMapPoint
+from .covisibility import GraphMeasurement
 
 
 

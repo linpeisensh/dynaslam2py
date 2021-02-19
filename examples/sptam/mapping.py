@@ -7,8 +7,8 @@ import time
 from itertools import chain
 from collections import defaultdict
 
-from optimization import LocalBA
-from components import Measurement
+from .optimization import LocalBA
+from .components import Measurement
 
 
 
