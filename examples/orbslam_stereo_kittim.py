@@ -182,7 +182,7 @@ def main(vocab_path, settings_path, sequence_path, coco_path, device):
     save_trajectory(slam.get_trajectory_points(), 'r{}.txt'.format(sequence_path[-3:-1]))
 
     slam.shutdown()
-
+    sptam.stop()
     times_track = sorted(times_track)
     total_time = sum(times_track)
     print('-----')
