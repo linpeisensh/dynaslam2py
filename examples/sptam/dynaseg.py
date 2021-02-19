@@ -1,6 +1,7 @@
 import numpy as np
 import cv2 as cv
 from copy import deepcopy as dp
+import os
 
 
 class DynaSeg():
@@ -58,7 +59,7 @@ class DynaSeg():
     def get_points(self, i, iml, imr):
         iml_, imr_ = preprocess(iml, imr)
         disp = self.stereoMatchSGBM(iml_, imr_)
-        dis = np.load(self.disp_path + str(i).zfill(6) + '.npy')
+        dis = np.load(os.path.join(self.disp_path, str(i).zfill(6) + '.npy'))
         disp[disp == 0] = dis[disp == 0]
         points = cv.reprojectImageTo3D(disp, self.Q)
         return points
