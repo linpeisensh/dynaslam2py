@@ -33,12 +33,11 @@ def main(orb_path, device, data_path, sequence):
     vocab_path = os.path.join(orb_path,'Vocabulary/ORBvoc.txt')
     ins = int(sequence)
     if ins < 3:
-        settings_path = os.path.join(orb_path, 'Examples/Stereo/KITTI00-02.yaml ')
-        print(settings_path=='../../ORB_SLAM2/Examples/Stereo/KITTI00-02.yaml')
+        settings_path = '../../ORB_SLAM2/Examples/Stereo/KITTI00-02.yaml'
     elif ins == 3:
-        settings_path = os.path.join(orb_path, 'Examples/Stereo/KITTI03.yaml ')
+        settings_path = '../../ORB_SLAM2/Examples/Stereo/KITTI03.yaml '
     else:
-        settings_path = os.path.join(orb_path, 'Examples/Stereo/KITTI04-12.yaml')
+        settings_path = '../../ORB_SLAM2/Examples/Stereo/KITTI04-12.yaml'
 
 
     coco_path = '../../maskrcnn-benchmark/configs/caffe2/e2e_mask_rcnn_R_50_FPN_1x_caffe2.yaml'
