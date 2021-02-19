@@ -4,6 +4,7 @@ import os.path
 import orbslam2
 import time
 import cv2
+import numpy as np
 
 
 def main(vocab_path, settings_path, sequence_path):
@@ -23,6 +24,9 @@ def main(vocab_path, settings_path, sequence_path):
     for idx in range(num_images):
         left_image = cv2.imread(left_filenames[idx], cv2.IMREAD_UNCHANGED)
         right_image = cv2.imread(right_filenames[idx], cv2.IMREAD_UNCHANGED)
+        h,w,c = left_image.shape
+        left_mask = np.ones((h, w, 1), dtype=np.uint8)
+        right_mask = np.ones((h, w, 1), dtype=np.uint8)
         tframe = timestamps[idx]
 
         if left_image is None:
@@ -33,7 +37,7 @@ def main(vocab_path, settings_path, sequence_path):
             return 1
 
         t1 = time.time()
-        slam.process_image_stereo(left_image[:, :, ::-1], right_image[:, :, ::-1], tframe)
+        slam.process_image_stereo(left_image[:, :, ::-1], right_image[:, :, ::-1], left_mask, right_mask, tframe)
         t2 = time.time()
 
         ttrack = t2 - t1
@@ -48,7 +52,7 @@ def main(vocab_path, settings_path, sequence_path):
         if ttrack < t:
             time.sleep(t - ttrack)
 
-    save_trajectory(slam.get_trajectory_points(), 'trajectory.txt')
+    save_trajectory(slam.get_trajectory_points(), '../../results/kitti/a{}.txt'.format(sequence_path[-2:]))
 
     slam.shutdown()
 

@@ -24,8 +24,8 @@ from sptam.msptam import SPTAM, stereoCamera
 from sptam.components import Camera
 from sptam.components import StereoFrame
 from sptam.feature import ImageFeature
-from sptam.params import ParamsKITTI, ParamsEuroc
-from sptam.dataset import KITTIOdometry, EuRoCDataset
+from sptam.params import ParamsKITTI
+from sptam.dataset import KITTIOdometry
 
 
 def main(orb_path, device, data_path, sequence):
@@ -35,7 +35,7 @@ def main(orb_path, device, data_path, sequence):
     if ins < 3:
         settings_path = '../../ORB_SLAM2/Examples/Stereo/KITTI00-02.yaml'
     elif ins == 3:
-        settings_path = '../../ORB_SLAM2/Examples/Stereo/KITTI03.yaml '
+        settings_path = '../../ORB_SLAM2/Examples/Stereo/KITTI03.yaml'
     else:
         settings_path = '../../ORB_SLAM2/Examples/Stereo/KITTI04-12.yaml'
 
