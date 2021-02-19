@@ -28,7 +28,19 @@ from sptam.params import ParamsKITTI, ParamsEuroc
 from sptam.dataset import KITTIOdometry, EuRoCDataset
 
 
-def main(vocab_path, settings_path, sequence_path, coco_path, device):
+def main(orb_path, device, data_path, sequence):
+    sequence_path = os.path.join(data_path, sequence)
+    vocab_path = os.path.join(orb_path,'Vocabulary/ORBvoc.txt')
+    ins = int(sequence)
+    if ins < 3:
+        settings_path = os.path.join(orb_path, 'Examples/Stereo/KITTI00-02.yaml ')
+    elif ins == 3:
+        settings_path = os.path.join(orb_path, 'Examples/Stereo/KITTI03.yaml ')
+    else:
+        settings_path = os.path.join(orb_path, 'Examples/Stereo/KITTI04-12.yaml')
+
+
+    coco_path = '../../maskrcnn-benchmark/configs/caffe2/e2e_mask_rcnn_R_50_FPN_1x_caffe2.yaml'
     params = ParamsKITTI()
     dataset = KITTIOdometry(sequence_path)
     disp_path = '/usr/stud/linp/storage/user/linp/disparity/' + sequence_path[-3:-1] + '/'
@@ -179,7 +191,7 @@ def main(vocab_path, settings_path, sequence_path, coco_path, device):
             traceback.print_exc()
             print('error in frame {}'.format(idx))
             break
-    save_trajectory(slam.get_trajectory_points(), 'r{}.txt'.format(sequence_path[-3:-1]))
+    save_trajectory(slam.get_trajectory_points(), '../../results/kitti/a{}.txt'.format(sequence_path[-3:-1]))
 
     slam.shutdown()
     sptam.stop()
@@ -212,6 +224,6 @@ def save_trajectory(trajectory, filename):
 
 
 if __name__ == '__main__':
-    if len(sys.argv) != 6:
-        print('Usage: ./orbslam_stereo_kitti path_to_vocabulary path_to_settings path_to_sequence coco_config_path device')
-    main(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4], sys.argv[5])
+    if len(sys.argv) != 5:
+        print('Usage: ./orbslam_stereo_kitti path_to_orb device path_to_data sequence')
+    main(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4])
