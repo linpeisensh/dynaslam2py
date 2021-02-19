@@ -146,8 +146,12 @@ def main(vocab_path, settings_path, sequence_path, coco_path, device):
             # h, w, c = left_image.shape
             # left_mask = np.ones((h,w,1)).astype(np.uint8)
             # right_mask = np.ones((h,w,1)).astype(np.uint8)
-            left_mask = c.reshape(dseg.h,dseg.w,1)
-            right_mask = c.reshape(dseg.h,dseg.w,1)
+            if idx:
+                left_mask = c.reshape(dseg.h,dseg.w,1)
+                right_mask = c.reshape(dseg.h,dseg.w,1)
+            else:
+                left_mask = np.ones((dseg.h,dseg.w,1),dtype=np.uint8)
+                right_mask = np.ones((dseg.h,dseg.w,1),dtype=np.uint8)
 
             if left_image is None:
                 print("failed to load image at {0}".format(dataset.left[idx]))
