@@ -191,7 +191,7 @@ def main(orb_path, device, data_path, sequence):
             traceback.print_exc()
             print('error in frame {}'.format(idx))
             break
-    save_trajectory(slam.get_trajectory_points(), '../../results/kitti/a{}.txt'.format(sequence_path[-3:-1]))
+    save_trajectory(slam.get_trajectory_points(), '../../results/kitti/a{}.txt'.format(sequence))
 
     slam.shutdown()
     sptam.stop()
