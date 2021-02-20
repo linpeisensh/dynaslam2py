@@ -123,20 +123,19 @@ def main(orb_path, device, data_path, sequence):
 
         print('{}. frame'.format(idx))
         try:
-            # frame = StereoFrame(idx, g2o.Isometry3d(), featurel, featurer, cam, timestamp=timestamp)
-            #
-            # if not sptam.is_initialized():
-            #     sptam.initialize(frame)
-            # else:
-            #     sptam.track(frame)
-            #
-            # if idx % 5 == 0:
-            #     if idx:
-            #         c = dseg.dyn_seg_rec(frame, left_image, idx)
-            #     dseg.updata(left_image, right_image, idx, frame)
-            # else:
-            #     c = dseg.dyn_seg_rec(frame, left_image, idx)
-            #
+            frame = StereoFrame(idx, g2o.Isometry3d(), featurel, featurer, cam, timestamp=timestamp)
+
+            if not sptam.is_initialized():
+                sptam.initialize(frame)
+            else:
+                sptam.track(frame)
+
+            if idx % 5 == 0:
+                if idx:
+                    c = dseg.dyn_seg_rec(frame, left_image, idx)
+                dseg.updata(left_image, right_image, idx, frame)
+            else:
+                c = dseg.dyn_seg_rec(frame, left_image, idx)
             # # left_image = cv.imread(left_filenames[idx], cv.IMREAD_UNCHANGED)
             # # left_mask = get_mask(coco_demo,left_image).astype(np.uint8)
             # # left_mask_dil = cv.dilate(left_mask,kernel)[:, :, None]
@@ -155,25 +154,25 @@ def main(orb_path, device, data_path, sequence):
             # # right_mask = np.ones_like(right_mask) - right_mask
             # # right_mask = np.ones_like(right_mask) - right_mask_dil
             # # tframe = timestamps[idx]
-            # # h, w, c = left_image.shape
-            # # left_mask = np.ones((h,w,1)).astype(np.uint8)
-            # # right_mask = np.ones((h,w,1)).astype(np.uint8)
-            # if idx:
-            #     left_mask = c.reshape(dseg.h,dseg.w,1)
-            #     right_mask = c.reshape(dseg.h,dseg.w,1)
-            # else:
-            #     left_mask = np.ones((dseg.h,dseg.w,1),dtype=np.uint8)
-            #     right_mask = np.ones((dseg.h,dseg.w,1),dtype=np.uint8)
+            # h, w, c = left_image.shape
+            # left_mask = np.ones((h,w,1)).astype(np.uint8)
+            # right_mask = np.ones((h,w,1)).astype(np.uint8)
+            if idx:
+                left_mask = c.reshape(dseg.h,dseg.w,1)
+                right_mask = c.reshape(dseg.h,dseg.w,1)
+            else:
+                left_mask = np.ones((dseg.h,dseg.w,1),dtype=np.uint8)
+                right_mask = np.ones((dseg.h,dseg.w,1),dtype=np.uint8)
             #
-            # if left_image is None:
-            #     print("failed to load image at {0}".format(dataset.left[idx]))
-            #     return 1
-            # if right_image is None:
-            #     print("failed to load image at {0}".format(dataset.right[idx]))
-            #     return 1
+            if left_image is None:
+                print("failed to load image at {0}".format(dataset.left[idx]))
+                return 1
+            if right_image is None:
+                print("failed to load image at {0}".format(dataset.right[idx]))
+                return 1
 
-            left_mask = np.ones((dseg.h, dseg.w, 1), dtype=np.uint8)
-            right_mask = np.ones((dseg.h, dseg.w, 1), dtype=np.uint8)
+            # left_mask = np.ones((dseg.h, dseg.w, 1), dtype=np.uint8)
+            # right_mask = np.ones((dseg.h, dseg.w, 1), dtype=np.uint8)
             t1 = time.time()
             slam.process_image_stereo(left_image[:, :, ::-1], right_image[:, :, ::-1], left_mask, right_mask, timestamp)
             t2 = time.time()
