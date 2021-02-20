@@ -27,13 +27,13 @@ class DynaSeg():
         self.a = 0
         self.t = 0
 
-    def updata(self, iml, imr, i, k_frame):
+    def updata(self, iml, imr, i, transformation):
         self.old_gray = cv.cvtColor(iml, cv.COLOR_BGR2GRAY)
         self.p = cv.goodFeaturesToTrack(self.old_gray, mask=None, **self.feature_params)
         self.p1 = dp(self.p)
         self.ast = np.ones((self.p.shape[0], 1))
         self.points = self.get_points(i, iml, imr)
-        self.otfm = np.linalg.inv(Rt_to_tran(k_frame.transform_matrix))
+        self.otfm = np.linalg.inv(transformation)
 
     def getRectifyTransform(self):
         left_K = self.config.cam_matrix_left
@@ -84,11 +84,11 @@ class DynaSeg():
             self.obj[ci][3] = idx
         return ci
 
-    def projection(self, frame, frame_gray):
+    def projection(self, transformation, frame_gray):
         # calculate optical flow
         p1, st, err = cv.calcOpticalFlowPyrLK(self.old_gray, frame_gray, self.p1, None, **self.lk_params)
         self.ast *= st
-        tfm = Rt_to_tran(np.array(frame.transform_matrix))
+        tfm = np.array(transformation)
         tfm = self.otfm.dot(tfm)
         b = cv.Rodrigues(tfm[:3, :3])
         R = b[0]
@@ -116,9 +116,9 @@ class DynaSeg():
         ge = norm(error,imgpts)
         return ge, P
 
-    def dyn_seg(self, frame, iml):
+    def dyn_seg(self, transformation, iml):
         frame_gray = cv.cvtColor(iml, cv.COLOR_BGR2GRAY)
-        ge, P = self.projection(frame, frame_gray)
+        ge, P = self.projection(transformation, frame_gray)
 
 
         image = iml.astype(np.uint8)
@@ -207,7 +207,7 @@ class DynaSeg():
             self.oo = list(self.obj)
         return
 
-    def dyn_seg_rec(self, frame, iml, idx):
+    def dyn_seg_rec(self, transformation, iml, idx):
         '''
         dynamic segmentation based on projection error and object recording
         :param frame: original sptam frame after tracking
@@ -216,7 +216,7 @@ class DynaSeg():
         c: dynamic segmentation of iml
         '''
         frame_gray = cv.cvtColor(iml, cv.COLOR_BGR2GRAY)
-        ge, P = self.projection(frame, frame_gray)
+        ge, P = self.projection(transformation, frame_gray)
 
         nobj = len(self.obj)
         for i in range(nobj):
