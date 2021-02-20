@@ -13,22 +13,16 @@ import numpy as np
 import cv2 as cv
 import time
 import traceback
-import g2o
-import argparse
-from threading import Thread
 import os
 import shutil
 
 from sptam.dynaseg import DynaSeg
-from sptam.msptam import SPTAM, stereoCamera
-from sptam.components import Camera
-from sptam.components import StereoFrame
-from sptam.feature import ImageFeature
+from sptam.msptam import stereoCamera
 from sptam.params import ParamsKITTI
 from sptam.dataset import KITTIOdometry
 
 
-def main(orb_path, device, data_path, sequence):
+def main(orb_path, device, data_path, save, sequence):
     sequence_path = os.path.join(data_path, sequence)
     vocab_path = os.path.join(orb_path,'Vocabulary/ORBvoc.txt')
     ins = int(sequence)
@@ -41,7 +35,7 @@ def main(orb_path, device, data_path, sequence):
     print(settings_path)
 
     coco_path = '../../maskrcnn-benchmark/configs/caffe2/e2e_mask_rcnn_R_50_FPN_1x_caffe2.yaml'
-    params = ParamsKITTI()
+
     dataset = KITTIOdometry(sequence_path)
     disp_path = os.path.join('/usr/stud/linp/storage/user/linp/disparity/',sequence)
 
@@ -85,6 +79,12 @@ def main(orb_path, device, data_path, sequence):
     slam0.set_use_viewer(False)
     slam0.initialize()
 
+    if save == '1':
+        path = './dym'
+        if os.path.exists(path):
+            shutil.rmtree(path)
+        os.mkdir(path)
+
     times_track = [0 for _ in range(num_images)]
     print('-----')
     print('Start processing sequence {}'.format(sequence))
@@ -124,30 +124,11 @@ def main(orb_path, device, data_path, sequence):
                 dseg.updata(left_image, right_image, idx, transformation)
             else:
                 c = dseg.dyn_seg_rec(transformation, left_image, idx)
-            # # left_image = cv.imread(left_filenames[idx], cv.IMREAD_UNCHANGED)
-            # # left_mask = get_mask(coco_demo,left_image).astype(np.uint8)
-            # # left_mask_dil = cv.dilate(left_mask,kernel)[:, :, None]
-            # # if idx == 1:
-            # #     cv.imwrite("lm.png",left_mask*255)
-            # #     cv.imwrite("lmd.png",left_mask_dil*255)
-            # # left_mask = left_mask_dil
-            # # left_mask = left_mask_dil - left_mask
-            # # left_mask = np.ones_like(left_mask) - left_mask
-            # # left_mask = np.ones_like(left_mask) - left_mask_dil
-            # # right_image = cv.imread(right_filenames[idx], cv.IMREAD_UNCHANGED)
-            # # right_mask = get_mask(coco_demo, right_image).astype(np.uint8)
-            # # right_mask_dil = cv.dilate(right_mask, kernel)[:, :, None]
-            # # right_mask = right_mask_dil
-            # # right_mask = right_mask_dil - right_mask
-            # # right_mask = np.ones_like(right_mask) - right_mask
-            # # right_mask = np.ones_like(right_mask) - right_mask_dil
-            # # tframe = timestamps[idx]
-            # h, w, c = left_image.shape
-            # left_mask = np.ones((h,w,1)).astype(np.uint8)
-            # right_mask = np.ones((h,w,1)).astype(np.uint8)
             if idx:
                 left_mask = c.reshape(dseg.h,dseg.w,1)
                 right_mask = c.reshape(dseg.h,dseg.w,1)
+                if save == '1':
+                    cv.imwrite('./dym/{}.png'.format(idx), c*255)
 
             #
             if left_image is None:
@@ -157,8 +138,6 @@ def main(orb_path, device, data_path, sequence):
                 print("failed to load image at {0}".format(dataset.right[idx]))
                 return 1
 
-            # left_mask = np.ones((dseg.h, dseg.w, 1), dtype=np.uint8)
-            # right_mask = np.ones((dseg.h, dseg.w, 1), dtype=np.uint8)
             t1 = time.time()
             slam.process_image_stereo(left_image[:, :, ::-1], right_image[:, :, ::-1], left_mask, right_mask, timestamp)
             t2 = time.time()
@@ -218,6 +197,6 @@ def save_trajectory(trajectory, filename):
 
 
 if __name__ == '__main__':
-    if len(sys.argv) != 5:
-        print('Usage: ./orbslam_stereo_kitti path_to_orb device path_to_data sequence')
-    main(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4])
+    if len(sys.argv) != 6:
+        print('Usage: ./orbslam_stereo_kitti path_to_orb device path_to_data save sequence ')
+    main(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4], sys.argv[5])
