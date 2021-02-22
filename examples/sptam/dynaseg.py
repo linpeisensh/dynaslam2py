@@ -20,6 +20,8 @@ class DynaSeg():
         self.dist = dist
         self.kernel = cv.getStructuringElement(cv.MORPH_ELLIPSE, (2 * dilation + 1, 2 * dilation + 1))
 
+        self.potential_moving_labels = set(range(1,5))
+
         self.obj = np.array([])
         self.IOU_thd = 0.0
         self.dyn_thd = 0.6
@@ -150,11 +152,14 @@ class DynaSeg():
         prediction = self.coco.compute_prediction(image)
         top = self.coco.select_top_predictions(prediction)
         omasks = top.get_field("mask").numpy()
+        labels = list(map(int,top.get_field("labels")))
+        nl = len(labels)
         masks = []
-        for mask in omasks:
-            mask = mask.squeeze().astype(np.uint8)
-            mask = cv.dilate(mask, self.kernel)
-            masks.append(mask)
+        for i in range(nl):
+            if labels[i] in self.potential_moving_labels:
+                mask = omasks[i].squeeze().astype(np.uint8)
+                mask = cv.dilate(mask, self.kernel)
+                masks.append(mask)
         res = []
         nc = len(self.obj)
         nm = len(masks)
