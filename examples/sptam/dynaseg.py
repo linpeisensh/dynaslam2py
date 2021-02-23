@@ -5,7 +5,7 @@ import os
 
 
 class DynaSeg():
-    def __init__(self, iml, coco_demo, feature_params, disp_path, config, paraml, lk_params, mtx, dist, dilation):
+    def __init__(self, iml, coco_demo, feature_params, disp_path, config, paraml, lk_params, mtx, dist, kernel):
         self.h, self.w = iml.shape[:2]
         self.coco = coco_demo
         self.feature_params = feature_params
@@ -18,7 +18,7 @@ class DynaSeg():
 
         self.mtx = mtx
         self.dist = dist
-        self.kernel = cv.getStructuringElement(cv.MORPH_ELLIPSE, (2 * dilation + 1, 2 * dilation + 1))
+        self.kernel = kernel
 
         self.potential_moving_labels = set(range(1,5))
 
@@ -159,7 +159,7 @@ class DynaSeg():
         for i in range(nl):
             if labels[i] in self.potential_moving_labels:
                 mask = omasks[i].squeeze().astype(np.uint8)
-                # mask = cv.dilate(mask, self.kernel)
+                mask = cv.dilate(mask, self.kernel)
                 masks.append(mask)
         res = []
         nc = len(self.obj)
