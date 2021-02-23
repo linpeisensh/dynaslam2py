@@ -159,7 +159,7 @@ class DynaSeg():
         for i in range(nl):
             if labels[i] in self.potential_moving_labels:
                 mask = omasks[i].squeeze().astype(np.uint8)
-                mask = cv.dilate(mask, self.kernel)
+                # mask = cv.dilate(mask, self.kernel)
                 masks.append(mask)
         res = []
         nc = len(self.obj)
@@ -259,9 +259,7 @@ class DynaSeg():
         nobj = len(self.obj)
         res = [True] * nobj
         print('num of objs', nobj)
-        cc = []
         for i in range(nobj):
-            cc.append(list(self.obj[i]))
             if idx - self.obj[i][3] != 0:
                 res[i] = False
             elif self.obj[i][2] / self.obj[i][1] >= self.dyn_thd or self.obj[i][2] >= 5:  #
