@@ -145,7 +145,7 @@ def main(orb_path, device, data_path, save, sequence):
             else:
                 c = dseg.dyn_seg_rec(frame, left_image, idx)
             if idx:
-                c = cv.erode(c, kernel)
+                c = cv.dilate(c, kernel)
                 left_mask = c.reshape(dseg.h,dseg.w,1)
                 right_mask = c.reshape(dseg.h,dseg.w,1)
                 if save == '1':
@@ -180,7 +180,7 @@ def main(orb_path, device, data_path, save, sequence):
             traceback.print_exc()
             print('error in frame {}'.format(idx))
             break
-    save_trajectory(slam.get_trajectory_points(), '../../results/kitti/a{}{}.txt'.format(sequence,time.strftime("%H:%M:%S")))
+    save_trajectory(slam.get_trajectory_points(), '../../a{}{}.txt'.format(sequence,time.strftime("%H:%M:%S")))
 
     slam.shutdown()
     sptam.stop()
