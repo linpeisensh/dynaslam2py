@@ -143,7 +143,8 @@ class DynaSeg():
                     if ge[i]:
                         co += 1
             if ao > 1 and co / ao > 0.5:
-                c[mask_dil.astype(np.bool)] = 0
+                # c[mask_dil.astype(np.bool)] = 0
+                c[mask.astype(np.bool)] = 0
         self.old_gray = frame_gray.copy()
         return c
 
