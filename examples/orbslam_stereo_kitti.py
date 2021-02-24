@@ -52,7 +52,7 @@ def main(vocab_path, settings_path, sequence_path):
         if ttrack < t:
             time.sleep(t - ttrack)
 
-    save_trajectory(slam.get_trajectory_points(), '../../results/kitti/a{}.txt'.format(sequence_path[-2:]))
+    save_trajectory(slam.get_trajectory_points(), '../../results/kitti/a{}{}.txt'.format(sequence_path[-2:],time.strftime("%M:%S")))
 
     slam.shutdown()
 
