@@ -79,7 +79,7 @@ def main(orb_path, device, data_path, save, sequence):
     slam0.initialize()
 
     if save == '1':
-        path = './dym'
+        path = './{}'.format(sequence)
         if os.path.exists(path):
             shutil.rmtree(path)
         os.mkdir(path)
