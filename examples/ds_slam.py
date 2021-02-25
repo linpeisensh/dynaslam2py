@@ -145,6 +145,7 @@ def main(orb_path, device, data_path, save, sequence):
             else:
                 c = dseg.dyn_seg(frame, left_image)
             if idx:
+                c = cv.dilate(c, kernel)
                 left_mask = c.reshape(dseg.h,dseg.w,1)
                 right_mask = c.reshape(dseg.h,dseg.w,1)
                 if save == '1':
