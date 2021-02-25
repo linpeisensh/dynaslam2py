@@ -26,11 +26,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/dsr_slam.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-518">
-              <caret line="122" column="64" lean-forward="true" selection-start-line="122" selection-start-column="64" selection-end-line="122" selection-end-column="64" />
+            <state relative-caret-position="204">
+              <caret line="130" column="37" selection-start-line="130" selection-start-column="34" selection-end-line="130" selection-end-column="37" />
               <folding>
                 <element signature="e#23#33#0" expanded="true" />
               </folding>
@@ -38,10 +38,10 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/sptam/dynaseg.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="166">
+            <state relative-caret-position="280">
               <caret line="287" column="22" lean-forward="true" selection-start-line="287" selection-start-column="22" selection-end-line="287" selection-end-column="22" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
@@ -204,12 +204,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1613725298668</updated>
-      <workItem from="1613725300773" duration="33547000" />
+      <workItem from="1613725300773" duration="33957000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="33547000" />
+    <option name="totallyTimeSpent" value="33957000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1376" height="744" extended-state="6" />
@@ -355,22 +355,22 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/dsr_slam.py">
+    <entry file="file://$PROJECT_DIR$/sptam/dynaseg.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-518">
-          <caret line="122" column="64" lean-forward="true" selection-start-line="122" selection-start-column="64" selection-end-line="122" selection-end-column="64" />
+        <state relative-caret-position="280">
+          <caret line="287" column="22" lean-forward="true" selection-start-line="287" selection-start-column="22" selection-end-line="287" selection-end-column="22" />
           <folding>
-            <element signature="e#23#33#0" expanded="true" />
+            <element signature="e#0#18#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/sptam/dynaseg.py">
+    <entry file="file://$PROJECT_DIR$/dsr_slam.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="166">
-          <caret line="287" column="22" lean-forward="true" selection-start-line="287" selection-start-column="22" selection-end-line="287" selection-end-column="22" />
+        <state relative-caret-position="204">
+          <caret line="130" column="37" selection-start-line="130" selection-start-column="34" selection-end-line="130" selection-end-column="37" />
           <folding>
-            <element signature="e#0#18#0" expanded="true" />
+            <element signature="e#23#33#0" expanded="true" />
           </folding>
         </state>
       </provider>
