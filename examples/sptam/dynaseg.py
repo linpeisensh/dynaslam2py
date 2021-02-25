@@ -26,6 +26,8 @@ class DynaSeg():
         self.IOU_thd = 0.0
         self.dyn_thd = 0.6
 
+        self.cverrs = []
+
         self.a = 0
         self.t = 0
 
@@ -114,6 +116,7 @@ class DynaSeg():
         else:
             cverror = float('inf')
         print(cverror)
+        self.cverrs.append(cverror)
         self.p1 = p1
         ge = norm(error,imgpts)
         return ge, P
@@ -294,7 +297,7 @@ class DynaSegt(DynaSeg):
 
         P = p1[self.ast == 1]
         objpa = np.array([self.points[int(y), int(x)] for x, y in self.p[self.ast == 1].squeeze()])
-        imgpts, jac = cv.projectPoints(objpa, R, -t, self.mtx, self.dist)
+        imgpts, jac = cv.projectPoints(objpa, R, t, self.mtx, self.dist)
         imgpts = imgpts.squeeze()
         P = P.squeeze()[~np.isnan(imgpts).any(axis=1)]
         imgpts = imgpts[~np.isnan(imgpts).any(axis=1)]
@@ -310,6 +313,7 @@ class DynaSegt(DynaSeg):
         else:
             cverror = float('inf')
         print(cverror)
+        self.cverrs.append(cverror)
         self.p1 = p1
         ge = norm(error,imgpts)
         return ge, P

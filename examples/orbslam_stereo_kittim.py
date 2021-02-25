@@ -11,10 +11,8 @@ from demo.predictor import COCODemo
 
 import numpy as np
 import cv2 as cv
-import time
 import traceback
 import g2o
-import argparse
 from threading import Thread
 import os
 import shutil
@@ -194,6 +192,7 @@ def main(orb_path, device, data_path, save, sequence):
     print('-----')
     print('median tracking time: {0}'.format(times_track[num_images // 2]))
     print('mean tracking time: {0}'.format(total_time / num_images))
+    print('mean cverror: {}'.format(np.mean(dseg.cverrs)))
 
     return 0
 
