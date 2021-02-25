@@ -68,7 +68,7 @@ def main(orb_path, device, data_path, save, sequence):
     dist = np.array([[0] * 4]).reshape(1, 4).astype(np.float32)
 
     dilation = 2
-
+    kernel = cv.getStructuringElement(cv.MORPH_ELLIPSE, (2 * dilation + 1, 2 * dilation + 1))
     num_images = len(dataset)
 
     slam = orbslam2.System(vocab_path, settings_path, orbslam2.Sensor.STEREO)
@@ -104,7 +104,7 @@ def main(orb_path, device, data_path, save, sequence):
     )
 
     iml = cv.imread(dataset.left[0], cv.IMREAD_UNCHANGED)
-    dseg = DynaSeg(iml, coco_demo, feature_params, disp_path, config, paraml, lk_params, mtx, dist, dilation)
+    dseg = DynaSeg(iml, coco_demo, feature_params, disp_path, config, paraml, lk_params, mtx, dist, kernel)
     for idx in range(num_images):
         left_image = cv.imread(dataset.left[idx], cv.IMREAD_UNCHANGED)
         right_image = cv.imread(dataset.right[idx], cv.IMREAD_UNCHANGED)
@@ -125,6 +125,7 @@ def main(orb_path, device, data_path, save, sequence):
             else:
                 c = dseg.dyn_seg_rec(transformation, left_image, idx)
             if idx:
+                c = cv.dilate(c,kernel)
                 left_mask = c.reshape(dseg.h,dseg.w,1)
                 right_mask = c.reshape(dseg.h,dseg.w,1)
                 if save == '1':
