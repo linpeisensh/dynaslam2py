@@ -274,19 +274,19 @@ class DynaSeg():
         return c
 
 class DynaSegt(DynaSeg):
-    def updata(self, iml, imr, i, pose):
+    def updata(self, iml, imr, i, trans):
         self.old_gray = cv.cvtColor(iml, cv.COLOR_BGR2GRAY)
         self.p = cv.goodFeaturesToTrack(self.old_gray, mask=None, **self.feature_params)
         self.p1 = dp(self.p)
         self.ast = np.ones((self.p.shape[0], 1))
         self.points = self.get_points(i, iml, imr)
-        self.otfm = pose
+        self.otfm = np.linalg.inv(trans)
 
-    def projection(self, pose, frame_gray):
+    def projection(self, trans, frame_gray):
         # calculate optical flow
         p1, st, err = cv.calcOpticalFlowPyrLK(self.old_gray, frame_gray, self.p1, None, **self.lk_params)
         self.ast *= st
-        tfm = pose_to_transformation(pose)
+        tfm = trans
         tfm = self.otfm.dot(tfm)
         b = cv.Rodrigues(tfm[:3, :3])
         R = b[0]
@@ -369,12 +369,3 @@ def norm(error, imgpts):
     if len(mm):
         ge[mma] = mm > np.percentile(mm, 75)
     return ge
-
-def pose_to_transformation(pose):
-    res = np.zeros((4,4))
-    for i in range(3):
-        res[i,:3] = pose[4*i+1:4*(i+1)]
-        res[i,3] = pose[4*i]
-    res[3,3] = 1
-    res = np.linalg.inv(res)
-    return res

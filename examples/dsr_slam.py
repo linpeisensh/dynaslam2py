@@ -114,15 +114,15 @@ def main(orb_path, device, data_path, save, sequence):
             left_mask = np.ones((dseg.h, dseg.w, 1), dtype=np.uint8)
             right_mask = np.ones((dseg.h, dseg.w, 1), dtype=np.uint8)
             slam0.process_image_stereo(left_image[:, :, ::-1], right_image[:, :, ::-1], left_mask, right_mask, timestamp)
-            pose = slam0.get_trajectory_points()[-1]
+            trans = pose_to_transformation(slam0.get_trajectory_points()[-1])
 
 
             if idx % 5 == 0:
                 if idx:
-                    c = dseg.dyn_seg_rec(pose, left_image, idx)
-                dseg.updata(left_image, right_image, idx, pose)
+                    c = dseg.dyn_seg_rec(trans, left_image, idx)
+                dseg.updata(left_image, right_image, idx, trans)
             else:
-                c = dseg.dyn_seg_rec(pose, left_image, idx)
+                c = dseg.dyn_seg_rec(trans, left_image, idx)
             if idx:
                 c = cv.dilate(c,kernel)
                 left_mask = c.reshape(dseg.h,dseg.w,1)
@@ -157,7 +157,12 @@ def main(orb_path, device, data_path, save, sequence):
             traceback.print_exc()
             print('error in frame {}'.format(idx))
             break
-    save_trajectory(slam.get_trajectory_points(), '../../results/kitti/a{}{}.txt'.format(sequence,time.strftime("%M:%S")))
+    i = 0
+    result_path = '../../results/kitti/a{}{}.txt'.format(sequence,i)
+    while os.path.exists(result_path):
+        i += 1
+        result_path = '../../results/kitti/a{}{}.txt'.format(sequence,i)
+    save_trajectory(slam.get_trajectory_points(), result_path)
 
     slam.shutdown()
     slam0.shutdown()
@@ -186,6 +191,15 @@ def save_trajectory(trajectory, filename):
             r22=repr(r22),
             t2=repr(t2)
         ) for stamp, r00, r01, r02, t0, r10, r11, r12, t1, r20, r21, r22, t2 in trajectory)
+
+def pose_to_transformation(pose):
+    res = np.zeros((4,4))
+    for i in range(3):
+        res[i,:3] = pose[4*i+1:4*(i+1)]
+        res[i,3] = pose[4*i]
+    res[3,3] = 1
+    res = np.linalg.inv(res)
+    return res
 
 
 if __name__ == '__main__':
