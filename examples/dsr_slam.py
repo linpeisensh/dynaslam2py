@@ -158,10 +158,10 @@ def main(orb_path, device, data_path, save, sequence):
             print('error in frame {}'.format(idx))
             break
     i = 0
-    result_path = '../../results/kitti/a{}{}.txt'.format(sequence,i)
+    result_path = '../../results/kitti/d{}{}.txt'.format(sequence,i)
     while os.path.exists(result_path):
         i += 1
-        result_path = '../../results/kitti/a{}{}.txt'.format(sequence,i)
+        result_path = '../../results/kitti/d{}{}.txt'.format(sequence,i)
     save_trajectory(slam.get_trajectory_points(), result_path)
 
     slam.shutdown()
@@ -171,7 +171,7 @@ def main(orb_path, device, data_path, save, sequence):
     print('-----')
     print('median tracking time: {0}'.format(times_track[num_images // 2]))
     print('mean tracking time: {0}'.format(total_time / num_images))
-    print('mean cverror: {}'.format(np.mean(dseg.cverrs)))
+    print('mean dcverror: {}'.format(np.mean(dseg.cverrs)))
 
     return 0
 
