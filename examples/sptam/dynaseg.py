@@ -273,6 +273,50 @@ class DynaSeg():
         self.old_gray = frame_gray.copy()
         return c
 
+class DynaSegt(DynaSeg):
+    def updata(self, iml, imr, i, pose):
+        self.old_gray = cv.cvtColor(iml, cv.COLOR_BGR2GRAY)
+        self.p = cv.goodFeaturesToTrack(self.old_gray, mask=None, **self.feature_params)
+        self.p1 = dp(self.p)
+        self.ast = np.ones((self.p.shape[0], 1))
+        self.points = self.get_points(i, iml, imr)
+        self.otfm = pose
+
+    def projection(self, pose, frame_gray):
+        # calculate optical flow
+        p1, st, err = cv.calcOpticalFlowPyrLK(self.old_gray, frame_gray, self.p1, None, **self.lk_params)
+        self.ast *= st
+        tfm = pose_to_transformation(pose)
+        tfm = self.otfm.dot(tfm)
+        b = cv.Rodrigues(tfm[:3, :3])
+        R = b[0]
+        t = tfm[:3, 3].reshape((3, 1))
+
+        P = p1[self.ast == 1]
+        objpa = np.array([self.points[int(y), int(x)] for x, y in self.p[self.ast == 1].squeeze()])
+        imgpts, jac = cv.projectPoints(objpa, R, -t, self.mtx, self.dist)
+        imgpts = imgpts.squeeze()
+        P = P.squeeze()[~np.isnan(imgpts).any(axis=1)]
+        imgpts = imgpts[~np.isnan(imgpts).any(axis=1)]
+        P = P[(0 < imgpts[:, 0]) * (imgpts[:, 0] < self.w) * (0 < imgpts[:, 1]) * (imgpts[:, 1] < self.h)]
+        imgpts = imgpts[(0 < imgpts[:, 0]) * (imgpts[:, 0] < self.w) * (0 < imgpts[:, 1]) * (imgpts[:, 1] < self.h)]
+        error = ((P - imgpts) ** 2).sum(-1)
+        P = P[error < 1e6]
+        imgpts = imgpts[error < 1e6].astype(np.float32)
+        error = error[error < 1e6]
+
+        if len(imgpts):
+            cverror = cv.norm(P, imgpts, cv.NORM_L2) / len(imgpts)
+        else:
+            cverror = float('inf')
+        print(cverror)
+        self.p1 = p1
+        ge = norm(error,imgpts)
+        return ge, P
+
+
+
+
 
 def Rt_to_tran(tfm):
     res = np.zeros((4, 4))
@@ -325,3 +369,12 @@ def norm(error, imgpts):
     if len(mm):
         ge[mma] = mm > np.percentile(mm, 75)
     return ge
+
+def pose_to_transformation(pose):
+    res = np.zeros((4,4))
+    for i in range(3):
+        res[i,:3] = pose[4*i+1:4*(i+1)]
+        res[i,3] = pose[4*i]
+    res[3,3] = 1
+    res = np.linalg.inv(res)
+    return res

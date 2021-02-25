@@ -16,9 +16,8 @@ import traceback
 import os
 import shutil
 
-from sptam.dynaseg import DynaSeg
+from sptam.dynaseg import DynaSegt
 from sptam.msptam import stereoCamera
-from sptam.params import ParamsKITTI
 from sptam.dataset import KITTIOdometry
 
 
@@ -104,7 +103,7 @@ def main(orb_path, device, data_path, save, sequence):
     )
 
     iml = cv.imread(dataset.left[0], cv.IMREAD_UNCHANGED)
-    dseg = DynaSeg(iml, coco_demo, feature_params, disp_path, config, paraml, lk_params, mtx, dist, kernel)
+    dseg = DynaSegt(iml, coco_demo, feature_params, disp_path, config, paraml, lk_params, mtx, dist, kernel)
     for idx in range(num_images):
         left_image = cv.imread(dataset.left[idx], cv.IMREAD_UNCHANGED)
         right_image = cv.imread(dataset.right[idx], cv.IMREAD_UNCHANGED)
@@ -115,15 +114,15 @@ def main(orb_path, device, data_path, save, sequence):
             left_mask = np.ones((dseg.h, dseg.w, 1), dtype=np.uint8)
             right_mask = np.ones((dseg.h, dseg.w, 1), dtype=np.uint8)
             slam0.process_image_stereo(left_image[:, :, ::-1], right_image[:, :, ::-1], left_mask, right_mask, timestamp)
-            transformation = pose_to_transformation(slam0.get_trajectory_points()[-1])
+            pose = slam0.get_trajectory_points()[-1]
 
 
             if idx % 5 == 0:
                 if idx:
-                    c = dseg.dyn_seg_rec(transformation, left_image, idx)
-                dseg.updata(left_image, right_image, idx, transformation)
+                    c = dseg.dyn_seg_rec(pose, left_image, idx)
+                dseg.updata(left_image, right_image, idx, pose)
             else:
-                c = dseg.dyn_seg_rec(transformation, left_image, idx)
+                c = dseg.dyn_seg_rec(pose, left_image, idx)
             if idx:
                 c = cv.dilate(c,kernel)
                 left_mask = c.reshape(dseg.h,dseg.w,1)
@@ -158,7 +157,7 @@ def main(orb_path, device, data_path, save, sequence):
             traceback.print_exc()
             print('error in frame {}'.format(idx))
             break
-    save_trajectory(slam.get_trajectory_points(), '../../results/kitti/a{}.txt'.format(sequence))
+    save_trajectory(slam.get_trajectory_points(), '../../results/kitti/a{}{}.txt'.format(sequence,time.strftime("%M:%S")))
 
     slam.shutdown()
     slam0.shutdown()
@@ -170,14 +169,6 @@ def main(orb_path, device, data_path, save, sequence):
 
     return 0
 
-def pose_to_transformation(pose):
-    res = np.zeros((4,4))
-    for i in range(3):
-        res[i,:3] = pose[4*i+1:4*(i+1)]
-        res[i,3] = pose[4*i]
-    res[3,3] = 1
-    res = np.linalg.inv(res)
-    return res
 
 def save_trajectory(trajectory, filename):
     with open(filename, 'w') as traj_file:
