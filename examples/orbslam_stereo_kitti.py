@@ -52,10 +52,10 @@ def main(vocab_path, settings_path, sequence_path):
         if ttrack < t:
             time.sleep(t - ttrack)
     i = 0
-    result_path = 'c{}{}.txt'.format(sequence_path[-2:], i)
+    result_path = 'results/c{}{}.txt'.format(sequence_path[-2:], i)
     while os.path.exists(result_path):
         i += 1
-        result_path = 'c{}{}.txt'.format(sequence_path[-2:], i)
+        result_path = 'results/c{}{}.txt'.format(sequence_path[-2:], i)
     save_trajectory(slam.get_trajectory_points(), result_path)
 
     slam.shutdown()
