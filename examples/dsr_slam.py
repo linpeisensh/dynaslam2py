@@ -158,10 +158,10 @@ def main(orb_path, device, data_path, save, sequence):
             print('error in frame {}'.format(idx))
             break
     i = 0
-    result_path = '../../results/kitti/d{}{}.txt'.format(sequence,i)
+    result_path = 'd{}{}.txt'.format(sequence,i)
     while os.path.exists(result_path):
         i += 1
-        result_path = '../../results/kitti/d{}{}.txt'.format(sequence,i)
+        result_path = 'd{}{}.txt'.format(sequence,i)
     save_trajectory(slam.get_trajectory_points(), result_path)
 
     slam.shutdown()
