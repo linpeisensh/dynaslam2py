@@ -19,7 +19,7 @@ def get_rmse(rootdir,file,file_path):
 log.configure_logging(verbose=False, debug=False, silent=False)
 pose_relation = metrics.PoseRelation.translation_part
 ape_metric = metrics.APE(pose_relation)
-rootdir = './'
+rootdir = './results'
 ad = defaultdict(list)
 dd = defaultdict(list)
 cd = defaultdict(list)
@@ -38,7 +38,7 @@ for file in sorted(os.listdir(rootdir)):
                 cd[file[1:3]].append(ape_stat)
         except:
             print('error')
-        os.remove(file_path)
+        # os.remove(file_path)
 
 for k, v in ad.items():
     print('sdsr S{} mean rmse: {}'.format(k,round(sum(v)/len(v),2)))
