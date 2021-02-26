@@ -7,7 +7,16 @@ import cv2
 import numpy as np
 
 
-def main(vocab_path, settings_path, sequence_path):
+def main(orb_path, device, data_path, save, sequence):
+    sequence_path = os.path.join(data_path, sequence)
+    vocab_path = os.path.join(orb_path, 'Vocabulary/ORBvoc.txt')
+    ins = int(sequence)
+    if ins < 3:
+        settings_path = os.path.join(orb_path, 'Examples/Stereo/KITTI00-02.yaml')
+    elif ins == 3:
+        settings_path = os.path.join(orb_path, 'Examples/Stereo/KITTI03.yaml')
+    else:
+        settings_path = os.path.join(orb_path, 'Examples/Stereo/KITTI04-12.yaml')
 
     left_filenames, right_filenames, timestamps = load_images(sequence_path)
     num_images = len(timestamps)
@@ -103,6 +112,6 @@ def save_trajectory(trajectory, filename):
         ) for stamp, r00, r01, r02, t0, r10, r11, r12, t1, r20, r21, r22, t2 in trajectory)
 
 if __name__ == '__main__':
-    if len(sys.argv) != 4:
-        print('Usage: ./orbslam_stereo_kitti path_to_vocabulary path_to_settings path_to_sequence')
-    main(sys.argv[1], sys.argv[2], sys.argv[3])
+    if len(sys.argv) != 6:
+        print('Usage: ./orbslam_stereo_kitti path_to_orb device path_to_data save sequence ')
+    main(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4], sys.argv[5])
