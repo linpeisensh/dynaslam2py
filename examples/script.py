@@ -18,11 +18,11 @@ for i in range(10):
     f.write(str(i))
 fcntl.flock(f,fcntl.LOCK_EX)
 try:
-    f0 = open('./test.txt','w')
+    f0 = open('./test.txt','a')
     f0.write('hello')
     f0.close()
 finally:
     f.close()
-f0 = open('./test.txt','w')
+f0 = open('./test.txt','a')
 f0.write('world!')
 f0.close()
