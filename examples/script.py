@@ -16,10 +16,10 @@ import fcntl
 f = open('./test.txt','w')
 for i in range(10):
     f.write(str(i))
-fcntl.flock(f,fcntl.LOCK_EX)
+fcntl.flock(f,fcntl.LOCK_EX|fcntl.LOCK_NB)
 try:
     f0 = open('./test.txt','a')
-    fcntl.flock(f0, fcntl.LOCK_EX)
+    fcntl.flock(f0, fcntl.LOCK_EX|fcntl.LOCK_NB)
     f0.write('hello')
 except:
     print('succesfully!')
@@ -27,6 +27,6 @@ except:
 finally:
     f.close()
 f0 = open('./test.txt','a')
-fcntl.flock(f0, fcntl.LOCK_EX)
+fcntl.flock(f0, fcntl.LOCK_EX|fcntl.LOCK_NB)
 f0.write('world!')
 f0.close()
