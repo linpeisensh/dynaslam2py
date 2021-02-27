@@ -18,7 +18,7 @@ for i in range(10):
     f.write(str(i))
 fcntl.flock(f,fcntl.LOCK_EX)
 try:
-    f0 = open('./test','w')
+    f0 = open('./test.txt','w')
     for i in range(10):
         f0.write(str(i))
     f0.close()
