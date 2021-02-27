@@ -19,10 +19,14 @@ for i in range(10):
 fcntl.flock(f,fcntl.LOCK_EX)
 try:
     f0 = open('./test.txt','a')
+    fcntl.flock(f0, fcntl.LOCK_EX)
     f0.write('hello')
     f0.close()
+except:
+    print('succesfully!')
 finally:
     f.close()
 f0 = open('./test.txt','a')
+fcntl.flock(f0, fcntl.LOCK_EX)
 f0.write('world!')
 f0.close()
