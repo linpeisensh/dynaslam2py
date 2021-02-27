@@ -202,6 +202,7 @@ def save_trajectory(trajectory, filename):
                 r22=repr(r22),
                 t2=repr(t2)
             ) for stamp, r00, r01, r02, t0, r10, r11, r12, t1, r20, r21, r22, t2 in trajectory)
+        traj_file.close()
         return 0
     except:
         return 1
