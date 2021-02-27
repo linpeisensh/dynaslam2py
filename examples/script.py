@@ -21,9 +21,9 @@ try:
     f0 = open('./test.txt','a')
     fcntl.flock(f0, fcntl.LOCK_EX)
     f0.write('hello')
-    f0.close()
 except:
     print('succesfully!')
+    f0.close()
 finally:
     f.close()
 f0 = open('./test.txt','a')
