@@ -163,13 +163,14 @@ def main(orb_path, device, data_path, save, sequence):
             break
     i = 0
     result_path = 'ro/d{}{}.txt'.format(sequence,i)
-    ns_flag = 1
-    while ns_flag:
+    while True:
         if not os.path.exists(result_path):
-            ns_flag = save_trajectory(slam.get_trajectory_points(), result_path)
+            s_flag = save_trajectory(slam.get_trajectory_points(), result_path)
+            if s_flag:
+                print(result_path)
+                break
         i += 1
         result_path = 'ro/d{}{}.txt'.format(sequence, i)
-    print(result_path)
 
     slam.shutdown()
     slam0.shutdown()
@@ -203,9 +204,9 @@ def save_trajectory(trajectory, filename):
                 t2=repr(t2)
             ) for stamp, r00, r01, r02, t0, r10, r11, r12, t1, r20, r21, r22, t2 in trajectory)
         traj_file.close()
-        return 0
-    except:
         return 1
+    except:
+        return 0
 
 def pose_to_transformation(pose):
     res = np.zeros((4,4))
