@@ -86,6 +86,7 @@ def main(orb_path, device, data_path, save, sequence):
         os.mkdir(path)
 
     times_track = [0 for _ in range(num_images)]
+    times = [0 for _ in range(num_images)]
     print('-----')
     print('Start processing sequence {}'.format(sequence))
     print('Images in the sequence: {0}'.format(num_images))
@@ -106,6 +107,7 @@ def main(orb_path, device, data_path, save, sequence):
     iml = cv.imread(dataset.left[0], cv.IMREAD_UNCHANGED)
     dseg = DynaSegt(iml, coco_demo, feature_params, disp_path, config, paraml, lk_params, mtx, dist, kernel)
     for idx in range(num_images):
+        t0 = time.time()
         left_image = cv.imread(dataset.left[idx], cv.IMREAD_UNCHANGED)
         right_image = cv.imread(dataset.right[idx], cv.IMREAD_UNCHANGED)
         timestamp = dataset.timestamps[idx]
@@ -145,6 +147,7 @@ def main(orb_path, device, data_path, save, sequence):
 
             ttrack = t2 - t1
             times_track[idx] = ttrack
+            times[idx] = t2 - t0
 
             t = 0
             if idx < num_images - 1:
@@ -162,41 +165,45 @@ def main(orb_path, device, data_path, save, sequence):
     result_path = 'ro/d{}{}.txt'.format(sequence,i)
     ns_flag = 1
     while ns_flag:
-
-    while os.path.exists(result_path):
+        ns_flag = save_trajectory(slam.get_trajectory_points(), result_path)
         i += 1
-        result_path = 'ro/d{}{}.txt'.format(sequence,i)
-    save_trajectory(slam.get_trajectory_points(), result_path)
+        result_path = 'ro/d{}{}.txt'.format(sequence, i)
     print(result_path)
 
     slam.shutdown()
     slam0.shutdown()
     times_track = sorted(times_track)
     total_time = sum(times_track)
+    ttime = sum(times)
     print('-----')
-    print('median tracking time: {0}'.format(times_track[num_images // 2]))
-    print('mean tracking time: {0}'.format(total_time / num_images))
+    print('mean ORB tracking time: {0}'.format(total_time / num_images))
+    print('mean DSR tracking time: {0}'.format(ttime / num_images))
     print('mean dcverror: {}'.format(np.mean(dseg.cverrs)))
 
     return 0
 
 
 def save_trajectory(trajectory, filename):
-    with open(filename, 'w') as traj_file:
-        traj_file.writelines('{r00} {r01} {r02} {t0} {r10} {r11} {r12} {t1} {r20} {r21} {r22} {t2}\n'.format(
-            r00=repr(r00),
-            r01=repr(r01),
-            r02=repr(r02),
-            t0=repr(t0),
-            r10=repr(r10),
-            r11=repr(r11),
-            r12=repr(r12),
-            t1=repr(t1),
-            r20=repr(r20),
-            r21=repr(r21),
-            r22=repr(r22),
-            t2=repr(t2)
-        ) for stamp, r00, r01, r02, t0, r10, r11, r12, t1, r20, r21, r22, t2 in trajectory)
+    try:
+        with open(filename, 'w') as traj_file:
+            traj_file.writelines('{r00} {r01} {r02} {t0} {r10} {r11} {r12} {t1} {r20} {r21} {r22} {t2}\n'.format(
+                r00=repr(r00),
+                r01=repr(r01),
+                r02=repr(r02),
+                t0=repr(t0),
+                r10=repr(r10),
+                r11=repr(r11),
+                r12=repr(r12),
+                t1=repr(t1),
+                r20=repr(r20),
+                r21=repr(r21),
+                r22=repr(r22),
+                t2=repr(t2)
+            ) for stamp, r00, r01, r02, t0, r10, r11, r12, t1, r20, r21, r22, t2 in trajectory)
+        fcntl.flock(filename, fcntl.LOCK_EX | fcntl.LOCK_NB)
+        return 0
+    except:
+        return 1
 
 def pose_to_transformation(pose):
     res = np.zeros((4,4))
