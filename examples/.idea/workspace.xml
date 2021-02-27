@@ -9,6 +9,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="CoverageDataManager">
+    <SUITE FILE_PATH="coverage/examples$rmse__1_.coverage" NAME="rmse (1) Coverage Results" MODIFIED="1614368083656" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/results" />
     <SUITE FILE_PATH="coverage/examples$rmse.coverage" NAME="rmse Coverage Results" MODIFIED="1614335312165" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/examples$orbslam_stereo_kittim.coverage" NAME="orbslam_stereo_kittim Coverage Results" MODIFIED="1614028833690" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/examples$orbslam_stereo_kitti.coverage" NAME="orbslam_stereo_kitti Coverage Results" MODIFIED="1614195378683" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
@@ -18,8 +19,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/orbslam_stereo_kittim.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="171">
-              <caret line="184" column="31" selection-start-line="184" selection-start-column="31" selection-end-line="184" selection-end-column="31" />
+            <state relative-caret-position="209">
+              <caret line="186" column="22" selection-start-line="186" selection-start-column="22" selection-end-line="186" selection-end-column="22" />
               <folding>
                 <element signature="e#23#33#0" expanded="true" />
               </folding>
@@ -30,8 +31,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/dsr_slam.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="133">
-              <caret line="208" column="73" lean-forward="true" selection-start-line="206" selection-start-column="4" selection-end-line="208" selection-end-column="73" />
+            <state relative-caret-position="228">
+              <caret line="165" column="22" lean-forward="true" selection-start-line="165" selection-start-column="4" selection-end-line="165" selection-end-column="22" />
               <folding>
                 <element signature="e#23#33#0" expanded="true" />
               </folding>
@@ -42,8 +43,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/orbslam_stereo_kitti.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="103">
-              <caret line="113" column="26" lean-forward="true" selection-start-line="113" selection-start-column="26" selection-end-line="113" selection-end-column="26" />
+            <state relative-caret-position="217">
+              <caret line="68" column="21" selection-start-line="68" selection-start-column="21" selection-end-line="68" selection-end-column="21" />
               <folding>
                 <element signature="e#23#33#0" expanded="true" />
               </folding>
@@ -54,8 +55,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/results/rmse.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="266">
-              <caret line="41" lean-forward="true" selection-start-line="41" selection-end-line="41" />
+            <state relative-caret-position="361">
+              <caret line="19" column="34" lean-forward="true" selection-start-line="19" selection-start-column="34" selection-end-line="19" selection-end-column="34" />
               <folding>
                 <element signature="e#0#9#0" expanded="true" />
               </folding>
@@ -66,8 +67,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/sptam/dynaseg.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="293">
-              <caret line="299" column="49" selection-start-line="299" selection-start-column="49" selection-end-line="299" selection-end-column="49" />
+            <state relative-caret-position="126">
+              <caret line="314" column="22" lean-forward="true" selection-start-line="314" selection-start-column="22" selection-end-line="314" selection-end-column="22" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
               </folding>
@@ -94,18 +95,18 @@
       <find>pose_to_transformation</find>
       <find>shutil</find>
       <find>projection</find>
-      <find>self.cverrs.append(cverror)</find>
       <find>full</find>
       <find>-r</find>
       <find>log</find>
-      <find>kernel</find>
       <find>pose</find>
+      <find>kernel</find>
+      <find>self.cverrs.append(cverror)</find>
     </findStrings>
     <replaceStrings>
       <replace>cv</replace>
       <replace>tran</replace>
-      <replace>trans</replace>
       <replace>frame</replace>
+      <replace>trans</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -178,7 +179,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.rmse">
+  <component name="RunManager" selected="Python.rmse (1)">
     <configuration name="orbslam_stereo_kitti" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="examples" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -223,6 +224,28 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="rmse (1)" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="examples" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/results" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/results/rmse.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="rmse" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="examples" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -247,6 +270,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.rmse (1)" />
         <item itemvalue="Python.rmse" />
         <item itemvalue="Python.orbslam_stereo_kitti" />
         <item itemvalue="Python.orbslam_stereo_kittim" />
@@ -263,19 +287,19 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1613725298668</updated>
-      <workItem from="1613725300773" duration="51368000" />
+      <workItem from="1613725300773" duration="56984000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="51368000" />
+    <option name="totallyTimeSpent" value="56984000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1376" height="744" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Favorites" side_tool="true" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.25" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Docker" show_stripe_button="false" />
       <window_info anchor="bottom" id="Database Changes" />
@@ -285,7 +309,7 @@
       <window_info anchor="bottom" id="Event Log" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.43278688" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.43278688" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -394,16 +418,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/sptam/dynaseg.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="293">
-          <caret line="299" column="49" selection-start-line="299" selection-start-column="49" selection-end-line="299" selection-end-column="49" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://D:/acaconda/envs/hello/Lib/site-packages/evo/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
         <state>
@@ -444,40 +458,57 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/orbslam_stereo_kittim.py">
+    <entry file="file://D:/acaconda/envs/hello/Lib/random.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="171">
-          <caret line="184" column="31" selection-start-line="184" selection-start-column="31" selection-end-line="184" selection-end-column="31" />
+        <state relative-caret-position="105">
+          <caret line="753" selection-start-line="753" selection-end-line="753" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dsr_slam.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="228">
+          <caret line="165" column="22" lean-forward="true" selection-start-line="165" selection-start-column="4" selection-end-line="165" selection-end-column="22" />
           <folding>
             <element signature="e#23#33#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/orbslam_stereo_kittim.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="209">
+          <caret line="186" column="22" selection-start-line="186" selection-start-column="22" selection-end-line="186" selection-end-column="22" />
+          <folding>
+            <element signature="e#23#33#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sptam/dynaseg.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="126">
+          <caret line="314" column="22" lean-forward="true" selection-start-line="314" selection-start-column="22" selection-end-line="314" selection-end-column="22" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/results/rmse.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="266">
-          <caret line="41" lean-forward="true" selection-start-line="41" selection-end-line="41" />
+        <state relative-caret-position="361">
+          <caret line="19" column="34" lean-forward="true" selection-start-line="19" selection-start-column="34" selection-end-line="19" selection-end-column="34" />
           <folding>
             <element signature="e#0#9#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/dsr_slam.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="133">
-          <caret line="208" column="73" lean-forward="true" selection-start-line="206" selection-start-column="4" selection-end-line="208" selection-end-column="73" />
-          <folding>
-            <element signature="e#23#33#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/orbslam_stereo_kitti.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="103">
-          <caret line="113" column="26" lean-forward="true" selection-start-line="113" selection-start-column="26" selection-end-line="113" selection-end-column="26" />
+        <state relative-caret-position="217">
+          <caret line="68" column="21" selection-start-line="68" selection-start-column="21" selection-end-line="68" selection-end-column="21" />
           <folding>
             <element signature="e#23#33#0" expanded="true" />
           </folding>

@@ -13,13 +13,13 @@ def get_rmse(rootdir,file,file_path):
     data = (traj_ref, traj_est_aligned)
     ape_metric.process_data(data)
     ape_stat = ape_metric.get_statistic(metrics.StatisticsType.rmse)
-    print('rmse: ', ape_stat)
+    print('{} rmse: {}'.format(file, ape_stat))
     return ape_stat
 
 log.configure_logging(verbose=False, debug=False, silent=False)
 pose_relation = metrics.PoseRelation.translation_part
 ape_metric = metrics.APE(pose_relation)
-rootdir = './results'
+rootdir = './ro'
 ad = defaultdict(list)
 dd = defaultdict(list)
 cd = defaultdict(list)
@@ -27,7 +27,6 @@ cd = defaultdict(list)
 for file in sorted(os.listdir(rootdir)):
     file_path = os.path.join(rootdir,file)
     if os.path.isfile(file_path)  and file[-3:] == 'txt':
-        print(file)
         try:
             ape_stat = get_rmse(rootdir,file,file_path)
             if file[0] == 'a':
@@ -37,8 +36,8 @@ for file in sorted(os.listdir(rootdir)):
             elif file[0] == 'c':
                 cd[file[1:3]].append(ape_stat)
         except:
-            print('error')
-        # os.remove(file_path)
+            print('{} error'.format(file))
+            # os.remove(file_path)
 
 for k, v in ad.items():
     print('sdsr S{} mean rmse: {}'.format(k,round(sum(v)/len(v),2)))
