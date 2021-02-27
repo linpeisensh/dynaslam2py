@@ -25,5 +25,5 @@ try:
 except:
     print('lock successfully!')
 finally:
-    f.close()
     fcntl.flock(f, fcntl.LOCK_UN)
+    f.close()
