@@ -23,8 +23,6 @@ with lock:
 
 lock.acquire()
 try:
-    with lock.acquire(timeout=10):
-        open(file_path, "a").write("I have a bad feeling about this.")
-except Timeout:
-    print("Another instance of this application currently holds the lock.")
+    open(file_path, "a").write("General Kenobi!")
+finally:
     lock.release()
