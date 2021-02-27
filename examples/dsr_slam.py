@@ -15,6 +15,7 @@ import time
 import traceback
 import os
 import shutil
+from filelock import FileLock
 
 from sptam.dynaseg import DynaSegt
 from sptam.msptam import stereoCamera
@@ -159,6 +160,8 @@ def main(orb_path, device, data_path, save, sequence):
             break
     i = 0
     result_path = 'ro/d{}{}.txt'.format(sequence,i)
+    lock_path = result_path + '.lock'
+    save_flag = 0
     while os.path.exists(result_path):
         i += 1
         result_path = 'ro/d{}{}.txt'.format(sequence,i)
