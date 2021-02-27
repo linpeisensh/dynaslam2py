@@ -19,6 +19,7 @@ for i in range(10):
 fcntl.flock(f,fcntl.LOCK_EX|fcntl.LOCK_NB)
 try:
     f0 = open('./test.txt','a')
+    f0.write('he')
     fcntl.flock(f0, fcntl.LOCK_EX|fcntl.LOCK_NB)
     f0.write('hello')
 except:
