@@ -12,17 +12,18 @@
 # data = pd.DataFrame({'a':a,'b':b})
 # print(data.corr())
 
-from filelock import Timeout, FileLock
-
-file_path = "high_ground.txt"
-lock_path = "high_ground.txt.lock"
-
-lock = FileLock(lock_path, timeout=1)
-with lock:
-    open(file_path, "a").write("Hello there!")
-
-lock.acquire()
+import fcntl
+f = open('./test','w')
+for i in range(10):
+    f.write(str(i))
+fcntl.flock(f,fcntl.LOCK_EX)
 try:
-    open(file_path, "a").write("General Kenobi!")
+    f0 = open('./test','w')
+    for i in range(10):
+        f0.write(str(i))
+    f0.close()
+except:
+    print('lock successfully!')
 finally:
-    lock.release()
+    f.close()
+    fcntl.flock(f, fcntl.LOCK_UN)
