@@ -165,7 +165,8 @@ def main(orb_path, device, data_path, save, sequence):
     result_path = 'ro/d{}{}.txt'.format(sequence,i)
     ns_flag = 1
     while ns_flag:
-        ns_flag = save_trajectory(slam.get_trajectory_points(), result_path)
+        if not os.path.exists(result_path):
+            ns_flag = save_trajectory(slam.get_trajectory_points(), result_path)
         i += 1
         result_path = 'ro/d{}{}.txt'.format(sequence, i)
     print(result_path)
