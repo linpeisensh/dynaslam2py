@@ -5,6 +5,7 @@ import orbslam2
 import time
 import cv2
 import numpy as np
+import fcntl
 
 
 def main(orb_path, device, data_path, save, sequence):
@@ -62,11 +63,14 @@ def main(orb_path, device, data_path, save, sequence):
             time.sleep(t - ttrack)
     i = 0
     result_path = 'ro/c{}{}.txt'.format(sequence_path[-2:], i)
-    while os.path.exists(result_path):
+    while True:
+        if not os.path.exists(result_path):
+            s_flag = save_trajectory(slam.get_trajectory_points(), result_path)
+            if s_flag:
+                print(result_path)
+                break
         i += 1
-        result_path = 'ro/c{}{}.txt'.format(sequence_path[-2:], i)
-    save_trajectory(slam.get_trajectory_points(), result_path)
-    print(result_path)
+        result_path = 'ro/d{}{}.txt'.format(sequence, i)
 
     slam.shutdown()
 
@@ -96,21 +100,27 @@ def load_images(path_to_sequence):
 
 
 def save_trajectory(trajectory, filename):
-    with open(filename, 'w') as traj_file:
-        traj_file.writelines('{r00} {r01} {r02} {t0} {r10} {r11} {r12} {t1} {r20} {r21} {r22} {t2}\n'.format(
-            r00=repr(r00),
-            r01=repr(r01),
-            r02=repr(r02),
-            t0=repr(t0),
-            r10=repr(r10),
-            r11=repr(r11),
-            r12=repr(r12),
-            t1=repr(t1),
-            r20=repr(r20),
-            r21=repr(r21),
-            r22=repr(r22),
-            t2=repr(t2)
-        ) for stamp, r00, r01, r02, t0, r10, r11, r12, t1, r20, r21, r22, t2 in trajectory)
+    try:
+        with open(filename, 'w') as traj_file:
+            fcntl.flock(traj_file, fcntl.LOCK_EX | fcntl.LOCK_NB)
+            traj_file.writelines('{r00} {r01} {r02} {t0} {r10} {r11} {r12} {t1} {r20} {r21} {r22} {t2}\n'.format(
+                r00=repr(r00),
+                r01=repr(r01),
+                r02=repr(r02),
+                t0=repr(t0),
+                r10=repr(r10),
+                r11=repr(r11),
+                r12=repr(r12),
+                t1=repr(t1),
+                r20=repr(r20),
+                r21=repr(r21),
+                r22=repr(r22),
+                t2=repr(t2)
+            ) for stamp, r00, r01, r02, t0, r10, r11, r12, t1, r20, r21, r22, t2 in trajectory)
+        traj_file.close()
+        return 1
+    except:
+        return 0
 
 if __name__ == '__main__':
     if len(sys.argv) != 6:
