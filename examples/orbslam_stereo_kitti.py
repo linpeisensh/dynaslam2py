@@ -70,7 +70,7 @@ def main(orb_path, device, data_path, save, sequence):
                 print(result_path)
                 break
         i += 1
-        result_path = 'ro/d{}{}.txt'.format(sequence, i)
+        result_path = 'ro/c{}{}.txt'.format(sequence, i)
 
     slam.shutdown()
 
