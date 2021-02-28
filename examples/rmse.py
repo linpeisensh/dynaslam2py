@@ -19,7 +19,7 @@ def get_rmse(rootdir,file,file_path):
 log.configure_logging(verbose=False, debug=False, silent=False)
 pose_relation = metrics.PoseRelation.translation_part
 ape_metric = metrics.APE(pose_relation)
-rootdir = './r0228'
+rootdir = './ro'
 ad = defaultdict(list)
 dd = defaultdict(list)
 cd = defaultdict(list)
