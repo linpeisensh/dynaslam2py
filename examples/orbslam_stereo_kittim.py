@@ -8,6 +8,7 @@ import orbslam2
 
 from maskrcnn_benchmark.config import cfg
 from demo.predictor import COCODemo
+import fcntl
 
 import numpy as np
 import cv2 as cv
