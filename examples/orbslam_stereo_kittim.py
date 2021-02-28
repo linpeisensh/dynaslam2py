@@ -89,6 +89,7 @@ def main(orb_path, device, data_path, save, sequence):
     slam.initialize()
 
     times_track = [0 for _ in range(num_images)]
+    times = [0 for _ in range(num_images)]
     print('-----')
     print('Start processing sequence {}'.format(sequence))
     print('Images in the sequence: {0}'.format(num_images))
@@ -115,6 +116,7 @@ def main(orb_path, device, data_path, save, sequence):
     iml = cv.imread(dataset.left[0], cv.IMREAD_UNCHANGED)
     dseg = DynaSeg(iml, coco_demo, feature_params, disp_path, config, paraml, lk_params, mtx, dist, kernel)
     for idx in range(num_images):
+        t0 = time.time()
         left_image = cv.imread(dataset.left[idx], cv.IMREAD_UNCHANGED)
         right_image = cv.imread(dataset.right[idx], cv.IMREAD_UNCHANGED)
         # original
@@ -165,6 +167,7 @@ def main(orb_path, device, data_path, save, sequence):
 
             ttrack = t2 - t1
             times_track[idx] = ttrack
+            times[idx] = t2 - t0
 
             t = 0
             if idx < num_images - 1:
@@ -180,42 +183,51 @@ def main(orb_path, device, data_path, save, sequence):
             break
     i = 0
     result_path = 'ro/a{}{}.txt'.format(sequence, i)
-    while os.path.exists(result_path):
+    while True:
+        if not os.path.exists(result_path):
+            s_flag = save_trajectory(slam.get_trajectory_points(), result_path)
+            if s_flag:
+                print(result_path)
+                break
         i += 1
         result_path = 'ro/a{}{}.txt'.format(sequence, i)
-    save_trajectory(slam.get_trajectory_points(), result_path)
-    print(result_path)
 
     slam.shutdown()
     sptam.stop()
     times_track = sorted(times_track)
     total_time = sum(times_track)
+    ttime = sum(times)
     print('-----')
-    print('median tracking time: {0}'.format(times_track[num_images // 2]))
-    print('mean tracking time: {0}'.format(total_time / num_images))
-    print('mean cverror: {}'.format(np.mean(dseg.cverrs)))
+    print('mean ORB tracking time: {0}'.format(total_time / num_images))
+    print('mean DSR tracking time: {0}'.format(ttime / num_images))
+    print('mean dcverror: {}'.format(np.mean(dseg.cverrs)))
 
     return 0
 
 
 
 def save_trajectory(trajectory, filename):
-    with open(filename, 'w') as traj_file:
-        traj_file.writelines('{r00} {r01} {r02} {t0} {r10} {r11} {r12} {t1} {r20} {r21} {r22} {t2}\n'.format(
-            r00=repr(r00),
-            r01=repr(r01),
-            r02=repr(r02),
-            t0=repr(t0),
-            r10=repr(r10),
-            r11=repr(r11),
-            r12=repr(r12),
-            t1=repr(t1),
-            r20=repr(r20),
-            r21=repr(r21),
-            r22=repr(r22),
-            t2=repr(t2)
-        ) for stamp, r00, r01, r02, t0, r10, r11, r12, t1, r20, r21, r22, t2 in trajectory)
-
+    try:
+        with open(filename, 'w') as traj_file:
+            fcntl.flock(traj_file, fcntl.LOCK_EX | fcntl.LOCK_NB)
+            traj_file.writelines('{r00} {r01} {r02} {t0} {r10} {r11} {r12} {t1} {r20} {r21} {r22} {t2}\n'.format(
+                r00=repr(r00),
+                r01=repr(r01),
+                r02=repr(r02),
+                t0=repr(t0),
+                r10=repr(r10),
+                r11=repr(r11),
+                r12=repr(r12),
+                t1=repr(t1),
+                r20=repr(r20),
+                r21=repr(r21),
+                r22=repr(r22),
+                t2=repr(t2)
+            ) for stamp, r00, r01, r02, t0, r10, r11, r12, t1, r20, r21, r22, t2 in trajectory)
+        traj_file.close()
+        return 1
+    except:
+        return 0
 
 if __name__ == '__main__':
     if len(sys.argv) != 6:
