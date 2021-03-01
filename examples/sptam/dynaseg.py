@@ -2,14 +2,18 @@ import numpy as np
 import cv2 as cv
 from copy import deepcopy as dp
 import os
+from psmnet.submission import PSMNet
 
 
 class DynaSeg():
-    def __init__(self, iml, coco_demo, feature_params, disp_path, config, paraml, lk_params, mtx, dist, kernel):
+    def __init__(self, iml, coco_demo, feature_params, disp_path, config, paraml, lk_params, mtx, dist, kernel, loadmodel,model):
         self.h, self.w = iml.shape[:2]
         self.coco = coco_demo
         self.feature_params = feature_params
+
         self.disp_path = disp_path
+        self.psmnet = PSMNet(loadmodel, model)
+
         self.config = config
         self.Q = self.getRectifyTransform()
         self.paraml = paraml
@@ -63,7 +67,8 @@ class DynaSeg():
     def get_points(self, i, iml, imr):
         iml_, imr_ = preprocess(iml, imr)
         disp = self.stereoMatchSGBM(iml_, imr_)
-        dis = np.load(os.path.join(self.disp_path, str(i).zfill(6) + '.npy'))
+        # dis = np.load(os.path.join(self.disp_path, str(i).zfill(6) + '.npy'))
+        dis = self.psmnet.main(iml,imr)
         disp[disp == 0] = dis[disp == 0]
         points = cv.reprojectImageTo3D(disp, self.Q)
         return points
