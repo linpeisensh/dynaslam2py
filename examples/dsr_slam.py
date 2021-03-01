@@ -122,7 +122,7 @@ def main(orb_path, device, data_path, save, sequence):
             trans = pose_to_transformation(slam0.get_trajectory_points()[-1])
 
 
-            if idx % 5 == 0:
+            if idx % 1 == 0:
                 if idx:
                     c = dseg.dyn_seg_rec(trans, left_image, idx)
                 dseg.updata(left_image, right_image, idx, trans)
