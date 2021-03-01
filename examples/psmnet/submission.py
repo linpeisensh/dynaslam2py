@@ -6,6 +6,11 @@ import torch.utils.data
 from torch.autograd import Variable
 import numpy as np
 
+import cv2 as cv
+import os
+from psmnet.utils import preprocess
+from psmnet.models import *
+
 
 
 class PSMNet():
@@ -62,10 +67,6 @@ class PSMNet():
         return img
 
 if __name__ == '__main__':
-    import cv2 as cv
-    import os
-    from psmnet.utils import preprocess
-    from psmnet.models import *
 
     torch.manual_seed(1)
     lm = './finetune_300.tar'
