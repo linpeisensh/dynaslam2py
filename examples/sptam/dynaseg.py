@@ -6,13 +6,13 @@ from psmnet.submission import PSMNet
 
 
 class DynaSeg():
-    def __init__(self, iml, coco_demo, feature_params, disp_path, config, paraml, lk_params, mtx, dist, kernel, loadmodel,model):
+    def __init__(self, iml, coco_demo, feature_params, disp_path, config, paraml, lk_params, mtx, dist, kernel, loadmodel):
         self.h, self.w = iml.shape[:2]
         self.coco = coco_demo
         self.feature_params = feature_params
 
         self.disp_path = disp_path
-        self.psmnet = PSMNet(loadmodel, model)
+        self.psmnet = PSMNet(loadmodel)
 
         self.config = config
         self.Q = self.getRectifyTransform()

@@ -9,17 +9,12 @@ import numpy as np
 
 
 class PSMNet():
-    def __init__(self,loadmodel,model):
-        self.model = self.pre(loadmodel,model)
+    def __init__(self,loadmodel):
+        self.model = self.pre(loadmodel)
         self.processed = preprocess.get_transform(augment=False)
 
-    def pre(self, loadmodel, model):
-        if model == 'stackhourglass':
-            model = stackhourglass(192)
-        elif model == 'basic':
-            model = basic(192)
-        else:
-            print('no model')
+    def pre(self, loadmodel):
+        model = stackhourglass(192)
 
         model = nn.DataParallel(model, device_ids=[0])
         model.cuda()
@@ -74,8 +69,7 @@ if __name__ == '__main__':
 
     torch.manual_seed(1)
     lm = './finetune_300.tar'
-    model = 'stackhourglass'
-    psmnet = PSMNet(lm,model)
+    psmnet = PSMNet(lm)
     image_path = '/storage/remote/atcremers17/linp/dataset/kittic/sequences/10/'
     iml = cv.imread(os.path.join(image_path,'image_2','000000.png'), cv.IMREAD_UNCHANGED)
     imr = cv.imread(os.path.join(image_path,'image_3','000000.png'), cv.IMREAD_UNCHANGED)

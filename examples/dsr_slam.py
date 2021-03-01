@@ -22,7 +22,7 @@ from sptam.msptam import stereoCamera
 from sptam.dataset import KITTIOdometry
 
 
-def main(orb_path, device, data_path, pn_model, save, sequence):
+def main(orb_path, device, data_path, save, sequence):
     sequence_path = os.path.join(data_path, sequence)
     vocab_path = os.path.join(orb_path,'Vocabulary/ORBvoc.txt')
     ins = int(sequence)
@@ -107,7 +107,7 @@ def main(orb_path, device, data_path, pn_model, save, sequence):
     loadmodel = './finetune_300.tar'
 
     iml = cv.imread(dataset.left[0], cv.IMREAD_UNCHANGED)
-    dseg = DynaSegt(iml, coco_demo, feature_params, disp_path, config, paraml, lk_params, mtx, dist, kernel,loadmodel,pn_model)
+    dseg = DynaSegt(iml, coco_demo, feature_params, disp_path, config, paraml, lk_params, mtx, dist, kernel,loadmodel)
     for idx in range(num_images):
         t0 = time.time()
         left_image = cv.imread(dataset.left[idx], cv.IMREAD_UNCHANGED)
@@ -221,6 +221,6 @@ def pose_to_transformation(pose):
 
 
 if __name__ == '__main__':
-    if len(sys.argv) != 7:
-        print('Usage: ./orbslam_stereo_kitti path_to_orb device path_to_data pn_model save sequence ')
-    main(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4], sys.argv[5], sys.argv[6])
+    if len(sys.argv) != 6:
+        print('Usage: ./orbslam_stereo_kitti path_to_orb device path_to_data save sequence ')
+    main(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4], sys.argv[5])
