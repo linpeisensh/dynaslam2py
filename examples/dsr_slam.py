@@ -164,7 +164,7 @@ def main(orb_path, device, data_path, save, sequence):
             print('error in frame {}'.format(idx))
             break
     i = 0
-    result_path = 'ro/d{}{}.txt'.format(sequence,i)
+    result_path = 'ro3/d{}{}.txt'.format(sequence,i)
     while True:
         if not os.path.exists(result_path):
             s_flag = save_trajectory(slam.get_trajectory_points(), result_path)
@@ -172,7 +172,7 @@ def main(orb_path, device, data_path, save, sequence):
                 print(result_path)
                 break
         i += 1
-        result_path = 'ro/d{}{}.txt'.format(sequence, i)
+        result_path = 'ro3/d{}{}.txt'.format(sequence, i)
 
     slam.shutdown()
     slam0.shutdown()
@@ -222,5 +222,5 @@ def pose_to_transformation(pose):
 
 if __name__ == '__main__':
     if len(sys.argv) != 6:
-        print('Usage: ./orbslam_stereo_kitti path_to_orb device path_to_data save sequence ')
+        print('Usage: ./orbslam_stereo_kitti path_to_orb device path_to_data save_img sequence ')
     main(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4], sys.argv[5])
