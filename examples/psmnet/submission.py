@@ -74,7 +74,7 @@ if __name__ == '__main__':
 
     torch.manual_seed(1)
     lm = './finetune_300.tar'
-    model = 'basic'
+    model = 'stackhourglass'
     psmnet = PSMNet(lm,model)
     image_path = '/storage/remote/atcremers17/linp/dataset/kittic/sequences/10/'
     iml = cv.imread(os.path.join(image_path,'image_2','000000.png'), cv.IMREAD_UNCHANGED)
