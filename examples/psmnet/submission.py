@@ -69,8 +69,8 @@ class PSMNet():
 if __name__ == '__main__':
     import cv2 as cv
     import os
-    from .utils import preprocess
-    from .models import *
+    from psmnet.utils import preprocess
+    from psmnet.models import *
 
     torch.manual_seed(1)
     lm = './finetune_300.tar'
