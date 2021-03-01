@@ -5,11 +5,7 @@ import torch.nn.parallel
 import torch.utils.data
 from torch.autograd import Variable
 import numpy as np
-import time
-from .utils import preprocess
-from .models import *
 
-torch.manual_seed(1)
 
 
 class PSMNet():
@@ -73,6 +69,10 @@ class PSMNet():
 if __name__ == '__main__':
     import cv2 as cv
     import os
+    from .utils import preprocess
+    from .models import *
+
+    torch.manual_seed(1)
     lm = './finetune_300.tar'
     model = 'basic'
     psmnet = PSMNet(lm,model)
