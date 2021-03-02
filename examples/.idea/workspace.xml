@@ -29,10 +29,10 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/orbslam_stereo_kitti.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="160">
+            <state relative-caret-position="1243">
               <caret line="70" column="21" selection-start-line="70" selection-start-column="21" selection-end-line="70" selection-end-column="21" />
               <folding>
                 <element signature="e#23#33#0" expanded="true" />
@@ -41,11 +41,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/rmse.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-475">
-              <caret line="20" column="67" lean-forward="true" selection-start-line="20" selection-start-column="67" selection-end-line="20" selection-end-column="67" />
+            <state relative-caret-position="373">
+              <caret line="63" column="24" lean-forward="true" selection-start-line="63" selection-start-column="24" selection-end-line="63" selection-end-column="24" />
               <folding>
                 <element signature="e#0#9#0" expanded="true" />
               </folding>
@@ -102,14 +102,15 @@
       <find>nn</find>
       <find>stackhourglass</find>
       <find>self.cverrs.append(cverror)</find>
+      <find>file_path</find>
     </findStrings>
     <replaceStrings>
       <replace>cv</replace>
       <replace>tran</replace>
       <replace>frame</replace>
       <replace>ro</replace>
-      <replace>self.model</replace>
       <replace>trans</replace>
+      <replace>self.model</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -127,13 +128,13 @@
         <option value="$PROJECT_DIR$/results/rmse.py" />
         <option value="$PROJECT_DIR$/script.py" />
         <option value="$PROJECT_DIR$/orbslam_stereo_kittim.py" />
-        <option value="$PROJECT_DIR$/orbslam_stereo_kitti.py" />
         <option value="$PROJECT_DIR$/psmnet/models/submodule.py" />
         <option value="$PROJECT_DIR$/psmnet/models/basic.py" />
         <option value="$PROJECT_DIR$/psmnet/models/stackhourglass.py" />
         <option value="$PROJECT_DIR$/sptam/dynaseg.py" />
         <option value="$PROJECT_DIR$/psmnet/submission.py" />
         <option value="$PROJECT_DIR$/dsr_slam.py" />
+        <option value="$PROJECT_DIR$/orbslam_stereo_kitti.py" />
         <option value="$PROJECT_DIR$/rmse.py" />
       </list>
     </option>
@@ -165,7 +166,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="D:/pseudo_lidar" />
+    <property name="last_opened_file_path" value="D:/day2" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
@@ -313,12 +314,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1613725298668</updated>
-      <workItem from="1613725300773" duration="86793000" />
+      <workItem from="1613725300773" duration="89040000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="86793000" />
+    <option name="totallyTimeSpent" value="89040000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1376" height="744" extended-state="6" />
@@ -532,26 +533,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/sptam/dynaseg.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1060">
-          <caret line="8" column="121" selection-start-line="8" selection-start-column="121" selection-end-line="8" selection-end-column="121" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/rmse.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-475">
-          <caret line="20" column="67" lean-forward="true" selection-start-line="20" selection-start-column="67" selection-end-line="20" selection-end-column="67" />
-          <folding>
-            <element signature="e#0#9#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/ds_slam.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="19">
@@ -574,10 +555,30 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/orbslam_stereo_kitti.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="160">
+        <state relative-caret-position="1243">
           <caret line="70" column="21" selection-start-line="70" selection-start-column="21" selection-end-line="70" selection-end-column="21" />
           <folding>
             <element signature="e#23#33#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sptam/dynaseg.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1060">
+          <caret line="8" column="121" selection-start-line="8" selection-start-column="121" selection-end-line="8" selection-end-column="121" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rmse.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="373">
+          <caret line="63" column="24" lean-forward="true" selection-start-line="63" selection-start-column="24" selection-end-line="63" selection-end-column="24" />
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
           </folding>
         </state>
       </provider>

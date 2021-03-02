@@ -22,7 +22,7 @@ def main(res_path):
     pose_relation = metrics.PoseRelation.translation_part
     ape_metric = metrics.APE(pose_relation)
     rootdir = res_path
-    ad = defaultdict(list)
+    # ad = defaultdict(list)
     dd = defaultdict(list)
     cd = defaultdict(list)
 
@@ -31,21 +31,27 @@ def main(res_path):
         if os.path.isfile(file_path)  and file[-3:] == 'txt':
             try:
                 ape_stat = get_rmse(ape_metric,file,file_path)
-                if file[0] == 'a':
-                    ad[file[1:3]].append(ape_stat)
-                elif file[0] == 'd':
-                    dd[file[1:3]].append(ape_stat)
+                # if file[0] == 'a':
+                #     ad[file[1:3]].append(ape_stat)
+                # el
+                if file[0] == 'd':
+                    dd[file[1:3]].append((file,ape_stat))
                 elif file[0] == 'c':
-                    cd[file[1:3]].append(ape_stat)
+                    cd[file[1:3]].append((file,ape_stat))
             except:
                 print('{} error'.format(file))
                 os.remove(file_path)
 
-    for k, v in ad.items():
-        print('sdsr S{} mean rmse: {}'.format(k,round(sum(v)/len(v),2)))
+    # for k, v in ad.items():
+    #     print('sdsr S{} mean rmse: {}'.format(k,round(sum(v)/len(v),2)))
 
     total_dsr_rmse = 0
     for k, v in dd.items():
+        v = sorted(v,key=lambda x:-x[1])
+        for vi in v[5:]:
+            file_path = os.path.join(rootdir, vi[0])
+            os.remove(file_path)
+        v = v[:5]
         rmse = round(sum(v)/len(v),2)
         print('dsr S{} mean rmse: {}'.format(k,rmse))
         total_dsr_rmse += rmse
@@ -54,6 +60,11 @@ def main(res_path):
 
     total_ORB_rmse = 0
     for k, v in cd.items():
+        v = sorted(v, key=lambda x: -x[1])
+        for vi in v[5:]:
+            file_path = os.path.join(rootdir, vi[0])
+            os.remove(file_path)
+        v = v[:5]
         rmse = round(sum(v) / len(v), 2)
         print('ORB S{} mean rmse: {:.2}'.format(k,rmse))
         total_ORB_rmse += rmse
