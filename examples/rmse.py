@@ -5,6 +5,7 @@ from evo.tools import file_interface
 import copy
 from collections import defaultdict
 import sys
+from shutil import copyfile
 
 def get_rmse(ape_metric,file,file_path):
     traj_ref = file_interface.read_kitti_poses_file(os.path.join('poses', file[1:3] + '.txt'))
@@ -14,20 +15,20 @@ def get_rmse(ape_metric,file,file_path):
     data = (traj_ref, traj_est_aligned)
     ape_metric.process_data(data)
     ape_stat = ape_metric.get_statistic(metrics.StatisticsType.rmse)
-    print('{} rmse: {}'.format(file, ape_stat))
+    # print('{} rmse: {}'.format(file, ape_stat))
     return ape_stat
 
-def main(res_path):
+def main(res_root_path, save_root_path):
     log.configure_logging(verbose=False, debug=False, silent=False)
     pose_relation = metrics.PoseRelation.translation_part
     ape_metric = metrics.APE(pose_relation)
-    rootdir = res_path
+
     # ad = defaultdict(list)
     dd = defaultdict(list)
     cd = defaultdict(list)
 
-    for file in sorted(os.listdir(rootdir)):
-        file_path = os.path.join(rootdir,file)
+    for file in sorted(os.listdir(res_root_path)):
+        file_path = os.path.join(res_root_path,file)
         if os.path.isfile(file_path)  and file[-3:] == 'txt':
             try:
                 ape_stat = get_rmse(ape_metric,file,file_path)
@@ -47,10 +48,17 @@ def main(res_path):
 
     total_dsr_rmse = 0
     for k, v in dd.items():
-        v = sorted(v,key=lambda x:-x[1])
+        v = sorted(v,key=lambda x:x[1])
         for vi in v[5:]:
-            file_path = os.path.join(rootdir, vi[0])
+            file_path = os.path.join(res_root_path, vi[0])
             os.remove(file_path)
+        idx = 0
+        for vi in v[:5]:
+            print('{} rmse: {}'.format(vi[0], vi[1]))
+            file_path = os.path.join(res_root_path, vi[0])
+            save_path = os.path.join(save_root_path, vi[0][:-5]+str(idx)+vi[0][-4:])
+            copyfile(file_path,save_path)
+            idx += 1
         v = [vi[1] for vi in v[:5]]
         rmse = round(sum(v)/len(v),2)
         print('dsr S{} mean rmse: {}'.format(k,rmse))
@@ -62,8 +70,15 @@ def main(res_path):
     for k, v in cd.items():
         v = sorted(v, key=lambda x: -x[1])
         for vi in v[5:]:
-            file_path = os.path.join(rootdir, vi[0])
+            file_path = os.path.join(res_root_path, vi[0])
             os.remove(file_path)
+        idx = 0
+        for vi in v[:5]:
+            print('{} rmse: {}'.format(vi[0], vi[1]))
+            file_path = os.path.join(res_root_path, vi[0])
+            save_path = os.path.join(save_root_path, vi[0][:-5] + str(idx) + vi[0][-4:])
+            copyfile(file_path, save_path)
+            idx += 1
         v = [vi[1] for vi in v[:5]]
         rmse = round(sum(v) / len(v), 2)
         print('ORB S{} mean rmse: {:.2}'.format(k,rmse))
@@ -71,6 +86,6 @@ def main(res_path):
     print('total_ORB_rmse: ', total_ORB_rmse)
 
 if __name__ == '__main__':
-    if len(sys.argv) != 2:
-        print('Usage: ./res_path ')
-    main(sys.argv[1])
+    if len(sys.argv) != 3:
+        print('Usage: ./res_root_path save_root_path')
+    main(sys.argv[1], sys.argv[2])
