@@ -57,7 +57,7 @@ def main(res_root_path, save_root_path):
             for vi in v[:5]:
                 print('{} rmse: {}'.format(vi[0], vi[1]))
                 file_path = os.path.join(res_root_path, vi[0])
-                save_path = os.path.join(save_root_path, vi[0][:-5]+str(idx)+vi[0][-4:])
+                save_path = os.path.join(save_root_path, vi[0][:3]+str(idx)+vi[0][-4:])
                 copyfile(file_path,save_path)
                 idx += 1
         v = [vi[1] for vi in v[:5]]
@@ -78,7 +78,7 @@ def main(res_root_path, save_root_path):
             for vi in v[:5]:
                 print('{} rmse: {}'.format(vi[0], vi[1]))
                 file_path = os.path.join(res_root_path, vi[0])
-                save_path = os.path.join(save_root_path, vi[0][:-5] + str(idx) + '.txt')
+                save_path = os.path.join(save_root_path, vi[0][:3] + str(idx) + '.txt')
                 copyfile(file_path, save_path)
                 idx += 1
         v = [vi[1] for vi in v[:5]]
