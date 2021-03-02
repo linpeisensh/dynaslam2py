@@ -51,7 +51,7 @@ def main(res_path):
         for vi in v[5:]:
             file_path = os.path.join(rootdir, vi[0])
             os.remove(file_path)
-        v = v[:5]
+        v = [vi[1] for vi in v[:5]]
         rmse = round(sum(v)/len(v),2)
         print('dsr S{} mean rmse: {}'.format(k,rmse))
         total_dsr_rmse += rmse
@@ -64,7 +64,7 @@ def main(res_path):
         for vi in v[5:]:
             file_path = os.path.join(rootdir, vi[0])
             os.remove(file_path)
-        v = v[:5]
+        v = [vi[1] for vi in v[:5]]
         rmse = round(sum(v) / len(v), 2)
         print('ORB S{} mean rmse: {:.2}'.format(k,rmse))
         total_ORB_rmse += rmse
