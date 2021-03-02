@@ -52,13 +52,14 @@ def main(res_root_path, save_root_path):
         for vi in v[5:]:
             file_path = os.path.join(res_root_path, vi[0])
             os.remove(file_path)
-        idx = 0
-        for vi in v[:5]:
-            print('{} rmse: {}'.format(vi[0], vi[1]))
-            file_path = os.path.join(res_root_path, vi[0])
-            save_path = os.path.join(save_root_path, vi[0][:-5]+str(idx)+vi[0][-4:])
-            copyfile(file_path,save_path)
-            idx += 1
+        if save_root_path != '0':
+            idx = 0
+            for vi in v[:5]:
+                print('{} rmse: {}'.format(vi[0], vi[1]))
+                file_path = os.path.join(res_root_path, vi[0])
+                save_path = os.path.join(save_root_path, vi[0][:-5]+str(idx)+vi[0][-4:])
+                copyfile(file_path,save_path)
+                idx += 1
         v = [vi[1] for vi in v[:5]]
         rmse = round(sum(v)/len(v),2)
         print('dsr S{} mean rmse: {}'.format(k,rmse))
@@ -72,13 +73,14 @@ def main(res_root_path, save_root_path):
         for vi in v[5:]:
             file_path = os.path.join(res_root_path, vi[0])
             os.remove(file_path)
-        idx = 0
-        for vi in v[:5]:
-            print('{} rmse: {}'.format(vi[0], vi[1]))
-            file_path = os.path.join(res_root_path, vi[0])
-            save_path = os.path.join(save_root_path, vi[0][:-5] + str(idx) + vi[0][-4:])
-            copyfile(file_path, save_path)
-            idx += 1
+        if save_root_path != '0':
+            idx = 0
+            for vi in v[:5]:
+                print('{} rmse: {}'.format(vi[0], vi[1]))
+                file_path = os.path.join(res_root_path, vi[0])
+                save_path = os.path.join(save_root_path, vi[0][:-5] + str(idx) + vi[0][-4:])
+                copyfile(file_path, save_path)
+                idx += 1
         v = [vi[1] for vi in v[:5]]
         rmse = round(sum(v) / len(v), 2)
         print('ORB S{} mean rmse: {:.2}'.format(k,rmse))
