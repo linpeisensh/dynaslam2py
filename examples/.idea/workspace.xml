@@ -10,7 +10,7 @@
   </component>
   <component name="CoverageDataManager">
     <SUITE FILE_PATH="coverage/examples$rmse__1_.coverage" NAME="rmse (1) Coverage Results" MODIFIED="1614368083656" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/results" />
-    <SUITE FILE_PATH="coverage/examples$rmse.coverage" NAME="rmse Coverage Results" MODIFIED="1614335312165" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/examples$rmse.coverage" NAME="rmse Coverage Results" MODIFIED="1614765994737" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/examples$script.coverage" NAME="script Coverage Results" MODIFIED="1614457085165" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/examples$orbslam_stereo_kittim.coverage" NAME="orbslam_stereo_kittim Coverage Results" MODIFIED="1614028833690" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/examples$orbslam_stereo_kitti.coverage" NAME="orbslam_stereo_kitti Coverage Results" MODIFIED="1614195378683" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
@@ -21,7 +21,7 @@
         <entry file="file://$PROJECT_DIR$/dsr_slam.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="166">
-              <caret line="164" column="17" lean-forward="true" selection-start-line="161" selection-start-column="8" selection-end-line="164" selection-end-column="17" />
+              <caret line="164" column="17" selection-start-line="161" selection-start-column="8" selection-end-line="164" selection-end-column="17" />
               <folding>
                 <element signature="e#23#33#0" expanded="true" />
               </folding>
@@ -32,8 +32,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/orbslam_stereo_kitti.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-805">
-              <caret line="70" column="21" selection-start-line="70" selection-start-column="21" selection-end-line="70" selection-end-column="21" />
+            <state relative-caret-position="145">
+              <caret line="93" column="56" selection-start-line="93" selection-start-column="52" selection-end-line="93" selection-end-column="56" />
               <folding>
                 <element signature="e#23#33#0" expanded="true" />
               </folding>
@@ -41,14 +41,23 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/rmse.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="76">
-              <caret line="73" column="8" selection-start-line="73" selection-start-column="10" selection-end-line="75" selection-end-column="34" />
+            <state relative-caret-position="152">
+              <caret line="8" lean-forward="true" selection-start-line="8" selection-end-line="8" />
               <folding>
                 <element signature="e#0#9#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/cpp/evaluate_odometry.cpp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="79">
+              <caret line="446" column="40" selection-start-line="446" selection-start-column="31" selection-end-line="446" selection-end-column="40" />
             </state>
           </provider>
         </entry>
@@ -76,8 +85,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>cv2</find>
-      <find>stereoCamera</find>
       <find>config</find>
       <find>transformation</find>
       <find>cc</find>
@@ -105,6 +112,9 @@
       <find>root</find>
       <find>-r</find>
       <find>try</find>
+      <find>\</find>
+      <find>mail</find>
+      <find>error_dir</find>
     </findStrings>
     <replaceStrings>
       <replace>cv</replace>
@@ -113,6 +123,8 @@
       <replace>ro</replace>
       <replace>trans</replace>
       <replace>self.model</replace>
+      <replace>/</replace>
+      <replace>cout &lt;&lt;</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -138,6 +150,7 @@
         <option value="$PROJECT_DIR$/dsr_slam.py" />
         <option value="$PROJECT_DIR$/orbslam_stereo_kitti.py" />
         <option value="$PROJECT_DIR$/rmse.py" />
+        <option value="$PROJECT_DIR$/cpp/evaluate_odometry.cpp" />
       </list>
     </option>
   </component>
@@ -158,6 +171,11 @@
             <path>
               <item name="examples" type="b2602c69:ProjectViewProjectNode" />
               <item name="examples" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="examples" type="b2602c69:ProjectViewProjectNode" />
+              <item name="examples" type="462c0819:PsiDirectoryNode" />
+              <item name="cpp" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -185,7 +203,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.script">
+  <component name="RunManager" selected="Python.rmse">
     <configuration name="orbslam_stereo_kitti" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="examples" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -298,9 +316,9 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.rmse" />
         <item itemvalue="Python.script" />
         <item itemvalue="Python.rmse (1)" />
-        <item itemvalue="Python.rmse" />
         <item itemvalue="Python.orbslam_stereo_kitti" />
         <item itemvalue="Python.orbslam_stereo_kittim" />
       </list>
@@ -316,12 +334,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1613725298668</updated>
-      <workItem from="1613725300773" duration="96746000" />
+      <workItem from="1613725300773" duration="97838000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="96746000" />
+    <option name="totallyTimeSpent" value="97838000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1376" height="744" extended-state="6" />
@@ -565,17 +583,22 @@
     <entry file="file://$PROJECT_DIR$/dsr_slam.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="166">
-          <caret line="164" column="17" lean-forward="true" selection-start-line="161" selection-start-column="8" selection-end-line="164" selection-end-column="17" />
+          <caret line="164" column="17" selection-start-line="161" selection-start-column="8" selection-end-line="164" selection-end-column="17" />
           <folding>
             <element signature="e#23#33#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/cpp/matrix.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-15856" />
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/orbslam_stereo_kitti.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-805">
-          <caret line="70" column="21" selection-start-line="70" selection-start-column="21" selection-end-line="70" selection-end-column="21" />
+        <state relative-caret-position="145">
+          <caret line="93" column="56" selection-start-line="93" selection-start-column="52" selection-end-line="93" selection-end-column="56" />
           <folding>
             <element signature="e#23#33#0" expanded="true" />
           </folding>
@@ -584,11 +607,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/rmse.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="76">
-          <caret line="73" column="8" selection-start-line="73" selection-start-column="10" selection-end-line="75" selection-end-column="34" />
+        <state relative-caret-position="152">
+          <caret line="8" lean-forward="true" selection-start-line="8" selection-end-line="8" />
           <folding>
             <element signature="e#0#9#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cpp/evaluate_odometry.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="79">
+          <caret line="446" column="40" selection-start-line="446" selection-start-column="31" selection-end-line="446" selection-end-column="40" />
         </state>
       </provider>
     </entry>

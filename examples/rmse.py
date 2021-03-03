@@ -92,3 +92,9 @@ if __name__ == '__main__':
     if len(sys.argv) != 3:
         print('Usage: ./res_root_path save_root_path')
     main(sys.argv[1], sys.argv[2])
+
+
+# os.chdir('D:/dyna2/examples/cpp/results')
+# for i in range(11):
+#     if not os.path.exists('{0:02}'.format(i)):
+#         os.mkdir('{0:02}'.format(i))
