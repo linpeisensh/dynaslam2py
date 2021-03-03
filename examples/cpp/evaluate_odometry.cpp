@@ -434,11 +434,11 @@ bool eval (string result_sha,Mail* mail) {
     vector<Matrix> poses_result = loadPoses(result_dir + "/" + file_name);
    
     // plot status
-    cout << "Processing: %s, poses: %d/%d",file_name,poses_result.size(),poses_gt.size() << endl;
+    sprintf("Processing: %s, poses: %d/%d",file_name,poses_result.size(),poses_gt.size());
     
     // check for errors
     if (poses_gt.size()==0 || poses_result.size()!=poses_gt.size()) {
-      cout << "ERROR: Couldn't read (all) poses of: %s", file_name << endl;
+      sprintf("ERROR: Couldn't read (all) poses of: %s", file_name);
       return false;
     }
 
