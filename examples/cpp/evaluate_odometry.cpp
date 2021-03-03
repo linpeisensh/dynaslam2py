@@ -434,11 +434,11 @@ bool eval (string result_sha,Mail* mail) {
     vector<Matrix> poses_result = loadPoses(result_dir + "/" + file_name);
    
     // plot status
-    sprintf("Processing: %s, poses: %d/%d",file_name,poses_result.size(),poses_gt.size());
+    mail->msg("Processing: %s, poses: %d/%d",file_name,poses_result.size(),poses_gt.size());
     
     // check for errors
     if (poses_gt.size()==0 || poses_result.size()!=poses_gt.size()) {
-      sprintf("ERROR: Couldn't read (all) poses of: %s", file_name);
+      mail->msg("ERROR: Couldn't read (all) poses of: %s", file_name);
       return false;
     }
 
@@ -493,12 +493,12 @@ int32_t main (int32_t argc,char *argv[]) {
   Mail *mail;
   if (argc==4) mail = new Mail(argv[3]);
   else         mail = new Mail();
-  cout << "Thank you for participating in our evaluation!" << endl;
+  mail->msg("Thank you for participating in our evaluation!");
 
   // run evaluation
   bool success = eval(result_sha,mail);
-//  if (argc==4) mail->finalize(success,"odometry",result_sha,argv[2]);
-//  else         mail->finalize(success,"odometry",result_sha);
+  if (argc==4) mail->finalize(success,"odometry",result_sha,argv[2]);
+  else         mail->finalize(success,"odometry",result_sha);
 
   // send mail and exit
   delete mail;
