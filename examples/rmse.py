@@ -23,6 +23,7 @@ def main(res_root_path, save_root_path):
     pose_relation = metrics.PoseRelation.translation_part
     ape_metric = metrics.APE(pose_relation)
 
+
     # ad = defaultdict(list)
     dd = defaultdict(list)
     cd = defaultdict(list)
@@ -49,9 +50,9 @@ def main(res_root_path, save_root_path):
     total_dsr_rmse = 0
     for k, v in dd.items():
         v = sorted(v,key=lambda x:x[1])
-        for vi in v[5:]:
-            file_path = os.path.join(res_root_path, vi[0])
-            os.remove(file_path)
+        # for vi in v[5:]:
+        #     file_path = os.path.join(res_root_path, vi[0])
+        #     os.remove(file_path)
         if save_root_path != '0':
             idx = 0
             for vi in v[:5]:
@@ -70,9 +71,9 @@ def main(res_root_path, save_root_path):
     total_ORB_rmse = 0
     for k, v in cd.items():
         v = sorted(v, key=lambda x: -x[1])
-        for vi in v[5:]:
-            file_path = os.path.join(res_root_path, vi[0])
-            os.remove(file_path)
+        # for vi in v[5:]:
+        #     file_path = os.path.join(res_root_path, vi[0])
+        #     os.remove(file_path)
         if save_root_path != '0':
             idx = 0
             for vi in v[:5]:
