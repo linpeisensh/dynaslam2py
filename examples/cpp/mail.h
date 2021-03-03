@@ -38,6 +38,20 @@ public:
     printf("\n");
     va_end(args);
   }
+
+  void finalize (bool success,std::string benchmark,std::string result_sha="",std::string user_sha="")
+ {
+   if (success)
+   {
+    msg("Your evaluation results are available at:");
+    msg("http://www.cvlibs.net/datasets/kitti/user_submit_check_login.php?benchmark=%s&user=%s&result=%s",benchmark.c_str(),user_sha.c_str(), result_sha.c_str());
+   }
+   else
+   {
+    msg("An error occured while processing your results.");
+    msg("Please make sure that the data in your zip archive has the right format!");
+   }
+}
     
 private:
 
