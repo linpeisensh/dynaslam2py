@@ -425,6 +425,7 @@ bool eval (string result_sha,Mail* mail) {
   
 //  // total errors
 //  vector<errors> total_err;
+   vector<vector<errors>> total_err;
 
   // for all sequences do
   for (int32_t i=0; i<11; i++) {
