@@ -452,7 +452,6 @@ bool eval (string result_sha,Mail* mail) {
     vector<errors> seq_err = calcSequenceErrors(poses_gt,poses_result);
 //    saveSequenceErrors(seq_err,error_dir + "/" + file_name);
     total_err.push_back(seq_err);
-    saveStats(total_err,result_dir);
     
     // add to total errors
 //    total_err.insert(total_err.end(),seq_err.begin(),seq_err.end());
@@ -473,6 +472,7 @@ bool eval (string result_sha,Mail* mail) {
 //      plotErrorPlots(plot_error_dir,prefix);
 //    }
   }
+  saveStats(total_err,result_dir);
   
   // save + plot total errors + summary statistics
 //  if (total_err.size()>0) {
