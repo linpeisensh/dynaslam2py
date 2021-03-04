@@ -390,7 +390,7 @@ void saveStats (vector<errors> terr,string dir) {
 
   // for all errors do => compute sum of t_err, r_err
   FILE *fp = fopen((dir + "/stats.txt").c_str(),"w");
-  for (auto err :: terr){
+  for (auto err : terr){
         for (vector<errors>::iterator it=err.begin(); it!=err.end(); it++) {
         t_err += it->t_err * it->t_err;
         r_err += it->r_err;
