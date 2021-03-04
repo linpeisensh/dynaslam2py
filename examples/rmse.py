@@ -11,7 +11,7 @@ def get_rmse(ape_metric,file,file_path):
     traj_ref = file_interface.read_kitti_poses_file(os.path.join('poses', file[1:3] + '.txt'))
     traj_est = file_interface.read_kitti_poses_file(file_path)
     traj_est_aligned = copy.deepcopy(traj_est)
-    traj_est_aligned.align(traj_ref, correct_scale=False, correct_only_scale=False)
+    traj_est_aligned.align(traj_ref, correct_scale=False, correct_only_scale=True)
     data = (traj_ref, traj_est_aligned)
     ape_metric.process_data(data)
     ape_stat = ape_metric.get_statistic(metrics.StatisticsType.rmse)
