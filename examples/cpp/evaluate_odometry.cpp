@@ -383,23 +383,27 @@ void plotErrorPlots (string dir,char* prefix) {
   }
 }
 
-void saveStats (vector<errors> err,string dir, string file_name) {
+void saveStats (vector<errors> terr,string dir) {
 
   float t_err = 0;
   float r_err = 0;
 
   // for all errors do => compute sum of t_err, r_err
-  for (vector<errors>::iterator it=err.begin(); it!=err.end(); it++) {
-    t_err += it->t_err * it->t_err;
-    r_err += it->r_err;
+  FILE *fp = fopen((dir + "/stats.txt").c_str(),"w");
+  for (auto err :: terr){
+        for (vector<errors>::iterator it=err.begin(); it!=err.end(); it++) {
+        t_err += it->t_err * it->t_err;
+        r_err += it->r_err;
   }
 
-  // open file  
-  FILE *fp = fopen((dir + "/stats" + file_name + ".txt").c_str(),"w");
- 
+  // open file
+
+
   // save errors
   float num = err.size();
   fprintf(fp,"%f %f\n",sqrt(t_err/num),r_err/num);
+  }
+
   
   // close file
   fclose(fp);
@@ -445,7 +449,8 @@ bool eval (string result_sha,Mail* mail) {
     // compute sequence errors    
     vector<errors> seq_err = calcSequenceErrors(poses_gt,poses_result);
 //    saveSequenceErrors(seq_err,error_dir + "/" + file_name);
-    saveStats(seq_err,result_dir,file_name);
+    total_err.push_back(seq_err);
+    saveStats(total_err,result_dir);
     
     // add to total errors
 //    total_err.insert(total_err.end(),seq_err.begin(),seq_err.end());
