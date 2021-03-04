@@ -13,21 +13,14 @@ import numpy as np
 import cv2 as cv
 import time
 import traceback
-import g2o
-import argparse
-from threading import Thread
 import os
 import shutil
+import fcntl
 
-from sptam.dynaseg import DynaSeg
-from sptam.msptam import SPTAM, stereoCamera
-from sptam.components import Camera
-from sptam.components import StereoFrame
-from sptam.feature import ImageFeature
-from sptam.params import ParamsKITTI
+from sptam.dynaseg import DynaSegt
+from sptam.msptam import stereoCamera
 from sptam.dataset import KITTIOdometry
 
-import time
 
 def main(orb_path, device, data_path, save, sequence):
     sequence_path = os.path.join(data_path, sequence)
@@ -42,7 +35,7 @@ def main(orb_path, device, data_path, save, sequence):
     print(settings_path)
 
     coco_path = '../../maskrcnn-benchmark/configs/caffe2/e2e_mask_rcnn_R_50_FPN_1x_caffe2.yaml'
-    params = ParamsKITTI()
+
     dataset = KITTIOdometry(sequence_path)
     disp_path = os.path.join('/usr/stud/linp/storage/user/linp/disparity/',sequence)
 
@@ -69,7 +62,6 @@ def main(orb_path, device, data_path, save, sequence):
               'mode': cv.STEREO_SGBM_MODE_SGBM_3WAY
               }
 
-    sptam = SPTAM(params)
 
     config = stereoCamera()
     mtx = np.array([[707.0912, 0, 601.8873], [0, 707.0912, 183.1104], [0, 0, 1]])
@@ -77,20 +69,24 @@ def main(orb_path, device, data_path, save, sequence):
 
     dilation = 2
     kernel = cv.getStructuringElement(cv.MORPH_ELLIPSE, (2 * dilation + 1, 2 * dilation + 1))
-
-    cam = Camera(
-        dataset.cam.fx, dataset.cam.fy, dataset.cam.cx, dataset.cam.cy,
-        dataset.cam.width, dataset.cam.height,
-        params.frustum_near, params.frustum_far,
-        dataset.cam.baseline)
-
     num_images = len(dataset)
 
     slam = orbslam2.System(vocab_path, settings_path, orbslam2.Sensor.STEREO)
     slam.set_use_viewer(False)
     slam.initialize()
 
+    slam0 = orbslam2.System(vocab_path, settings_path, orbslam2.Sensor.STEREO)
+    slam0.set_use_viewer(False)
+    slam0.initialize()
+
+    if save == '1':
+        path = './{}'.format(sequence)
+        if os.path.exists(path):
+            shutil.rmtree(path)
+        os.mkdir(path)
+
     times_track = [0 for _ in range(num_images)]
+    times = [0 for _ in range(num_images)]
     print('-----')
     print('Start processing sequence {}'.format(sequence))
     print('Images in the sequence: {0}'.format(num_images))
@@ -108,51 +104,37 @@ def main(orb_path, device, data_path, save, sequence):
         confidence_threshold=0.7,
     )
 
-    if save == '1':
-        path = './{}'.format(sequence)
-        if os.path.exists(path):
-            shutil.rmtree(path)
-        os.mkdir(path)
+    loadmodel = './finetune_300.tar'
 
     iml = cv.imread(dataset.left[0], cv.IMREAD_UNCHANGED)
-    dseg = DynaSeg(iml, coco_demo, feature_params, disp_path, config, paraml, lk_params, mtx, dist, kernel)
+    dseg = DynaSegt(iml, coco_demo, feature_params, disp_path, config, paraml, lk_params, mtx, dist, kernel,loadmodel)
     for idx in range(num_images):
+        t0 = time.time()
         left_image = cv.imread(dataset.left[idx], cv.IMREAD_UNCHANGED)
         right_image = cv.imread(dataset.right[idx], cv.IMREAD_UNCHANGED)
-        # original
-        featurel = ImageFeature(left_image, params)
-        featurer = ImageFeature(right_image, params)
         timestamp = dataset.timestamps[idx]
-
-        t = Thread(target=featurer.extract)
-        t.start()
-        featurel.extract()
-        t.join()
 
         print('{}. frame'.format(idx))
         try:
-            frame = StereoFrame(idx, g2o.Isometry3d(), featurel, featurer, cam, timestamp=timestamp)
+            left_mask = np.ones((dseg.h, dseg.w, 1), dtype=np.uint8)
+            right_mask = np.ones((dseg.h, dseg.w, 1), dtype=np.uint8)
+            slam0.process_image_stereo(left_image[:, :, ::-1], right_image[:, :, ::-1], left_mask, right_mask, timestamp)
+            trans = pose_to_transformation(slam0.get_trajectory_points()[-1])
 
-            if not sptam.is_initialized():
-                sptam.initialize(frame)
-            else:
-                sptam.track(frame)
 
-            if idx % 5 == 0:
+            if idx % 3 == 0:
                 if idx:
-                    c = dseg.dyn_seg(frame, left_image)
-                dseg.updata(left_image, right_image, idx, frame)
+                    c = dseg.dyn_seg(trans, left_image)
+                dseg.updata(left_image, right_image, idx, trans)
             else:
-                c = dseg.dyn_seg(frame, left_image)
+                c = dseg.dyn_seg(trans, left_image)
             if idx:
-                c = cv.dilate(c, kernel)
+                c = cv.dilate(c,kernel)
                 left_mask = c.reshape(dseg.h,dseg.w,1)
                 right_mask = c.reshape(dseg.h,dseg.w,1)
                 if save == '1':
                     cv.imwrite('./{}/{}.png'.format(sequence,idx), c*255)
-            else:
-                left_mask = np.ones((dseg.h,dseg.w,1),dtype=np.uint8)
-                right_mask = np.ones((dseg.h,dseg.w,1),dtype=np.uint8)
+
             #
             if left_image is None:
                 print("failed to load image at {0}".format(dataset.left[idx]))
@@ -167,6 +149,7 @@ def main(orb_path, device, data_path, save, sequence):
 
             ttrack = t2 - t1
             times_track[idx] = ttrack
+            times[idx] = t2 - t0
 
             t = 0
             if idx < num_images - 1:
@@ -180,39 +163,64 @@ def main(orb_path, device, data_path, save, sequence):
             traceback.print_exc()
             print('error in frame {}'.format(idx))
             break
-    save_trajectory(slam.get_trajectory_points(), '../../results/kitti/a{}{}.txt'.format(sequence,time.strftime("%H:%M:%S")))
+    i = 0
+    result_path = 'ro3/a{}{}.txt'.format(sequence,i)
+    while True:
+        if not os.path.exists(result_path):
+            s_flag = save_trajectory(slam.get_trajectory_points(), result_path)
+            if s_flag:
+                print(result_path)
+                break
+        i += 1
+        result_path = 'ro3/a{}{}.txt'.format(sequence, i)
 
     slam.shutdown()
-    sptam.stop()
+    slam0.shutdown()
     times_track = sorted(times_track)
     total_time = sum(times_track)
+    ttime = sum(times)
     print('-----')
-    print('median tracking time: {0}'.format(times_track[num_images // 2]))
-    print('mean tracking time: {0}'.format(total_time / num_images))
+    print('mean ORB tracking time: {0}'.format(total_time / num_images))
+    print('mean DSR tracking time: {0}'.format(ttime / num_images))
+    print('mean dcverror: {}'.format(np.mean(dseg.cverrs)))
 
     return 0
 
 
-
 def save_trajectory(trajectory, filename):
-    with open(filename, 'w') as traj_file:
-        traj_file.writelines('{r00} {r01} {r02} {t0} {r10} {r11} {r12} {t1} {r20} {r21} {r22} {t2}\n'.format(
-            r00=repr(r00),
-            r01=repr(r01),
-            r02=repr(r02),
-            t0=repr(t0),
-            r10=repr(r10),
-            r11=repr(r11),
-            r12=repr(r12),
-            t1=repr(t1),
-            r20=repr(r20),
-            r21=repr(r21),
-            r22=repr(r22),
-            t2=repr(t2)
-        ) for stamp, r00, r01, r02, t0, r10, r11, r12, t1, r20, r21, r22, t2 in trajectory)
+    try:
+        with open(filename, 'w') as traj_file:
+            fcntl.flock(traj_file, fcntl.LOCK_EX | fcntl.LOCK_NB)
+            traj_file.writelines('{r00} {r01} {r02} {t0} {r10} {r11} {r12} {t1} {r20} {r21} {r22} {t2}\n'.format(
+                r00=repr(r00),
+                r01=repr(r01),
+                r02=repr(r02),
+                t0=repr(t0),
+                r10=repr(r10),
+                r11=repr(r11),
+                r12=repr(r12),
+                t1=repr(t1),
+                r20=repr(r20),
+                r21=repr(r21),
+                r22=repr(r22),
+                t2=repr(t2)
+            ) for stamp, r00, r01, r02, t0, r10, r11, r12, t1, r20, r21, r22, t2 in trajectory)
+        traj_file.close()
+        return 1
+    except:
+        return 0
+
+def pose_to_transformation(pose):
+    res = np.zeros((4,4))
+    for i in range(3):
+        res[i,:3] = pose[4*i+1:4*(i+1)]
+        res[i,3] = pose[4*i]
+    res[3,3] = 1
+    res = np.linalg.inv(res)
+    return res
 
 
 if __name__ == '__main__':
     if len(sys.argv) != 6:
-        print('Usage: ./orbslam_stereo_kitti path_to_orb device path_to_data sequence')
+        print('Usage: ./orbslam_stereo_kitti path_to_orb device path_to_data save_img sequence ')
     main(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4], sys.argv[5])

@@ -12,22 +12,37 @@
 # data = pd.DataFrame({'a':a,'b':b})
 # print(data.corr())
 
-import fcntl
-f = open('./test.txt','w')
-for i in range(10):
-    f.write(str(i))
-fcntl.flock(f,fcntl.LOCK_EX|fcntl.LOCK_NB)
-try:
-    f0 = open('./test.txt','a')
-    f0.write('he')
-    fcntl.flock(f0, fcntl.LOCK_EX|fcntl.LOCK_NB)
-    f0.write('hello')
-except:
-    print('succesfully!')
-    f0.close()
-finally:
-    f.close()
-f0 = open('./test.txt','a')
-fcntl.flock(f0, fcntl.LOCK_EX|fcntl.LOCK_NB)
-f0.write('world!')
-f0.close()
+# import fcntl
+# f = open('./test.txt','w')
+# for i in range(10):
+#     f.write(str(i))
+# fcntl.flock(f,fcntl.LOCK_EX|fcntl.LOCK_NB)
+# try:
+#     f0 = open('./test.txt','a')
+#     f0.write('he')
+#     fcntl.flock(f0, fcntl.LOCK_EX|fcntl.LOCK_NB)
+#     f0.write('hello')
+# except:
+#     print('succesfully!')
+#     f0.close()
+# finally:
+#     f.close()
+# f0 = open('./test.txt','a')
+# fcntl.flock(f0, fcntl.LOCK_EX|fcntl.LOCK_NB)
+# f0.write('world!')
+# f0.close()
+
+with open('00.txt','r',encoding='utf-8') as f:
+    line = f.readline()
+    te = 0
+    re = 0
+    l = 0
+    while line:
+        _, cte, cre, _, _ = line.split()
+        te += float(cte*1000) ** 2
+        re += float(cre)
+        line = f.readline()
+        l += 1
+    print(l)
+    print('rmse: ', (te/l)**0.5)
+    print(re/l)
