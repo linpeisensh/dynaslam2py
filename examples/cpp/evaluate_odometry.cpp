@@ -383,7 +383,7 @@ void plotErrorPlots (string dir,char* prefix) {
   }
 }
 
-void saveStats (vector<errors> terr,string dir) {
+void saveStats (vector<vector<errors>> terr,string dir) {
 
   float t_err = 0;
   float r_err = 0;
