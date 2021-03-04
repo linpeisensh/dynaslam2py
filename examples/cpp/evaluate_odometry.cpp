@@ -401,6 +401,7 @@ void saveStats (vector<vector<errors>> terr,string dir) {
 
   // save errors
   float num = err.size();
+  cout << num << endl;
   fprintf(fp,"%f %f\n",sqrt(t_err/num),r_err/num);
   }
 
