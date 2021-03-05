@@ -95,6 +95,7 @@ def main(orb_path, device, data_path, save, sequence):
     print('Start processing sequence {}'.format(sequence))
     print('Images in the sequence: {0}'.format(num_images))
 
+    loadmodel = './finetune_300.tar'
     config_file = coco_path
     # "configs/caffe2/e2e_mask_rcnn_R_50_FPN_1x_caffe2.yaml"
 
@@ -115,7 +116,7 @@ def main(orb_path, device, data_path, save, sequence):
         os.mkdir(path)
 
     iml = cv.imread(dataset.left[0], cv.IMREAD_UNCHANGED)
-    dseg = DynaSeg(iml, coco_demo, feature_params, disp_path, config, paraml, lk_params, mtx, dist, kernel)
+    dseg = DynaSeg(iml, coco_demo, feature_params, disp_path, config, paraml, lk_params, mtx, dist, kernel,loadmodel)
     for idx in range(num_images):
         t0 = time.time()
         left_image = cv.imread(dataset.left[idx], cv.IMREAD_UNCHANGED)
