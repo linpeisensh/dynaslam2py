@@ -92,7 +92,7 @@ def main(res_root_path, save_root_path):
             total_ate += ate
             total_rpe += rpe
             total_rre += rre
-            # print()
+            print()
 
         print('total_{}_mean_rpe: {}%'.format(d,total_rpe))
         print('total_{}_mean_rre: {}deg/100m'.format(d,total_rre))
