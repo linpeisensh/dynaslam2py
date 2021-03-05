@@ -232,5 +232,5 @@ def save_trajectory(trajectory, filename):
 
 if __name__ == '__main__':
     if len(sys.argv) != 6:
-        print('Usage: ./orbslam_stereo_kitti path_to_orb device path_to_data sequence')
+        print('Usage: ./orbslam_stereo_kitti path_to_orb device path_to_data save_img sequence ')
     main(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4], sys.argv[5])

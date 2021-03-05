@@ -53,8 +53,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/cpp/evaluate_odometry.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-4769">
-              <caret line="92" column="81" selection-start-line="92" selection-start-column="72" selection-end-line="92" selection-end-column="81" />
+            <state relative-caret-position="-1802">
+              <caret line="371" column="21" selection-start-line="371" selection-start-column="14" selection-end-line="371" selection-end-column="21" />
             </state>
           </provider>
         </entry>
@@ -62,7 +62,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/rmse.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="166">
+            <state relative-caret-position="1429">
               <caret line="95" lean-forward="true" selection-start-line="95" selection-end-line="95" />
               <folding>
                 <element signature="e#0#9#0" expanded="true" />
@@ -94,7 +94,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>start_time</find>
       <find>times</find>
       <find>nn</find>
       <find>stackhourglass</find>
@@ -115,7 +114,6 @@
       <find>saveStats</find>
       <find>calcSequenceErrors</find>
       <find>num_lengths</find>
-      <find>step_size</find>
       <find>get_rmse</find>
       <find>1</find>
       <find>ate</find>
@@ -123,7 +121,9 @@
       <find>d=True</find>
       <find>_ds</find>
       <find>print</find>
+      <find>step_size</find>
       <find>DSR</find>
+      <find>plotErrorPlots</find>
     </findStrings>
     <replaceStrings>
       <replace>cv</replace>
@@ -166,8 +166,8 @@
         <option value="$PROJECT_DIR$/cpp/mail.h" />
         <option value="$PROJECT_DIR$/script.py" />
         <option value="$PROJECT_DIR$/ds_slam.py" />
-        <option value="$PROJECT_DIR$/cpp/evaluate_odometry.cpp" />
         <option value="$PROJECT_DIR$/rmse.py" />
+        <option value="$PROJECT_DIR$/cpp/evaluate_odometry.cpp" />
       </list>
     </option>
   </component>
@@ -189,11 +189,6 @@
             <path>
               <item name="examples" type="b2602c69:ProjectViewProjectNode" />
               <item name="examples" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="examples" type="b2602c69:ProjectViewProjectNode" />
-              <item name="examples" type="462c0819:PsiDirectoryNode" />
-              <item name="cpp" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -352,12 +347,12 @@
       <option name="presentableId" value="Default" />
       <updated>1613725298668</updated>
       <workItem from="1613725300773" duration="103243000" />
-      <workItem from="1614841927460" duration="18443000" />
+      <workItem from="1614841927460" duration="21501000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="121686000" />
+    <option name="totallyTimeSpent" value="124744000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1376" height="744" extended-state="6" />
@@ -568,16 +563,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/orbslam_stereo_kitti.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="145">
-          <caret line="93" column="56" selection-start-line="93" selection-start-column="52" selection-end-line="93" selection-end-column="56" />
-          <folding>
-            <element signature="e#23#33#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/dsr_slam.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="133">
@@ -611,14 +596,14 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/script.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="234">
-          <caret line="41" column="28" selection-start-line="41" selection-start-column="28" selection-end-line="41" selection-end-column="28" />
+        <state relative-caret-position="215">
+          <caret line="40" column="40" lean-forward="true" selection-start-line="40" selection-start-column="40" selection-end-line="40" selection-end-column="40" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/rmse.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="166">
+        <state relative-caret-position="1429">
           <caret line="95" lean-forward="true" selection-start-line="95" selection-end-line="95" />
           <folding>
             <element signature="e#0#9#0" expanded="true" />
@@ -626,10 +611,20 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/orbslam_stereo_kitti.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="145">
+          <caret line="93" column="56" selection-start-line="93" selection-start-column="52" selection-end-line="93" selection-end-column="56" />
+          <folding>
+            <element signature="e#23#33#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/cpp/evaluate_odometry.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-4769">
-          <caret line="92" column="81" selection-start-line="92" selection-start-column="72" selection-end-line="92" selection-end-column="81" />
+        <state relative-caret-position="-1802">
+          <caret line="371" column="21" selection-start-line="371" selection-start-column="14" selection-end-line="371" selection-end-column="21" />
         </state>
       </provider>
     </entry>
