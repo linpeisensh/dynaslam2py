@@ -29,7 +29,7 @@ def sort_stat(v,save_root_path,res_root_path,i,k,d):
     idx = 0
     res = 0
     for vi in vres[:5]:
-        print('{} ate: {}m, rpe: {}%, rre: {}deg/100m'.format(vi[0], vi[1], vi[2], vi[3]))
+        # print('{} ate: {}m, rpe: {}%, rre: {}deg/100m'.format(vi[0], vi[1], vi[2], vi[3]))
         if save_root_path != '0':
             file_path = os.path.join(res_root_path, vi[0])
             save_path = os.path.join(save_root_path, vi[0][:3] + str(idx) + vi[0][-4:])
@@ -37,12 +37,12 @@ def sort_stat(v,save_root_path,res_root_path,i,k,d):
             idx += 1
         res += vi[i]
     res = round(res / 5, 2)
-    # if i == 1:
-    #     print('{} S{} rmse ate: {}m'.format(d, k, res))
-    # elif i == 2:
-    #     print('{} S{} mean rpe: {}%'.format(d, k, res))
-    # elif i == 3:
-    #     print('{} S{} mean rpe: {}deg/100m'.format(d, k, res))
+    if i == 1:
+        print('{} S{} rmse ate: {}m'.format(d, k, res))
+    elif i == 2:
+        print('{} S{} mean rpe: {}%'.format(d, k, res))
+    elif i == 3:
+        print('{} S{} mean rpe: {}deg/100m'.format(d, k, res))
     return res
 
 
