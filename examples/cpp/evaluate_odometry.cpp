@@ -392,7 +392,7 @@ void saveStats (vector<vector<errors>> terr,string dir) {
   FILE *fp = fopen((dir + "/stats.txt").c_str(),"w");
   for (auto err : terr){
         for (vector<errors>::iterator it=err.begin(); it!=err.end(); it++) {
-        t_err += it->t_err * it->t_err;
+        t_err += it->t_err;
         r_err += it->r_err;
   }
 
@@ -402,7 +402,7 @@ void saveStats (vector<vector<errors>> terr,string dir) {
   // save errors
   float num = err.size();
   cout << num << endl;
-  fprintf(fp,"%f %f\n",sqrt(t_err/num),r_err/num);
+  fprintf(fp,"%f %f\n",t_err/num,r_err/num);
   }
 
   
