@@ -37,12 +37,12 @@ def sort_stat(v,save_root_path,res_root_path,i,k,d):
             idx += 1
         res += vi[i]
     res = round(res / 5, 2)
-    if i == 1:
-        print('{} S{} rmse ate: {}m'.format(d, k, res))
-    elif i == 2:
-        print('{} S{} mean rpe: {}%'.format(d, k, res))
-    elif i == 3:
-        print('{} S{} mean rpe: {}deg/100m'.format(d, k, res))
+    # if i == 1:
+    #     print('{} S{} rmse ate: {}m'.format(d, k, res))
+    # elif i == 2:
+    #     print('{} S{} mean rpe: {}%'.format(d, k, res))
+    # elif i == 3:
+    #     print('{} S{} mean rpe: {}deg/100m'.format(d, k, res))
     return res
 
 
@@ -92,7 +92,7 @@ def main(res_root_path, save_root_path):
             total_ate += ate
             total_rpe += rpe
             total_rre += rre
-            print()
+            # print()
 
         print('total_{}_mean_rpe: {}%'.format(d,total_rpe))
         print('total_{}_mean_rre: {}deg/100m'.format(d,total_rre))
