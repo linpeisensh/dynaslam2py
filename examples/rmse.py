@@ -86,8 +86,8 @@ def main(res_root_path, save_root_path):
     total_ds_rre = 0
     for k, v in ad.items():
         ate = sort_stat(v, save_root_path, res_root_path, 1, k, 'ds')
-        rpe = sort_stat(v, save_root_path, res_root_path, 1, k, 'ds')
-        rre = sort_stat(v, save_root_path, res_root_path, 1, k, 'ds')
+        rpe = sort_stat(v, '0', res_root_path, 2, k, 'ds')
+        rre = sort_stat(v, '0', res_root_path, 3, k, 'ds')
         total_ds_ate += ate
         total_ds_rpe += rpe
         total_ds_rre += rre
@@ -102,8 +102,8 @@ def main(res_root_path, save_root_path):
     total_dsr_rre = 0
     for k, v in dd.items():
         ate = sort_stat(v,save_root_path,res_root_path,1,k,'dsr')
-        rpe = sort_stat(v,save_root_path,res_root_path,1,k,'dsr')
-        rre = sort_stat(v,save_root_path,res_root_path,1,k,'dsr')
+        rpe = sort_stat(v,'0',res_root_path,2,k,'dsr')
+        rre = sort_stat(v,'0',res_root_path,3,k,'dsr')
         total_dsr_ate += ate
         total_dsr_rpe += rpe
         total_dsr_rre += rre
@@ -118,8 +118,8 @@ def main(res_root_path, save_root_path):
     total_ORB_rre = 0
     for k, v in dd.items():
         ate = sort_stat(v, save_root_path, res_root_path, 1, k, 'ORB')
-        rpe = sort_stat(v, save_root_path, res_root_path, 1, k, 'ORB')
-        rre = sort_stat(v, save_root_path, res_root_path, 1, k, 'ORB')
+        rpe = sort_stat(v, '0', res_root_path, 2, k, 'ORB')
+        rre = sort_stat(v, '0', res_root_path, 3, k, 'ORB')
         total_ORB_ate += ate
         total_ORB_rpe += rpe
         total_ORB_rre += rre
