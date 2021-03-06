@@ -140,7 +140,7 @@ def main(orb_path, device, data_path, save, sequence):
             else:
                 sptam.track(frame)
 
-            if idx % 5 == 0:
+            if idx % 3 == 0:
                 if idx:
                     c = dseg.dyn_seg_rec(frame, left_image, idx)
                 dseg.updata(left_image, right_image, idx, frame)
@@ -184,7 +184,7 @@ def main(orb_path, device, data_path, save, sequence):
             print('error in frame {}'.format(idx))
             break
     i = 0
-    result_path = 'ro/s{}{}.txt'.format(sequence, i)
+    result_path = 'ro/sd{}{}.txt'.format(sequence, i)
     while True:
         if not os.path.exists(result_path):
             s_flag = save_trajectory(slam.get_trajectory_points(), result_path)
@@ -192,7 +192,7 @@ def main(orb_path, device, data_path, save, sequence):
                 print(result_path)
                 break
         i += 1
-        result_path = 'ro/s{}{}.txt'.format(sequence, i)
+        result_path = 'ro/sd{}{}.txt'.format(sequence, i)
 
     slam.shutdown()
     sptam.stop()
