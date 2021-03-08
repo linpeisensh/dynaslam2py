@@ -426,32 +426,39 @@ bool eval (string result_sha,Mail* mail) {
   
 //  // total errors
 //  vector<errors> total_err;
-   vector<vector<errors>> total_err;
+//   vector<vector<errors>> total_err;
 
   // for all sequences do
   for (int32_t i=0; i<11; i++) {
    
     // file name
-    char file_name[256];
-    sprintf(file_name,"%02d.txt",i);
-    
+    char rfile_name[256];
+    sprintf(rfile_name,"c%02d%d.txt",i,j);
+
     // read ground truth and result poses
     vector<Matrix> poses_gt     = loadPoses(gt_dir + "/" + file_name);
-    vector<Matrix> poses_result = loadPoses(result_dir + "/" + file_name);
-   
+    for (int j; j < 5;j++){
+      vector<Matrix> poses_result = loadPoses(result_dir + "/" + file_name);
+
     // plot status
-    mail->msg("Processing: %s, poses: %d/%d",file_name,poses_result.size(),poses_gt.size());
-    
+    mail->msg("Processing: %s, poses: %d/%d",rfile_name,poses_result.size(),poses_gt.size());
+
     // check for errors
     if (poses_gt.size()==0 || poses_result.size()!=poses_gt.size()) {
       mail->msg("ERROR: Couldn't read (all) poses of: %s", file_name);
       return false;
     }
 
-    // compute sequence errors    
+    // compute sequence errors
     vector<errors> seq_err = calcSequenceErrors(poses_gt,poses_result);
-//    saveSequenceErrors(seq_err,error_dir + "/" + file_name);
-    total_err.push_back(seq_err);
+    saveSequenceErrors(seq_err,error_dir + "/" + rfile_name);
+
+    savePathPlot(poses_gt,poses_result,plot_path_dir + "/" + rfile_name);
+    vector<int32_t> roi = computeRoi(poses_gt,poses_result);
+    plotPathPlot(plot_path_dir,roi,i);
+    }
+
+//    total_err.push_back(seq_err);
     
     // add to total errors
 //    total_err.insert(total_err.end(),seq_err.begin(),seq_err.end());
@@ -472,7 +479,7 @@ bool eval (string result_sha,Mail* mail) {
 //      plotErrorPlots(plot_error_dir,prefix);
 //    }
   }
-  saveStats(total_err,result_dir);
+//  saveStats(total_err,result_dir);
   
   // save + plot total errors + summary statistics
 //  if (total_err.size()>0) {
