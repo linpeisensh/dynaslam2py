@@ -455,10 +455,6 @@ bool eval (string result_sha,Mail* mail) {
     // compute sequence errors
     vector<errors> seq_err = calcSequenceErrors(poses_gt,poses_result);
     saveSequenceErrors(seq_err,error_dir + "/" + rfile_name);
-
-    savePathPlot(poses_gt,poses_result,plot_path_dir + "/" + rfile_name);
-    vector<int32_t> roi = computeRoi(poses_gt,poses_result);
-    plotPathPlot(plot_path_dir,roi,i);
     }
 
 //    total_err.push_back(seq_err);
