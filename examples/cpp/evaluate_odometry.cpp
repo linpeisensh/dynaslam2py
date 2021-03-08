@@ -432,13 +432,16 @@ bool eval (string result_sha,Mail* mail) {
   for (int32_t i=0; i<11; i++) {
    
     // file name
-    char rfile_name[256];
-    sprintf(rfile_name,"c%02d%d.txt",i,j);
+
+    char file_name[256];
+    sprintf(file_name,"%02d.txt",i);
 
     // read ground truth and result poses
     vector<Matrix> poses_gt     = loadPoses(gt_dir + "/" + file_name);
     for (int j; j < 5;j++){
-      vector<Matrix> poses_result = loadPoses(result_dir + "/" + file_name);
+      char rfile_name[256];
+      sprintf(rfile_name,"c%02d%d.txt",i,j);
+      vector<Matrix> poses_result = loadPoses(result_dir + "/" + rfile_name);
 
     // plot status
     mail->msg("Processing: %s, poses: %d/%d",rfile_name,poses_result.size(),poses_gt.size());
