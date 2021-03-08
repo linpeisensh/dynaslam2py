@@ -133,7 +133,7 @@ def main(orb_path, device, data_path, save, sequence):
                 left_mask = c.reshape(dseg.h,dseg.w,1)
                 right_mask = c.reshape(dseg.h,dseg.w,1)
                 if save == '1':
-                    cv.imwrite('./{}/{}.png'.format(sequence,idx), c*255)
+                    cv.imwrite('./{}/'.format(sequence)+'{0:06}.png'.format(idx), c*255)
 
             #
             if left_image is None:
