@@ -64,6 +64,8 @@ def main(res_root_path, save_root_path):
 
     ad = defaultdict(list)
     dd = defaultdict(list)
+    sd = defaultdict(list)
+    sd3 = defaultdict(list)
     cd = defaultdict(list)
 
     for file in sorted(os.listdir(res_root_path)):
@@ -77,6 +79,10 @@ def main(res_root_path, save_root_path):
                     dd[file[1:3]].append((file,ape_stat, rpe_stat, rre_stat))
                 elif file[0] == 'c':
                     cd[file[1:3]].append((file,ape_stat, rpe_stat, rre_stat))
+                elif file[0] == 's':
+                    sd[file[1:3]].append((file, ape_stat, rpe_stat, rre_stat))
+                elif file[0] == 'sd':
+                    sd3[file[1:3]].append((file,ape_stat, rpe_stat, rre_stat))
             except:
                 print('{} error'.format(file))
                 os.remove(file_path)
@@ -100,6 +106,8 @@ def main(res_root_path, save_root_path):
         print()
     print_stat(ad,'DS')
     print_stat(dd,'DSR')
+    print_stat(sd,'DSR')
+    print_stat(sd3,'DSR')
     print_stat(cd,'ORB')
 
 if __name__ == '__main__':
