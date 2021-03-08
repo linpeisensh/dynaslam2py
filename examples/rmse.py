@@ -22,10 +22,11 @@ def get_stat(ape_metric,rpe_metric, rre_metric, file,file_path):
     return ape_stat, rpe_stat, rre_stat
 
 def sort_stat(v,save_root_path,res_root_path,i,k,d):
-    if d == 'DSR' or d == 'DS' or d == 'SD' or d == 'SD3':
-        vres = sorted(v, key=lambda x: x[i])
-    else:
-        vres = sorted(v, key=lambda x: -x[i])
+    # if d == 'DSR' or d == 'DS' or d == 'SD' or d == 'SD3':
+    #     vres = sorted(v, key=lambda x: x[i])
+    # else:
+    #     vres = sorted(v, key=lambda x: -x[i])
+    vres = v
     idx = 0
     res = 0
     for vi in vres[:5]:
