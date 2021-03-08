@@ -383,23 +383,28 @@ void plotErrorPlots (string dir,char* prefix) {
   }
 }
 
-void saveStats (vector<errors> err,string dir) {
+void saveStats (vector<vector<errors>> terr,string dir) {
 
   float t_err = 0;
   float r_err = 0;
 
   // for all errors do => compute sum of t_err, r_err
-  for (vector<errors>::iterator it=err.begin(); it!=err.end(); it++) {
-    t_err += it->t_err;
-    r_err += it->r_err;
+  FILE *fp = fopen((dir + "/stats.txt").c_str(),"w");
+  for (auto err : terr){
+        for (vector<errors>::iterator it=err.begin(); it!=err.end(); it++) {
+        t_err += it->t_err;
+        r_err += it->r_err;
   }
 
-  // open file  
-  FILE *fp = fopen((dir + "/stats.txt").c_str(),"w");
- 
+  // open file
+
+
   // save errors
   float num = err.size();
+  cout << num << endl;
   fprintf(fp,"%f %f\n",t_err/num,r_err/num);
+  }
+
   
   // close file
   fclose(fp);
@@ -419,8 +424,9 @@ bool eval (string result_sha,Mail* mail) {
   system(("mkdir " + plot_path_dir).c_str());
   system(("mkdir " + plot_error_dir).c_str());
   
-  // total errors
-  vector<errors> total_err;
+//  // total errors
+//  vector<errors> total_err;
+   vector<vector<errors>> total_err;
 
   // for all sequences do
   for (int32_t i=0; i<11; i++) {
@@ -431,7 +437,7 @@ bool eval (string result_sha,Mail* mail) {
     
     // read ground truth and result poses
     vector<Matrix> poses_gt     = loadPoses(gt_dir + "/" + file_name);
-    vector<Matrix> poses_result = loadPoses(result_dir + "/data/" + file_name);
+    vector<Matrix> poses_result = loadPoses(result_dir + "/" + file_name);
    
     // plot status
     mail->msg("Processing: %s, poses: %d/%d",file_name,poses_result.size(),poses_gt.size());
@@ -444,35 +450,38 @@ bool eval (string result_sha,Mail* mail) {
 
     // compute sequence errors    
     vector<errors> seq_err = calcSequenceErrors(poses_gt,poses_result);
-    saveSequenceErrors(seq_err,error_dir + "/" + file_name);
+//    saveSequenceErrors(seq_err,error_dir + "/" + file_name);
+    total_err.push_back(seq_err);
     
     // add to total errors
-    total_err.insert(total_err.end(),seq_err.begin(),seq_err.end());
-    
-    // for first half => plot trajectory and compute individual stats
-    if (i<=15) {
-    
-      // save + plot bird's eye view trajectories
-      savePathPlot(poses_gt,poses_result,plot_path_dir + "/" + file_name);
-      vector<int32_t> roi = computeRoi(poses_gt,poses_result);
-      plotPathPlot(plot_path_dir,roi,i);
+//    total_err.insert(total_err.end(),seq_err.begin(),seq_err.end());
 
-      // save + plot individual errors
-      char prefix[16];
-      sprintf(prefix,"%02d",i);
-      saveErrorPlots(seq_err,plot_error_dir,prefix);
-      plotErrorPlots(plot_error_dir,prefix);
-    }
+    
+//    // for first half => plot trajectory and compute individual stats
+//    if (i<=15) {
+//
+//      // save + plot bird's eye view trajectories
+//      savePathPlot(poses_gt,poses_result,plot_path_dir + "/" + file_name);
+//      vector<int32_t> roi = computeRoi(poses_gt,poses_result);
+//      plotPathPlot(plot_path_dir,roi,i);
+//
+//      // save + plot individual errors
+//      char prefix[16];
+//      sprintf(prefix,"%02d",i);
+//      saveErrorPlots(seq_err,plot_error_dir,prefix);
+//      plotErrorPlots(plot_error_dir,prefix);
+//    }
   }
+  saveStats(total_err,result_dir);
   
   // save + plot total errors + summary statistics
-  if (total_err.size()>0) {
+//  if (total_err.size()>0) {
 //    char prefix[16];
 //    sprintf(prefix,"avg");
 //    saveErrorPlots(total_err,plot_error_dir,prefix);
 //    plotErrorPlots(plot_error_dir,prefix);
-    saveStats(total_err,result_dir);
-  }
+//    saveStats(total_err,result_dir);
+//  }
 
   // success
 	return true;
@@ -497,8 +506,8 @@ int32_t main (int32_t argc,char *argv[]) {
 
   // run evaluation
   bool success = eval(result_sha,mail);
-//  if (argc==4) mail->finalize(success,"odometry",result_sha,argv[2]);
-//  else         mail->finalize(success,"odometry",result_sha);
+  if (argc==4) mail->finalize(success,"odometry",result_sha,argv[2]);
+  else         mail->finalize(success,"odometry",result_sha);
 
   // send mail and exit
   delete mail;

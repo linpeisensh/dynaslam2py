@@ -22,7 +22,7 @@ def get_stat(ape_metric,rpe_metric, rre_metric, file,file_path):
     return ape_stat, rpe_stat, rre_stat
 
 def sort_stat(v,save_root_path,res_root_path,i,k,d):
-    if d == 'DSR' or d == 'DS':
+    if d == 'DSR' or d == 'DS' or d == 'SD' or d == 'SD3':
         vres = sorted(v, key=lambda x: x[i])
     else:
         vres = sorted(v, key=lambda x: -x[i])
@@ -106,8 +106,8 @@ def main(res_root_path, save_root_path):
         print()
     print_stat(ad,'DS')
     print_stat(dd,'DSR')
-    print_stat(sd,'DSR')
-    print_stat(sd3,'DSR')
+    print_stat(sd,'SD')
+    print_stat(sd3,'SD3')
     print_stat(cd,'ORB')
 
 if __name__ == '__main__':
