@@ -133,7 +133,7 @@ def main(orb_path, device, data_path, save, sequence):
                 left_mask = c.reshape(dseg.h,dseg.w,1)
                 right_mask = c.reshape(dseg.h,dseg.w,1)
                 if save == '1':
-                    cv.imwrite('./{}/{}.png'.format(sequence,idx), c*255)
+                    cv.imwrite('./{}/'.format(sequence)+'{0:06}.png'.format(idx), c*255)
 
             #
             if left_image is None:
@@ -164,7 +164,7 @@ def main(orb_path, device, data_path, save, sequence):
             print('error in frame {}'.format(idx))
             break
     i = 0
-    result_path = 'ro3/d{}{}.txt'.format(sequence,i)
+    result_path = 'r84/d{}{}.txt'.format(sequence,i)
     while True:
         if not os.path.exists(result_path):
             s_flag = save_trajectory(slam.get_trajectory_points(), result_path)
@@ -172,7 +172,7 @@ def main(orb_path, device, data_path, save, sequence):
                 print(result_path)
                 break
         i += 1
-        result_path = 'ro3/d{}{}.txt'.format(sequence, i)
+        result_path = 'r84/d{}{}.txt'.format(sequence, i)
 
     slam.shutdown()
     slam0.shutdown()
