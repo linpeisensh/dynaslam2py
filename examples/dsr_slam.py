@@ -87,6 +87,8 @@ def main(orb_path, device, data_path, save, sequence):
         os.mkdir(dpath)
         if os.path.exists(opath):
             save = '11'
+        else:
+            os.mkdir(opath)
 
     times_track = [0 for _ in range(num_images)]
     times = [0 for _ in range(num_images)]
