@@ -166,9 +166,9 @@ class DynaSeg():
         masks = []
         self.omasks = np.ones((self.h, self.w),dtype=np.uint8)
         for i in range(nl):
+            mask = omasks[i].squeeze()
+            self.omasks[mask] = 0
             if labels[i] in self.potential_moving_labels:
-                mask = omasks[i].squeeze()
-                self.omasks[mask] = 0
                 mask = mask.astype(np.uint8)
                 mask = cv.dilate(mask, self.kernel)
                 masks.append(mask)
@@ -375,9 +375,9 @@ def norm(error, imgpts):
     rm = merror[rma]
     mm = merror[mma]
     if len(lm):
-        ge[lma] = lm > np.percentile(lm, 93)
+        ge[lma] = lm > np.percentile(lm, 96)
     if len(rm):
-        ge[rma] = rm > np.percentile(rm, 93)
+        ge[rma] = rm > np.percentile(rm, 96)
     if len(mm):
-        ge[mma] = mm > np.percentile(mm, 48)
+        ge[mma] = mm > np.percentile(mm, 49)
     return ge
