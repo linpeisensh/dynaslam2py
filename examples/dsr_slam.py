@@ -80,10 +80,14 @@ def main(orb_path, device, data_path, save, sequence):
     slam0.initialize()
 
     if save == '1':
-        path = './{}'.format(sequence)
-        if os.path.exists(path):
-            shutil.rmtree(path)
-        os.mkdir(path)
+        dpath = 'dmask/d{}/'.format(sequence)
+        opath = 'omask/o{}/'.format(sequence)
+        if os.path.exists(dpath):
+            shutil.rmtree(dpath)
+        os.mkdir(dpath)
+        if os.path.exists(opath):
+            shutil.rmtree(opath)
+        os.mkdir(opath)
 
     times_track = [0 for _ in range(num_images)]
     times = [0 for _ in range(num_images)]
