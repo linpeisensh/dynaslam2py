@@ -375,9 +375,9 @@ def norm(error, imgpts):
     rm = merror[rma]
     mm = merror[mma]
     if len(lm):
-        ge[lma] = lm > np.percentile(lm, 96)
+        ge[lma] = lm > np.percentile(lm, 93)
     if len(rm):
-        ge[rma] = rm > np.percentile(rm, 96)
+        ge[rma] = rm > np.percentile(rm, 93)
     if len(mm):
-        ge[mma] = mm > np.percentile(mm, 49)
+        ge[mma] = mm > np.percentile(mm, 63)
     return ge
