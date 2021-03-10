@@ -167,9 +167,9 @@ class DynaSeg():
         self.omasks = np.ones((self.h, self.w),dtype=np.uint8)
         for i in range(nl):
             if labels[i] in self.potential_moving_labels:
-                mask = omasks[i]
+                mask = omasks[i].squeeze()
                 self.omasks[mask] = 0
-                mask = mask.squeeze().astype(np.uint8)
+                mask = mask.astype(np.uint8)
                 mask = cv.dilate(mask, self.kernel)
                 masks.append(mask)
         res = []
