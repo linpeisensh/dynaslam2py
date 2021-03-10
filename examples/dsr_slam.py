@@ -86,8 +86,7 @@ def main(orb_path, device, data_path, save, sequence):
             shutil.rmtree(dpath)
         os.mkdir(dpath)
         if os.path.exists(opath):
-            shutil.rmtree(opath)
-        os.mkdir(opath)
+            save = '11'
 
     times_track = [0 for _ in range(num_images)]
     times = [0 for _ in range(num_images)]
@@ -139,6 +138,8 @@ def main(orb_path, device, data_path, save, sequence):
                 if save == '1':
                     cv.imwrite('dmask/d{}/'.format(sequence)+'{0:06}.png'.format(idx), c*255)
                     cv.imwrite('omask/o{}/'.format(sequence)+'{0:06}.png'.format(idx), dseg.omasks*255)
+                elif save == '11':
+                    cv.imwrite('dmask/d{}/'.format(sequence) + '{0:06}.png'.format(idx), c * 255)
 
 
             #
