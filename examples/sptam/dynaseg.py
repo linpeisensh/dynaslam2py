@@ -361,9 +361,9 @@ def get_IOU(m1, m2):
 
 def norm(error, imgpts):
     merror = np.array(error)
-    lma = imgpts[:, 0] < 500
+    lma = imgpts[:, 0] < 400
 
-    rma = imgpts[:, 0] > 740
+    rma = imgpts[:, 0] > 840
 
     mma = np.logical_and((~lma), (~rma))
 
@@ -372,9 +372,9 @@ def norm(error, imgpts):
     rm = merror[rma]
     mm = merror[mma]
     if len(lm):
-        ge[lma] = lm > np.percentile(lm, 90)
+        ge[lma] = lm > np.percentile(lm, 89)
     if len(rm):
-        ge[rma] = rm > np.percentile(rm, 90)
+        ge[rma] = rm > np.percentile(rm, 89)
     if len(mm):
         ge[mma] = mm > np.percentile(mm, 75)
     return ge
