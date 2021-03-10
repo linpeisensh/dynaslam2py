@@ -80,8 +80,8 @@ def main(orb_path, device, data_path, save, sequence):
     slam0.initialize()
 
     if save == '1':
-        dpath = 'dmask/d{}/'.format(sequence)
-        opath = 'omask/o{}/'.format(sequence)
+        dpath = 'mask/d{}/'.format(sequence)
+        opath = 'mask/o{}/'.format(sequence)
         if os.path.exists(dpath):
             shutil.rmtree(dpath)
         os.mkdir(dpath)
@@ -136,10 +136,10 @@ def main(orb_path, device, data_path, save, sequence):
                 left_mask = c.reshape(dseg.h,dseg.w,1)
                 right_mask = c.reshape(dseg.h,dseg.w,1)
                 if save == '1':
-                    cv.imwrite('dmask/d{}/'.format(sequence)+'{0:06}.png'.format(idx), c*255)
-                    cv.imwrite('omask/o{}/'.format(sequence)+'{0:06}.png'.format(idx), dseg.omasks*255)
+                    cv.imwrite(os.path.join(dpath,'{0:06}.png'.format(idx)), c*255)
+                    cv.imwrite(os.path.join(opath,'{0:06}.png'.format(idx)), dseg.omasks*255)
                 elif save == '11':
-                    cv.imwrite('dmask/d{}/'.format(sequence) + '{0:06}.png'.format(idx), c * 255)
+                    cv.imwrite(os.path.join(dpath,'{0:06}.png'.format(idx)), c*255)
 
 
             #
