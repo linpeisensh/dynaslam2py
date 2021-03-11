@@ -196,7 +196,7 @@ class DynaSeg():
         for i in range(nm):
             if nu_mask[i]:
                 self.obj.append([masks[i].astype(np.bool), 1, 0, idx,-1])
-        self.track_rate(idx)
+        # self.track_rate(idx)
         return
 
     def track_rate(self,idx):
@@ -246,7 +246,7 @@ class DynaSeg():
                 x, y = round(nmp[1]), round(nmp[0])
                 if 0 <= x < self.h and 0 <= y < self.w:
                     nm[x, y] = 1
-            if np.sum(nm) > 900:
+            if np.sum(nm) > 500:
                 nm = cv.erode(cv.dilate(nm, self.kernel), self.kernel)
                 self.obj[i][0] = nm.astype(np.bool)
             else:

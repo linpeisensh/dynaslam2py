@@ -44,8 +44,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/sptam/dynaseg.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="270">
-              <caret line="386" column="13" lean-forward="true" selection-start-line="386" selection-start-column="13" selection-end-line="386" selection-end-column="13" />
+            <state relative-caret-position="489">
+              <caret line="223" column="31" selection-start-line="223" selection-start-column="31" selection-end-line="223" selection-end-column="31" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
               </folding>
@@ -347,12 +347,12 @@
       <option name="presentableId" value="Default" />
       <updated>1613725298668</updated>
       <workItem from="1613725300773" duration="103243000" />
-      <workItem from="1614841927460" duration="62089000" />
+      <workItem from="1614841927460" duration="63129000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="165332000" />
+    <option name="totallyTimeSpent" value="166372000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1376" height="744" extended-state="6" />
@@ -633,8 +633,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/sptam/dynaseg.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="386" column="13" lean-forward="true" selection-start-line="386" selection-start-column="13" selection-end-line="386" selection-end-column="13" />
+        <state relative-caret-position="489">
+          <caret line="223" column="31" selection-start-line="223" selection-start-column="31" selection-end-line="223" selection-end-column="31" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
           </folding>
