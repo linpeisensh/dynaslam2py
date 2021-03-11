@@ -45,7 +45,7 @@
         <entry file="file://$PROJECT_DIR$/sptam/dynaseg.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="308">
-              <caret line="381" column="43" selection-start-line="381" selection-start-column="41" selection-end-line="381" selection-end-column="43" />
+              <caret line="381" column="43" selection-start-line="381" selection-start-column="43" selection-end-line="381" selection-end-column="43" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
               </folding>
@@ -161,8 +161,8 @@
         <option value="$PROJECT_DIR$/rmse.py" />
         <option value="$PROJECT_DIR$/ds_slam.py" />
         <option value="$PROJECT_DIR$/dsr_slam.py" />
-        <option value="$PROJECT_DIR$/sptam/dynaseg.py" />
         <option value="$PROJECT_DIR$/orbslam_stereo_kittim.py" />
+        <option value="$PROJECT_DIR$/sptam/dynaseg.py" />
       </list>
     </option>
   </component>
@@ -347,12 +347,12 @@
       <option name="presentableId" value="Default" />
       <updated>1613725298668</updated>
       <workItem from="1613725300773" duration="103243000" />
-      <workItem from="1614841927460" duration="55935000" />
+      <workItem from="1614841927460" duration="56551000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="159178000" />
+    <option name="totallyTimeSpent" value="159794000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1376" height="744" extended-state="6" />
@@ -634,7 +634,7 @@
     <entry file="file://$PROJECT_DIR$/sptam/dynaseg.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="308">
-          <caret line="381" column="43" selection-start-line="381" selection-start-column="41" selection-end-line="381" selection-end-column="43" />
+          <caret line="381" column="43" selection-start-line="381" selection-start-column="43" selection-end-line="381" selection-end-column="43" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
           </folding>
