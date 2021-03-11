@@ -277,7 +277,7 @@ class DynaSeg():
         for i in range(nobj):
             if idx - self.obj[i][3] >= 90:
                 res[i] = False
-            elif self.obj[i][2] / self.obj[i][1] >= self.dyn_thd or (self.obj[i][2] >= 7 and self.obj[i][2] / self.obj[i][1] >= self.dyn_thd/3):  #
+            elif self.obj[i][2] / self.obj[i][1] >= self.dyn_thd or self.obj[i][2] >= 7:  #
                 c[self.obj[i][0]] = 0
             elif cnd[i] and idx == self.obj[i][3]:
                 self.obj[i][2] = max(0, self.obj[i][2] - 0.5)
