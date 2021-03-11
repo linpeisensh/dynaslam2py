@@ -110,7 +110,7 @@ def main(orb_path, device, data_path, save, sequence):
     )
 
     if save == '1':
-        path = './{}'.format(sequence)
+        path = 'mask/{}'.format(sequence)
         if os.path.exists(path):
             shutil.rmtree(path)
         os.mkdir(path)
@@ -151,7 +151,7 @@ def main(orb_path, device, data_path, save, sequence):
                 left_mask = c.reshape(dseg.h,dseg.w,1)
                 right_mask = c.reshape(dseg.h,dseg.w,1)
                 if save == '1':
-                    cv.imwrite('./{}/{}.png'.format(sequence,idx), c*255)
+                    cv.imwrite('mask/{}/{}.png'.format(sequence,idx), c*255)
             else:
                 left_mask = np.ones((dseg.h,dseg.w,1),dtype=np.uint8)
                 right_mask = np.ones((dseg.h,dseg.w,1),dtype=np.uint8)
