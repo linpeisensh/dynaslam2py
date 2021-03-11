@@ -236,6 +236,7 @@ class DynaSeg():
         ge, P = self.projection(frame, frame_gray)
 
         nobj = len(self.obj)
+        res = [True] * nobj
         for i in range(nobj):
             cm = np.where(self.obj[i][0] == True)
             cmps = np.array(list(zip(cm[1], cm[0]))).astype(np.float32)
@@ -245,10 +246,13 @@ class DynaSeg():
                 x, y = round(nmp[1]), round(nmp[0])
                 if 0 <= x < self.h and 0 <= y < self.w:
                     nm[x, y] = 1
-            nm = cv.erode(cv.dilate(nm, self.kernel), self.kernel)
-            self.obj[i][0] = nm.astype(np.bool)
+            if np.sum(nm) > 900:
+                nm = cv.erode(cv.dilate(nm, self.kernel), self.kernel)
+                self.obj[i][0] = nm.astype(np.bool)
+            else:
+                res[i] = False
 
-        self.obj = list(self.obj)
+        self.obj = list(self.obj[res])
         self.iou(iml, idx)
         nobj = len(self.obj)
         cnd = [True] * nobj
@@ -271,9 +275,9 @@ class DynaSeg():
         res = [True] * nobj
         print('num of objs', nobj)
         for i in range(nobj):
-            if idx - self.obj[i][3] != 0:
+            if idx - self.obj[i][3] >= 90:
                 res[i] = False
-            elif self.obj[i][2] / self.obj[i][1] >= self.dyn_thd or self.obj[i][2] >= 3:  #
+            elif self.obj[i][2] / self.obj[i][1] >= self.dyn_thd or (self.obj[i][2] >= 10 and self.obj[i][2] / self.obj[i][1] >= self.dyn_thd/3):  #
                 c[self.obj[i][0]] = 0
             elif cnd[i]:
                 self.obj[i][2] = max(0, self.obj[i][2] - 0.5)
