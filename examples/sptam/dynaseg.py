@@ -273,7 +273,7 @@ class DynaSeg():
         for i in range(nobj):
             if idx - self.obj[i][3] != 0:
                 res[i] = False
-            elif self.obj[i][2] / self.obj[i][1] >= self.dyn_thd or self.obj[i][2] >= 7:  #
+            elif self.obj[i][2] / self.obj[i][1] >= self.dyn_thd or self.obj[i][2] >= 3:  #
                 c[self.obj[i][0]] = 0
             elif cnd[i]:
                 self.obj[i][2] = max(0, self.obj[i][2] - 0.5)
@@ -379,5 +379,5 @@ def norm(error, imgpts):
     if len(rm):
         ge[rma] = rm > np.percentile(rm, 93)
     if len(mm):
-        ge[mma] = mm > np.percentile(mm, 63)
+        ge[mma] = mm > np.percentile(mm, 78)
     return ge
