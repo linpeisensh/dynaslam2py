@@ -246,7 +246,7 @@ class DynaSeg():
                 x, y = round(nmp[1]), round(nmp[0])
                 if 0 <= x < self.h and 0 <= y < self.w:
                     nm[x, y] = 1
-            if np.sum(nm) > 500:
+            if np.sum(nm) > 300:
                 nm = cv.erode(cv.dilate(nm, self.kernel), self.kernel)
                 self.obj[i][0] = nm.astype(np.bool)
             else:
@@ -383,5 +383,5 @@ def norm(error, imgpts):
     if len(rm):
         ge[rma] = rm > np.percentile(rm, 93)
     if len(mm):
-        ge[mma] = mm > np.percentile(mm, 63)
+        ge[mma] = mm > np.percentile(mm, 62)
     return ge
