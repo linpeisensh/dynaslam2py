@@ -80,7 +80,7 @@ def main(orb_path, device, data_path, save, sequence):
     slam0.initialize()
 
     if save == '1':
-        dpath = 'mask/d{}/'.format(sequence)
+        dpath = 'mask/{}/'.format(sequence)
         opath = 'mask/o{}/'.format(sequence)
         if os.path.exists(dpath):
             shutil.rmtree(dpath)
