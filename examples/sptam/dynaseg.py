@@ -246,7 +246,7 @@ class DynaSeg():
                 x, y = round(nmp[1]), round(nmp[0])
                 if 0 <= x < self.h and 0 <= y < self.w:
                     nm[x, y] = 1
-            if np.sum(nm) > 300:
+            if np.sum(nm) > 465:
                 nm = cv.erode(cv.dilate(nm, self.kernel), self.kernel)
                 self.obj[i][0] = nm.astype(np.bool)
             else:
