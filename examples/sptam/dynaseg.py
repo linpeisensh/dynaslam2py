@@ -196,7 +196,7 @@ class DynaSeg():
         for i in range(nm):
             if nu_mask[i]:
                 self.obj.append([masks[i].astype(np.bool), 1, 0, idx,-1])
-        # self.track_rate(idx)
+        self.track_rate(idx)
         return
 
     def track_rate(self,idx):
@@ -236,7 +236,6 @@ class DynaSeg():
         ge, P = self.projection(frame, frame_gray)
 
         nobj = len(self.obj)
-        res = [True] * nobj
         for i in range(nobj):
             cm = np.where(self.obj[i][0] == True)
             cmps = np.array(list(zip(cm[1], cm[0]))).astype(np.float32)
@@ -246,13 +245,10 @@ class DynaSeg():
                 x, y = round(nmp[1]), round(nmp[0])
                 if 0 <= x < self.h and 0 <= y < self.w:
                     nm[x, y] = 1
-            if np.sum(nm) > 900:
-                nm = cv.erode(cv.dilate(nm, self.kernel), self.kernel)
-                self.obj[i][0] = nm.astype(np.bool)
-            else:
-                res[i] = False
+            nm = cv.erode(cv.dilate(nm, self.kernel), self.kernel)
+            self.obj[i][0] = nm.astype(np.bool)
 
-        self.obj = list(self.obj[res])
+        self.obj = list(self.obj)
         self.iou(iml, idx)
         nobj = len(self.obj)
         cnd = [True] * nobj
@@ -275,11 +271,11 @@ class DynaSeg():
         res = [True] * nobj
         print('num of objs', nobj)
         for i in range(nobj):
-            if idx - self.obj[i][3] >= 90:
+            if idx - self.obj[i][3] != 0:
                 res[i] = False
-            elif self.obj[i][2] / self.obj[i][1] >= self.dyn_thd or self.obj[i][2] >= 7:  #
+            elif self.obj[i][2] / self.obj[i][1] >= self.dyn_thd or self.obj[i][2] >= 5:  #
                 c[self.obj[i][0]] = 0
-            elif cnd[i] and idx == self.obj[i][3]:
+            elif cnd[i]:
                 self.obj[i][2] = max(0, self.obj[i][2] - 0.5)
         self.obj = np.array(self.obj, dtype=object)
         self.obj = self.obj[res]
@@ -383,5 +379,5 @@ def norm(error, imgpts):
     if len(rm):
         ge[rma] = rm > np.percentile(rm, 93)
     if len(mm):
-        ge[mma] = mm > np.percentile(mm, 62)
+        ge[mma] = mm > np.percentile(mm, 78)
     return ge
