@@ -24,7 +24,7 @@ class DynaSeg():
         self.dist = dist
         self.kernel = kernel
 
-        self.potential_moving_labels = set(range(1,5))
+        self.potential_moving_labels = {1,2,3,4,6,8}
 
         self.obj = np.array([])
         self.IOU_thd = 0.0
@@ -379,5 +379,5 @@ def norm(error, imgpts):
     if len(rm):
         ge[rma] = rm > np.percentile(rm, 93)
     if len(mm):
-        ge[mma] = mm > np.percentile(mm, 78)
+        ge[mma] = mm > np.percentile(mm, 81)
     return ge
