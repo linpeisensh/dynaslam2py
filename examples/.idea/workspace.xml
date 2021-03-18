@@ -20,32 +20,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/dsr_slam.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="185">
-              <caret line="175" column="22" selection-start-line="175" selection-start-column="22" selection-end-line="175" selection-end-column="22" />
-              <folding>
-                <element signature="e#23#33#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/orbslam_stereo_kitti.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="296">
-              <caret line="99" lean-forward="true" selection-start-line="99" selection-end-line="99" />
-              <folding>
-                <element signature="e#23#33#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/ds_slam.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="451">
-              <caret line="172" column="21" lean-forward="true" selection-start-line="172" selection-start-column="21" selection-end-line="172" selection-end-column="21" />
+            <state relative-caret-position="81">
+              <caret line="33" column="81" selection-end-line="235" />
               <folding>
                 <element signature="e#23#33#0" expanded="true" />
               </folding>
@@ -54,34 +30,10 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/rmse.py">
+        <entry file="file://$PROJECT_DIR$/PD_SLAM.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="304">
-              <caret line="33" column="33" lean-forward="true" selection-start-line="33" selection-start-column="33" selection-end-line="33" selection-end-column="33" />
-              <folding>
-                <element signature="e#0#9#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/sptam/dynaseg.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="238">
-              <caret line="26" column="52" lean-forward="true" selection-start-line="26" selection-start-column="52" selection-end-line="26" selection-end-column="52" />
-              <folding>
-                <element signature="e#0#18#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/orbslam_stereo_kittim.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2337">
-              <caret line="150" column="49" selection-start-line="150" selection-start-column="49" selection-end-line="150" selection-end-column="49" />
+            <state relative-caret-position="355">
+              <caret line="132" column="26" selection-start-line="132" selection-start-column="26" selection-end-line="132" selection-end-column="26" />
               <folding>
                 <element signature="e#23#33#0" expanded="true" />
               </folding>
@@ -90,12 +42,36 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/script.py">
+        <entry file="file://$PROJECT_DIR$/PDSeg.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="190">
-              <caret line="10" column="1" selection-start-line="10" selection-start-column="1" selection-end-line="10" selection-end-column="1" />
+            <state relative-caret-position="95">
+              <caret line="5" column="50" selection-start-line="5" selection-start-column="50" selection-end-line="5" selection-end-column="50" />
               <folding>
-                <element signature="e#957#973#0" expanded="true" />
+                <element signature="e#0#16#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/orbslam_stereo_kitti.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="416">
+              <caret line="98" column="17" selection-start-line="98" selection-start-column="17" selection-end-line="98" selection-end-column="17" />
+              <folding>
+                <element signature="e#23#33#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/sptam/dynaseg.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="176">
+              <caret line="162" column="14" selection-start-line="162" selection-start-column="8" selection-end-line="162" selection-end-column="14" />
+              <folding>
+                <element signature="e#0#18#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -112,14 +88,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>mail</find>
-      <find>total_err</find>
-      <find>eval</find>
-      <find>error_dir</find>
-      <find>saveSequenceErrors</find>
-      <find>sqrt</find>
-      <find>left_mask</find>
-      <find>Stats</find>
       <find>saveStats</find>
       <find>calcSequenceErrors</find>
       <find>num_lengths</find>
@@ -137,11 +105,19 @@
       <find>setting</find>
       <find>SEP</find>
       <find>line</find>
-      <find>DSR</find>
       <find>load</find>
       <find>track_obj</find>
       <find>track_rate</find>
       <find>save</find>
+      <find>load_images</find>
+      <find>traceback</find>
+      <find>except</find>
+      <find>self.config</find>
+      <find>dataset</find>
+      <find>DSR</find>
+      <find>dseg</find>
+      <find>slam0</find>
+      <find>omasks</find>
     </findStrings>
     <replaceStrings>
       <replace>cv</replace>
@@ -159,6 +135,8 @@
       <replace>'ds'</replace>
       <replace>'ORB'</replace>
       <replace>_{}</replace>
+      <replace>PD</replace>
+      <replace>pdseg</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -184,13 +162,15 @@
         <option value="$PROJECT_DIR$/script.py" />
         <option value="$PROJECT_DIR$/orbslam_stereo_kittim.py" />
         <option value="$PROJECT_DIR$/sptam/dynaseg.py" />
-        <option value="$PROJECT_DIR$/dsr_slam.py" />
         <option value="$PROJECT_DIR$/ds_slam.py" />
         <option value="$PROJECT_DIR$/rmse.py" />
+        <option value="$PROJECT_DIR$/dsr_slam.py" />
+        <option value="$PROJECT_DIR$/PDSeg.py" />
+        <option value="$PROJECT_DIR$/PD_SLAM.py" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds" extendedState="7">
     <option name="x" value="-99" />
     <option name="width" value="762" />
     <option name="height" value="710" />
@@ -201,7 +181,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -218,11 +197,12 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="D:/day2" />
+    <property name="last_opened_file_path" value="D:/SNE-RoadSeg" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
@@ -372,18 +352,20 @@
       <updated>1613725298668</updated>
       <workItem from="1613725300773" duration="103243000" />
       <workItem from="1614841927460" duration="68251000" />
-      <workItem from="1615560087248" duration="7657000" />
+      <workItem from="1615560087248" duration="9459000" />
+      <workItem from="1615900038802" duration="8195000" />
+      <workItem from="1616093396454" duration="2862000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="179151000" />
+    <option name="totallyTimeSpent" value="192010000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1376" height="744" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.21656536" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.22264437" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -616,40 +598,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/sptam/dynaseg.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="26" column="52" lean-forward="true" selection-start-line="26" selection-start-column="52" selection-end-line="26" selection-end-column="52" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dsr_slam.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="185">
-          <caret line="175" column="22" selection-start-line="175" selection-start-column="22" selection-end-line="175" selection-end-column="22" />
-          <folding>
-            <element signature="e#23#33#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/orbslam_stereo_kitti.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="296">
-          <caret line="99" lean-forward="true" selection-start-line="99" selection-end-line="99" />
-          <folding>
-            <element signature="e#23#33#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/ds_slam.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="451">
-          <caret line="172" column="21" lean-forward="true" selection-start-line="172" selection-start-column="21" selection-end-line="172" selection-end-column="21" />
+        <state relative-caret-position="2888">
+          <caret line="172" column="21" selection-start-line="172" selection-start-column="21" selection-end-line="172" selection-end-column="21" />
           <folding>
             <element signature="e#23#33#0" expanded="true" />
           </folding>
@@ -658,10 +610,60 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/rmse.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="304">
-          <caret line="33" column="33" lean-forward="true" selection-start-line="33" selection-start-column="33" selection-end-line="33" selection-end-column="33" />
+        <state relative-caret-position="380">
+          <caret line="27" column="45" selection-start-line="27" selection-start-column="45" selection-end-line="27" selection-end-column="45" />
           <folding>
             <element signature="e#0#9#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/PDSeg.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="95">
+          <caret line="5" column="50" selection-start-line="5" selection-start-column="50" selection-end-line="5" selection-end-column="50" />
+          <folding>
+            <element signature="e#0#16#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dsr_slam.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="81">
+          <caret line="33" column="81" selection-end-line="235" />
+          <folding>
+            <element signature="e#23#33#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/orbslam_stereo_kitti.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="416">
+          <caret line="98" column="17" selection-start-line="98" selection-start-column="17" selection-end-line="98" selection-end-column="17" />
+          <folding>
+            <element signature="e#23#33#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sptam/dynaseg.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="176">
+          <caret line="162" column="14" selection-start-line="162" selection-start-column="8" selection-end-line="162" selection-end-column="14" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/PD_SLAM.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="355">
+          <caret line="132" column="26" selection-start-line="132" selection-start-column="26" selection-end-line="132" selection-end-column="26" />
+          <folding>
+            <element signature="e#23#33#0" expanded="true" />
           </folding>
         </state>
       </provider>
