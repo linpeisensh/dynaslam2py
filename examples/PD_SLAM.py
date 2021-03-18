@@ -89,7 +89,6 @@ def main(orb_path, device, data_path, save, sequence):
         print('{}. frame'.format(idx))
         try:
             c = pdseg.pd_seg(left_image,prob_image)
-            c = cv.dilate(c,kernel)
             left_mask = c.reshape(pdseg.h,pdseg.w,1)
             right_mask = c.reshape(pdseg.h,pdseg.w,1)
             if save == '1':

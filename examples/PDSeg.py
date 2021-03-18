@@ -3,10 +3,20 @@ import numpy as np
 
 
 class PDSeg():
-    def __init__(self, iml, coco_demo, disp_path, kernel):
-        self.coco_demo = coco_demo
-        self.disp_path = disp_path
+    def __init__(self, iml, coco, depth_path, kernel):
+        self.coco = coco
+        self.depth_path = depth_path
         self.h, self.w = iml.shape[:2]
+
+        self.obj = np.array([])
+        self.sides_moving_labels = {1,2}
+        self.pot_moving_labels = {1,2,3,4,6,8}
+        self.old_gray = cv.cvtColor(iml, cv.COLOR_BGR2GRAY)
+
+        self.kernel = kernel
+        self.lk_params = dict(winSize=(15, 15),
+                     maxLevel=2,
+                     criteria=(cv.TERM_CRITERIA_EPS | cv.TERM_CRITERIA_COUNT, 10, 0.03))
 
     def pd_seg(self,iml,prob_map):
         er = prob_map[..., 0].copy()
@@ -14,12 +24,12 @@ class PDSeg():
         er[er >= 128] = 255
 
         h, w = iml.shape[:2]
-        a = self.coco_demo.compute_prediction(iml)
-        top = self.coco_demo.select_top_predictions(a)
+        a = self.coco.compute_prediction(iml)
+        top = self.coco.select_top_predictions(a)
         masks = top.get_field("mask").numpy()
         labels = top.get_field("labels").numpy()
 
-        c = np.zeros((h, w), dtype=np.uint8)
+        c = np.ones((self.h, self.w),dtype=np.uint8)
         for i in range(len(masks)):
             if labels[i] in {1, 2, 3, 4, 6, 8}:
                 mask = masks[i].squeeze()
@@ -36,10 +46,110 @@ class PDSeg():
                 if (mi != hw or ma != hw):
                     if labels[i] in {1, 2}:
                         if abs(xy2 - mi) <= (xy2 - xy1) or abs(xy1 - ma) <= (xy2 - xy1):
-                            c[mask] = 255
+                            c[mask] = 0
                     if xy1 >= mi and xy2 <= ma:
-                        c[mask] = 255
+                        c[mask] = 0
         return c
+
+    def pd_seg_rec(self,iml,prob_map,idx):
+        er = prob_map[..., 0].copy()
+        er[er < 128] = 0
+        er[er >= 128] = 255
+
+        frame_gray = cv.cvtColor(iml, cv.COLOR_BGR2GRAY)
+        nobj = len(self.obj)
+        for i in range(nobj):
+            cm = np.where(self.obj[i][0] == True)
+            cmps = np.array(list(zip(cm[1], cm[0]))).astype(np.float32)
+            nmps, st, err = cv.calcOpticalFlowPyrLK(self.old_gray, frame_gray, cmps, None, **self.lk_params)
+            nm = np.zeros_like(self.obj[i][0], dtype=np.uint8)
+            for nmp in nmps:
+                x, y = round(nmp[1]), round(nmp[0])
+                if 0 <= x < self.h and 0 <= y < self.w:
+                    nm[x, y] = 1
+            nm = cv.erode(cv.dilate(nm, self.kernel), self.kernel)
+            self.obj[i][0] = nm.astype(np.bool)
+
+        self.obj = list(self.obj)
+        self.track_obj(iml, idx)
+
+        nobj = len(self.obj)
+
+        for i in range(nobj):
+            box = self.obj[i][5]
+            x1, y1, x2, y2 = map(int, box)
+            if 2 * (y2 - y1) > x2 - x1:
+                mi, ma = self.get_max_min_idx(er, self.w, y2)
+                xy1, xy2 = x1, x2
+                hw = self.w // 2
+            else:
+                mi, ma = self.get_max_min_idx(er, self.h, x2)
+                xy1, xy2 = y1, y2
+                hw = self.h // 2
+            if (mi != hw or ma != hw):
+                if self.obj[i][4] in {1, 2}:
+                    if abs(xy2 - mi) <= (xy2 - xy1) or abs(xy1 - ma) <= (xy2 - xy1) or (xy1 >= mi and xy2 <= ma):
+                        self.obj[i][2] += 1
+                elif xy1 >= mi and xy2 <= ma:
+                    self.obj[i][2] += 1
+        c = np.ones((self.h, self.w),dtype=np.uint8)
+        res = [True] * nobj
+        print('num of objs', nobj)
+        for i in range(nobj):
+            if idx - self.obj[i][3] != 0:
+                res[i] = False
+            elif self.obj[i][2] / self.obj[i][1] >= 0.6 or self.obj[i][2] >= 5:  #
+                c[self.obj[i][0]] = 0
+            else:
+                self.obj[i][2] = max(0, self.obj[i][2] - 0.5)
+        self.obj = np.array(self.obj, dtype=object)
+        self.obj = self.obj[res]
+        for obj in self.obj:
+            print('a: {}, d: {}'.format(obj[1], obj[2]))
+        self.old_gray = frame_gray.copy()
+        return c
+    
+    def track_obj(self, iml, idx):
+        image = iml.astype(np.uint8)
+        prediction = self.coco.compute_prediction(image)
+        top = self.coco.select_top_predictions(prediction)
+        omasks = top.get_field("mask").numpy()
+        labels = list(map(int, top.get_field("labels")))
+        nl = len(labels)
+        masks = []
+        self.omasks = np.ones((self.h, self.w), dtype=np.uint8)
+        for i in range(nl):
+            mask = omasks[i].squeeze()
+            self.omasks[mask] = 0
+            if labels[i] in self.pot_moving_labels:
+                mask = mask.astype(np.uint8)
+                masks.append([mask,labels[i],top.bbox[i]])
+        res = []
+        nc = len(self.obj)
+        nm = len(masks)
+        for i in range(nm):
+            for j in range(nc):
+                cIOU = get_IOU(masks[i][0], self.obj[j][0])
+                res.append((cIOU, j, i, masks[i][1],masks[i][2]))
+        nu_obj = [True] * nc
+        nu_mask = [True] * nm
+        res.sort(key=lambda x: -x[0])
+        for x in res:
+            if nu_obj[x[1]] and nu_mask[x[2]]:
+                if x[0] > 0 and x[3] == self.obj[x[1]][4]:
+                    self.obj[x[1]][0] = masks[x[2]][0].astype(np.bool)
+                    self.obj[x[1]][1] += 1
+                    self.obj[x[1]][3] = idx
+                    self.obj[x[1]][5] = x[4]
+                    nu_obj[x[1]] = False
+                    nu_mask[x[2]] = False
+                else:
+                    break
+        for i in range(nm):
+            if nu_mask[i]:
+                self.obj.append([masks[i][0].astype(np.bool), 1, 0, idx, masks[i][1],masks[i][2]]) # mask, appear, dyn, idx, label, box
+        # self.track_rate(idx)
+        return
 
     def get_max_min_idx(self, er, cr, xy):
         fl, fr = 0, 0
@@ -71,3 +181,20 @@ class PDSeg():
             if l >= r or (fl and fr):
                 break
         return l, r
+
+    
+
+def get_IOU(m1, m2):
+    I = np.sum(np.logical_and(m1, m2))
+    U = np.sum(np.logical_or(m1, m2))
+    s1 = np.sum(m1)
+    s2 = np.sum(m2)
+    if s1 and s2:
+        s = s1 / s2 if s1 > s2 else s2 / s1
+        U *= s
+    else:
+        U = 0
+    if U:
+        return I / U
+    else:
+        return 0
