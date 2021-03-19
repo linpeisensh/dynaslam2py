@@ -40,6 +40,7 @@ from PDSeg import PDSeg
 import cv2 as cv
 import traceback
 import os
+import shutil
 
 def load_images(path_to_sequence):
     res = [os.path.join(path_to_sequence, img) for img in os.listdir(path_to_sequence)]
@@ -75,6 +76,9 @@ pdseg = PDSeg(iml,coco_demo,depth_path,kernel)
 num_images = len(left_filenames)
 
 dpath = 'pmask/t{}/'.format(sequence)
+if os.path.exists(dpath):
+    shutil.rmtree(dpath)
+os.mkdir(dpath)
 
 for idx in range(num_images):
     left_image = cv.imread(left_filenames[idx], cv.IMREAD_UNCHANGED)
@@ -84,3 +88,4 @@ for idx in range(num_images):
         cv.imwrite(os.path.join(dpath, '{0:06}.png'.format(idx)), c * 255)
     except:
         traceback.print_exc()
+    print('{} frame'.format(idx))
