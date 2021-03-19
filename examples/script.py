@@ -85,7 +85,7 @@ for idx in range(num_images):
     prob_image = cv.imread(prob_filenames[idx])
     try:
         c = pdseg.pd_seg_t(left_image, prob_image)
-        cv.imwrite(os.path.join(dpath, '{0:06}.png'.format(idx)), c * 255)
+        cv.imwrite(os.path.join(dpath, '{0:06}.png'.format(idx)), c)
     except:
         traceback.print_exc()
     print('{} frame'.format(idx))

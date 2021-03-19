@@ -94,7 +94,7 @@ class PDSeg():
                             cc[mask, ...] = 255
                     if xy1 >= mi and xy2 <= ma:
                         cc[mask, ...] = 255
-        return c
+        return cc
 
     def pd_seg_rec(self,iml,prob_map,idx):
         er = prob_map[..., 0].copy()
