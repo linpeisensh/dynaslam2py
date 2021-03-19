@@ -37,6 +37,8 @@ from demo.predictor import COCODemo
 
 from PDSeg import PDSeg
 
+import sys
+
 import cv2 as cv
 import traceback
 import os
@@ -47,7 +49,7 @@ def load_images(path_to_sequence):
     res.sort()
     return res
 
-sequence = '04'
+sequence = sys.argv[1]
 
 file_path = os.path.join('/storage/remote/atcremers17/linp/dataset/kittic/sequences/',sequence, 'image_2')
 left_filenames = load_images(file_path)
@@ -75,7 +77,7 @@ pdseg = PDSeg(iml,coco_demo,depth_path,kernel)
 
 num_images = len(left_filenames)
 
-dpath = 'pmask/t{}/'.format(sequence)
+dpath = 'pmask/dpr{}/'.format(sequence)
 if os.path.exists(dpath):
     shutil.rmtree(dpath)
 os.mkdir(dpath)
@@ -84,8 +86,8 @@ for idx in range(num_images):
     left_image = cv.imread(left_filenames[idx], cv.IMREAD_UNCHANGED)
     prob_image = cv.imread(prob_filenames[idx])
     try:
-        c = pdseg.pd_seg_t(left_image, prob_image)
-        cv.imwrite(os.path.join(dpath, '{0:06}.png'.format(idx)), c)
+        c = pdseg.pd_seg_rec(left_image, prob_image,idx)
+        cv.imwrite(os.path.join(dpath, '{0:06}.png'.format(idx)), c * 255)
     except:
         traceback.print_exc()
     print('{} frame'.format(idx))

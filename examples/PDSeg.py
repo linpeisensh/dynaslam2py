@@ -37,12 +37,15 @@ class PDSeg():
                 mask = masks[i].squeeze()
                 box = top.bbox[i]
                 x1, y1, x2, y2 = map(int, box)
-                if 2 * (y2 - y1) > x2 - x1:
-                    mi, ma = self.get_max_min_idx(er, w, y2)
+                if 2.25 * (y2 - y1) > x2 - x1:
+                    mi, ma = self.get_max_min_idx(er, self.w, min(y2+10,self.h-1))
                     xy1, xy2 = x1, x2
                     hw = w // 2
                 else:
-                    mi, ma = self.get_max_min_idx(er, h, x2)
+                    if x2 < 500:
+                        mi, ma = self.get_max_min_idx(er, self.h, min(x2 + 10, self.w - 1))
+                    else:
+                        mi, ma = self.get_max_min_idx(er, self.h, min(x1 - 10,self.w-1))
                     xy1, xy2 = y1, y2
                     hw = h // 2
                 if (mi != hw or ma != hw):
@@ -135,12 +138,15 @@ class PDSeg():
         for i in range(nobj):
             box = self.obj[i][5]
             x1, y1, x2, y2 = map(int, box)
-            if 2 * (y2 - y1) > x2 - x1:
-                mi, ma = self.get_max_min_idx(er, self.w, y2)
+            if 2.25 * (y2 - y1) > x2 - x1:
+                mi, ma = self.get_max_min_idx(er, self.w, min(y2 + 10, self.h - 1))
                 xy1, xy2 = x1, x2
                 hw = self.w // 2
             else:
-                mi, ma = self.get_max_min_idx(er, self.h, x2)
+                if x2 < 500:
+                    mi, ma = self.get_max_min_idx(er, self.h, min(x2 + 10, self.w - 1))
+                else:
+                    mi, ma = self.get_max_min_idx(er, self.h, min(x1 - 10, self.w - 1))
                 xy1, xy2 = y1, y2
                 hw = self.h // 2
             if (mi != hw or ma != hw):
