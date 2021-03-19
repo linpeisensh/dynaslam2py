@@ -76,17 +76,22 @@ class PDSeg():
                 box = top.bbox[i]
                 x1, y1, x2, y2 = map(int, box)
                 # if x2 > 500:
-                if 2.2 * (y2 - y1) > x2 - x1:
+                if 2.25 * (y2 - y1) > x2 - x1:
                     mi, ma = self.get_max_min_idx(er, self.w, min(y2+10,self.h-1))
                     xy1, xy2 = x1, x2
                     cc = cv.circle(cc, (x1, y2), 5, self.p_color, -1)
                     cc = cv.circle(cc, (x2, y2), 5, self.p_color, -1)
                     hw = self.w // 2
                 else:
-                    mi, ma = self.get_max_min_idx(er, self.h, min(x2+10,self.w-1))
+                    if x2 < 500:
+                        mi, ma = self.get_max_min_idx(er, self.h, min(x2 + 10, self.w - 1))
+                        x = x2
+                    else:
+                        mi, ma = self.get_max_min_idx(er, self.h, min(x1 - 10,self.w-1))
+                        x = x1
                     xy1, xy2 = y1, y2
-                    cc = cv.circle(cc, (x2, y1), 5, self.p_color, -1)
-                    cc = cv.circle(cc, (x2, y2), 5, self.p_color, -1)
+                    cc = cv.circle(cc, (x, y1), 5, self.p_color, -1)
+                    cc = cv.circle(cc, (x, y2), 5, self.p_color, -1)
                     hw = self.h // 2
                 # else:
                 #     mi, ma = self.get_max_min_idx(er, self.w, y2)
