@@ -18,6 +18,8 @@ class PDSeg():
                      maxLevel=2,
                      criteria=(cv.TERM_CRITERIA_EPS | cv.TERM_CRITERIA_COUNT, 10, 0.03))
 
+        self.p_color = (0, 0, 255)
+
     def pd_seg(self,iml,prob_map):
         er = prob_map[..., 0].copy()
         er[er < 128] = 0
@@ -49,6 +51,49 @@ class PDSeg():
                             c[mask] = 0
                     if xy1 >= mi and xy2 <= ma:
                         c[mask] = 0
+        return c
+
+    def pd_seg_t(self,iml,prob_map):
+        er = prob_map[..., 0].copy()
+        er[er < 128] = 0
+        er[er >= 128] = 255
+
+        nr = prob_map.copy()
+        nr[prob_map[..., 0] > 128] = [0, 255, 0]
+        nr[prob_map[..., 0] <= 128] = [0, 0, 0]
+
+        a = self.coco.compute_prediction(iml)
+        top = self.coco.select_top_predictions(a)
+        masks = top.get_field("mask").numpy()
+        labels = top.get_field("labels").numpy()
+
+        c = np.zeros((self.h, self.w), dtype=np.uint8)
+        cc = np.repeat(c[:, :, np.newaxis], 3, axis=2)
+        cc = cv.add(cc, nr)
+        for i in range(len(masks)):
+            if labels[i] in {1, 2, 3, 4, 6, 8}:
+                mask = masks[i].squeeze()
+                box = top.bbox[i]
+                x1, y1, x2, y2 = map(int, box)
+                if 2 * (y2 - y1) > x2 - x1:
+                    mi, ma = self.get_max_min_idx(er, self.w, y2)
+                    xy1, xy2 = x1, x2
+                    cc = cv.circle(cc, (x1, y2), 5, self.p_color, -1)
+                    cc = cv.circle(cc, (x2, y2), 5, self.p_color, -1)
+                    hw = self.w // 2
+                else:
+                    mi, ma = self.get_max_min_idx(er, self.h, x2)
+                    xy1, xy2 = y1, y2
+                    cc = cv.circle(cc, (x2, y1), 5, self.p_color, -1)
+                    cc = cv.circle(cc, (x2, y2), 5, self.p_color, -1)
+                    hw = self.h // 2
+
+                if (mi != hw or ma != hw):
+                    if labels[i] in {1, 2}:
+                        if abs(xy2 - mi) <= (xy2 - xy1) or abs(xy1 - ma) <= (xy2 - xy1):
+                            cc[mask, ...] = 255
+                    if xy1 >= mi and xy2 <= ma:
+                        cc[mask, ...] = 255
         return c
 
     def pd_seg_rec(self,iml,prob_map,idx):

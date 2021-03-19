@@ -9,7 +9,6 @@ import orbslam2
 from maskrcnn_benchmark.config import cfg
 from demo.predictor import COCODemo
 
-import numpy as np
 import cv2 as cv
 import time
 import traceback
@@ -18,7 +17,6 @@ import shutil
 import fcntl
 
 from PDSeg import PDSeg
-from sptam.msptam import stereoCamera
 from sptam.dataset import KITTIOdometry
 
 
@@ -33,8 +31,6 @@ def main(orb_path, device, data_path, save, sequence):
     else:
         settings_path = os.path.join(orb_path, 'Examples/Stereo/KITTI04-12.yaml')
     print(settings_path)
-
-    coco_path = '../../maskrcnn-benchmark/configs/caffe2/e2e_mask_rcnn_R_50_FPN_1x_caffe2.yaml'
 
     dataset = KITTIOdometry(sequence_path)
     depth_path = os.path.join('/usr/stud/linp/storage/user/linp/depth/',sequence)
@@ -62,7 +58,7 @@ def main(orb_path, device, data_path, save, sequence):
     print('Start processing sequence {}'.format(sequence))
     print('Images in the sequence: {0}'.format(num_images))
 
-    config_file = coco_path
+    config_file = '../../maskrcnn-benchmark/configs/caffe2/e2e_mask_rcnn_R_50_FPN_1x_caffe2.yaml'
     # "configs/caffe2/e2e_mask_rcnn_R_50_FPN_1x_caffe2.yaml"
 
     # update the config options with the config file
@@ -166,9 +162,9 @@ def save_trajectory(trajectory, filename):
         return 0
 
 def load_images(path_to_sequence):
-	res = [os.path.join(path_to_sequence, img) for img in os.listdir(path_to_sequence)]
-	res.sort()
-	return res
+    res = [os.path.join(path_to_sequence, img) for img in os.listdir(path_to_sequence)]
+    res.sort()
+    return res
 
 
 if __name__ == '__main__':
