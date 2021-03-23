@@ -77,7 +77,7 @@ pdseg = PDSeg(iml,coco_demo,depth_path,kernel)
 
 num_images = len(left_filenames)
 
-dpath = 'pmask/dpr{}/'.format(sequence)
+dpath = 'pmask/tt{}/'.format(sequence)
 if os.path.exists(dpath):
     shutil.rmtree(dpath)
 os.mkdir(dpath)
@@ -86,7 +86,8 @@ for idx in range(num_images):
     left_image = cv.imread(left_filenames[idx], cv.IMREAD_UNCHANGED)
     prob_image = cv.imread(prob_filenames[idx])
     try:
-        c = pdseg.pd_seg_rec(left_image, prob_image,idx)
+        # c = pdseg.pd_seg_rec(left_image, prob_image,idx)
+        c = pdseg.pd_seg_t(left_image, prob_image)
         cv.imwrite(os.path.join(dpath, '{0:06}.png'.format(idx)), c * 255)
     except:
         traceback.print_exc()
