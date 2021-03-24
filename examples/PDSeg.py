@@ -95,7 +95,7 @@ class PDSeg():
                         xy1, xy2 = y1, y2
                         cc = cv.circle(cc, (x2, y1), 5, self.p_color, -1)
                         cc = cv.circle(cc, (x2, y2), 5, self.p_color, -1)
-                print(x2,res)
+                print(y2,res)
                 for mi, ma in res:
                     if labels[i] in {1, 2}:
                         if abs(xy2 - mi) <= (xy2 - xy1) or abs(xy1 - ma) <= (xy2 - xy1) or (
