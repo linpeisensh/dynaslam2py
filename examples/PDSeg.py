@@ -86,12 +86,12 @@ class PDSeg():
                     cc = cv.circle(cc, (x2, y2), 5, self.p_color, -1)
                 else:
                     if 2.25 * (y2 - y1) > x2 - x1:
-                        res = self.get_max_min_idx(er, self.w, min(y2 + 10, self.h - 1))
+                        res = self.get_max_min_idx(er, self.w, min(y2 + 10, self.h - 1),x2-x1)
                         xy1, xy2 = x1, x2
                         cc = cv.circle(cc, (x1, y2), 5, self.p_color, -1)
                         cc = cv.circle(cc, (x2, y2), 5, self.p_color, -1)
                     else:
-                        res = self.get_max_min_idx(er, self.h, min(x2 + 10, self.w - 1))
+                        res = self.get_max_min_idx(er, self.h, min(x2 + 10, self.w - 1),y2 - y1)
                         xy1, xy2 = y1, y2
                         cc = cv.circle(cc, (x2, y1), 5, self.p_color, -1)
                         cc = cv.circle(cc, (x2, y2), 5, self.p_color, -1)
