@@ -95,7 +95,7 @@ class PDSeg():
                         xy1, xy2 = y1, y2
                         cc = cv.circle(cc, (x2, y1), 5, self.p_color, -1)
                         cc = cv.circle(cc, (x2, y2), 5, self.p_color, -1)
-                print(i,res)
+                print(x2,res)
                 for mi, ma in res:
                     if labels[i] in {1, 2}:
                         if abs(xy2 - mi) <= (xy2 - xy1) or abs(xy1 - ma) <= (xy2 - xy1) or (
@@ -115,7 +115,7 @@ class PDSeg():
             if f:
                 while l < cr and er[xy, l] == 0:
                     l += 1
-                if res and l - r < cr // 4:
+                if res and l < cr / 2 and l - r < cr // 4:
                     ll, lr = res.pop()
                     tf = 1
                 r =  l + 1
@@ -134,7 +134,6 @@ class PDSeg():
                     l = ll
                 while r < cr and er[r,xy] == 255:
                     r += 1
-            print(l,r)
             if r - l > 2:
                 res.append([l, r - 1])
             l = r
