@@ -276,7 +276,7 @@ class PDSeg():
                 while r < cr and er[r,xy] == 255:
                     r += 1
             print(r,l)
-            if r - l > 50:
+            if r - l > 2:
                 res.append([l, r - 1])
             l = r
         return res
