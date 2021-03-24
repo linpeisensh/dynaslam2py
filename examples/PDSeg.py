@@ -118,7 +118,7 @@ class PDSeg():
                 r =  l + 1
                 while r < cr and er[xy, r] == 255:
                     r += 1
-                if er[xy, r] == 255 and res and l - lr < cr / 4:
+                if r < cr and er[xy, r] == 255 and res and l - lr < cr / 4:
                     l, _ = res.pop()
             else:
                 while l < cr and er[l,xy] == 0:
@@ -127,7 +127,7 @@ class PDSeg():
                 r = l + 1
                 while r < cr and er[r,xy] == 255:
                     r += 1
-                if er[xy, r] == 255 and res and l - lr < cr / 4:
+                if r < cr and er[xy, r] == 255 and res and l - lr < cr / 4:
                     l, _ = res.pop()
             if r - l > 2:
                 res.append([l, r - 1])
