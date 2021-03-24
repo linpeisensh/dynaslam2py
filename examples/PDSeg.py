@@ -256,24 +256,24 @@ class PDSeg():
             if f:
                 while l < cr and er[xy, l] == 0:
                     l += 1
-                if res and l - r < cr // 4:
-                    ll, lr = res.pop()
-                    tf = 1
+                # if res and l - r < cr // 4:
+                #     ll, lr = res.pop()
+                #     tf = 1
                 r =  l + 1
-                if tf:
-                    l = ll
+                # if tf:
+                #     l = ll
                 while r < cr and er[xy, r] == 1:
                     r += 1
                 print(r, l)
             else:
                 while l < cr and er[l,xy] == 0:
                     l += 1
-                if res and l - r < cr // 4:
-                    ll, lr = res.pop()
-                    tf = 1
+                # if res and l - r < cr // 4:
+                #     ll, lr = res.pop()
+                #     tf = 1
                 r = l + 1
-                if tf:
-                    l = ll
+                # if tf:
+                #     l = ll
                 while r < cr and er[r,xy] == 1:
                     r += 1
                 print(r, l)
