@@ -41,7 +41,7 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/script.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="367">
@@ -53,11 +53,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/PDSeg.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="385">
-              <caret line="279" column="17" lean-forward="true" selection-start-line="279" selection-start-column="17" selection-end-line="279" selection-end-column="17" />
+            <state relative-caret-position="594">
+              <caret line="281" lean-forward="true" selection-start-line="281" selection-end-line="281" />
               <folding>
                 <element signature="e#0#16#0" expanded="true" />
               </folding>
@@ -128,8 +128,8 @@
       <find>xy2</find>
       <find>get_max_min_idx</find>
       <find>pd_seg</find>
-      <find>pd_seg_t</find>
       <find>shutil</find>
+      <find>pd_seg_t</find>
     </findStrings>
     <replaceStrings>
       <replace>cv</replace>
@@ -149,8 +149,8 @@
       <replace>_{}</replace>
       <replace>PD</replace>
       <replace>pdseg</replace>
-      <replace>self.p_color</replace>
       <replace>coco</replace>
+      <replace>self.p_color</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -373,12 +373,12 @@
       <workItem from="1614841927460" duration="68251000" />
       <workItem from="1615560087248" duration="9459000" />
       <workItem from="1615900038802" duration="8195000" />
-      <workItem from="1616093396454" duration="21342000" />
+      <workItem from="1616093396454" duration="21607000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="210490000" />
+    <option name="totallyTimeSpent" value="210755000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1376" height="744" extended-state="6" />
@@ -675,16 +675,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/script.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="367">
-          <caret line="90" column="67" selection-start-line="90" selection-start-column="67" selection-end-line="90" selection-end-column="67" />
-          <folding>
-            <element signature="e#957#998#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/PD_SLAM.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="397">
@@ -697,10 +687,20 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/PDSeg.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="385">
-          <caret line="279" column="17" lean-forward="true" selection-start-line="279" selection-start-column="17" selection-end-line="279" selection-end-column="17" />
+        <state relative-caret-position="594">
+          <caret line="281" lean-forward="true" selection-start-line="281" selection-end-line="281" />
           <folding>
             <element signature="e#0#16#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/script.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="367">
+          <caret line="90" column="67" selection-start-line="90" selection-start-column="67" selection-end-line="90" selection-end-column="67" />
+          <folding>
+            <element signature="e#957#998#0" expanded="true" />
           </folding>
         </state>
       </provider>
