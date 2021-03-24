@@ -56,8 +56,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/PDSeg.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="378">
-              <caret line="277" column="22" lean-forward="true" selection-start-line="277" selection-start-column="12" selection-end-line="277" selection-end-column="22" />
+            <state relative-caret-position="665">
+              <caret line="88" column="86" lean-forward="true" selection-start-line="88" selection-start-column="86" selection-end-line="88" selection-end-column="86" />
               <folding>
                 <element signature="e#0#16#0" expanded="true" />
               </folding>
@@ -111,7 +111,6 @@
       <find>coco_demo</find>
       <find>moving_labels</find>
       <find>IOU_thd</find>
-      <find>er</find>
       <find>dataset</find>
       <find>self.old_gray</find>
       <find>projection</find>
@@ -130,6 +129,7 @@
       <find>pd_seg</find>
       <find>pd_seg_t</find>
       <find>shutil</find>
+      <find>er</find>
     </findStrings>
     <replaceStrings>
       <replace>cv</replace>
@@ -149,8 +149,8 @@
       <replace>_{}</replace>
       <replace>PD</replace>
       <replace>pdseg</replace>
-      <replace>self.p_color</replace>
       <replace>coco</replace>
+      <replace>self.p_color</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -179,8 +179,8 @@
         <option value="$PROJECT_DIR$/dsr_slam.py" />
         <option value="$PROJECT_DIR$/sptam/dynaseg.py" />
         <option value="$PROJECT_DIR$/PD_SLAM.py" />
-        <option value="$PROJECT_DIR$/PDSeg.py" />
         <option value="$PROJECT_DIR$/script.py" />
+        <option value="$PROJECT_DIR$/PDSeg.py" />
       </list>
     </option>
   </component>
@@ -373,12 +373,12 @@
       <workItem from="1614841927460" duration="68251000" />
       <workItem from="1615560087248" duration="9459000" />
       <workItem from="1615900038802" duration="8195000" />
-      <workItem from="1616093396454" duration="23002000" />
+      <workItem from="1616093396454" duration="24768000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="212150000" />
+    <option name="totallyTimeSpent" value="213916000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1376" height="744" extended-state="6" />
@@ -697,8 +697,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/PDSeg.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="378">
-          <caret line="277" column="22" lean-forward="true" selection-start-line="277" selection-start-column="12" selection-end-line="277" selection-end-column="22" />
+        <state relative-caret-position="665">
+          <caret line="88" column="86" lean-forward="true" selection-start-line="88" selection-start-column="86" selection-end-line="88" selection-end-column="86" />
           <folding>
             <element signature="e#0#16#0" expanded="true" />
           </folding>

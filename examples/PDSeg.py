@@ -58,12 +58,12 @@ class PDSeg():
 
     def pd_seg_t(self,iml,prob_map):
         er = prob_map[..., 0].copy()
-        er[er < 128] = 0
-        er[er >= 128] = 255
+        er[er < 244] = 0
+        er[er >= 244] = 255
 
         nr = prob_map.copy()
-        nr[prob_map[..., 0] > 128] = [0, 255, 0]
-        nr[prob_map[..., 0] <= 128] = [0, 0, 0]
+        nr[prob_map[..., 0] > 244] = [0, 255, 0]
+        nr[prob_map[..., 0] <= 244] = [0, 0, 0]
 
         a = self.coco.compute_prediction(iml)
         top = self.coco.select_top_predictions(a)
@@ -256,27 +256,26 @@ class PDSeg():
             if f:
                 while l < cr and er[xy, l] == 0:
                     l += 1
-                # if res and l - r < cr // 4:
-                #     ll, lr = res.pop()
-                #     tf = 1
+                if res and l - r < cr // 4:
+                    ll, lr = res.pop()
+                    tf = 1
                 r =  l + 1
-                # if tf:
-                #     l = ll
-                while r < cr and er[xy, r] == 1:
+                if tf:
+                    l = ll
+                while r < cr and er[xy, r] == 255:
                     r += 1
-                print(r, l)
             else:
                 while l < cr and er[l,xy] == 0:
                     l += 1
-                # if res and l - r < cr // 4:
-                #     ll, lr = res.pop()
-                #     tf = 1
+                if res and l - r < cr // 4:
+                    ll, lr = res.pop()
+                    tf = 1
                 r = l + 1
-                # if tf:
-                #     l = ll
-                while r < cr and er[r,xy] == 1:
+                if tf:
+                    l = ll
+                while r < cr and er[r,xy] == 255:
                     r += 1
-                print(r, l)
+            print(r,l)
             if r - l > 50:
                 res.append([l, r - 1])
             l = r
