@@ -83,7 +83,7 @@ if os.path.exists(dpath):
     shutil.rmtree(dpath)
 os.mkdir(dpath)
 
-for idx in range(num_images):
+for idx in range(15,25):
     left_image = cv.imread(left_filenames[idx], cv.IMREAD_UNCHANGED)
     prob_image = cv.imread(prob_filenames[idx])
     # dpr

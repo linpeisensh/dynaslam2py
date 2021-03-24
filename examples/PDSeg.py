@@ -80,18 +80,18 @@ class PDSeg():
                 x1, y1, x2, y2 = map(int, box)
                 x = (x1 + x2) / 2
                 if 400 < x < 836:
-                    res = self.get_max_min_idx(er, self.w, min(y2 + 10, self.h - 1),x2-x1)
+                    res = self.get_max_min_idx(er, self.w, min(y2 + 10, self.h - 1))
                     xy1, xy2 = x1, x2
                     cc = cv.circle(cc, (x1, y2), 5, self.p_color, -1)
                     cc = cv.circle(cc, (x2, y2), 5, self.p_color, -1)
                 else:
                     if 2.25 * (y2 - y1) > x2 - x1:
-                        res = self.get_max_min_idx(er, self.w, min(y2 + 10, self.h - 1),x2-x1)
+                        res = self.get_max_min_idx(er, self.w, min(y2 + 10, self.h - 1))
                         xy1, xy2 = x1, x2
                         cc = cv.circle(cc, (x1, y2), 5, self.p_color, -1)
                         cc = cv.circle(cc, (x2, y2), 5, self.p_color, -1)
                     else:
-                        res = self.get_max_min_idx(er, self.h, min(x2 + 10, self.w - 1),y2 - y1)
+                        res = self.get_max_min_idx(er, self.h, min(x2 + 10, self.w - 1))
                         xy1, xy2 = y1, y2
                         cc = cv.circle(cc, (x2, y1), 5, self.p_color, -1)
                         cc = cv.circle(cc, (x2, y2), 5, self.p_color, -1)
@@ -105,7 +105,7 @@ class PDSeg():
                         cc[mask, ...] = 255
         return cc
 
-    def get_max_min_idx(self, er, cr, xy, d):
+    def get_max_min_idx(self, er, cr, xy):
         res = []
         l = 0
         r = 1
@@ -115,7 +115,7 @@ class PDSeg():
             if f:
                 while l < cr and er[xy, l] == 0:
                     l += 1
-                if res and l - r < d and r < cr - d - 15:
+                if res and l - r < cr / 4 and r < cr / 4 * 3:
                     ll, lr = res.pop()
                     tf = 1
                 r =  l + 1
@@ -126,7 +126,7 @@ class PDSeg():
             else:
                 while l < cr and er[l,xy] == 0:
                     l += 1
-                if res and l - r < d and r < cr - d - 15:
+                if res and l - r < cr / 4 and r < cr / 4 * 3:
                     ll, lr = res.pop()
                     tf = 1
                 r = l + 1
