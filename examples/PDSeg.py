@@ -100,7 +100,7 @@ class PDSeg():
                 #     cc = cv.circle(cc, (x1, y2), 5, self.p_color, -1)
                 #     cc = cv.circle(cc, (x2, y2), 5, self.p_color, -1)
                 #     hw = self.w // 2
-
+                print(res)
                 if res:
                     for mi, ma in res:
                         if labels[i] in {1, 2}:

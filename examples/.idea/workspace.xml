@@ -41,11 +41,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/script.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="177">
-              <caret line="79" column="18" selection-start-line="79" selection-start-column="18" selection-end-line="79" selection-end-column="18" />
+            <state relative-caret-position="291">
+              <caret line="86" column="47" lean-forward="true" selection-start-line="86" selection-start-column="47" selection-end-line="86" selection-end-column="47" />
               <folding>
                 <element signature="e#957#998#0" expanded="true" />
               </folding>
@@ -53,10 +53,10 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/PDSeg.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="62">
+            <state relative-caret-position="3767">
               <caret line="248" column="4" selection-start-line="248" selection-start-column="4" selection-end-line="248" selection-end-column="4" />
               <folding>
                 <element signature="e#0#16#0" expanded="true" />
@@ -149,8 +149,8 @@
       <replace>_{}</replace>
       <replace>PD</replace>
       <replace>pdseg</replace>
-      <replace>self.p_color</replace>
       <replace>coco</replace>
+      <replace>self.p_color</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -179,8 +179,8 @@
         <option value="$PROJECT_DIR$/dsr_slam.py" />
         <option value="$PROJECT_DIR$/sptam/dynaseg.py" />
         <option value="$PROJECT_DIR$/PD_SLAM.py" />
-        <option value="$PROJECT_DIR$/script.py" />
         <option value="$PROJECT_DIR$/PDSeg.py" />
+        <option value="$PROJECT_DIR$/script.py" />
       </list>
     </option>
   </component>
@@ -373,15 +373,15 @@
       <workItem from="1614841927460" duration="68251000" />
       <workItem from="1615560087248" duration="9459000" />
       <workItem from="1615900038802" duration="8195000" />
-      <workItem from="1616093396454" duration="19510000" />
+      <workItem from="1616093396454" duration="20812000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="208658000" />
+    <option name="totallyTimeSpent" value="209960000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1376" height="744" extended-state="7" />
+    <frame x="-8" y="-8" width="1376" height="744" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.22264437" />
@@ -685,22 +685,22 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/script.py">
+    <entry file="file://$PROJECT_DIR$/PDSeg.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="177">
-          <caret line="79" column="18" selection-start-line="79" selection-start-column="18" selection-end-line="79" selection-end-column="18" />
+        <state relative-caret-position="3767">
+          <caret line="248" column="4" selection-start-line="248" selection-start-column="4" selection-end-line="248" selection-end-column="4" />
           <folding>
-            <element signature="e#957#998#0" expanded="true" />
+            <element signature="e#0#16#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/PDSeg.py">
+    <entry file="file://$PROJECT_DIR$/script.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="62">
-          <caret line="248" column="4" selection-start-line="248" selection-start-column="4" selection-end-line="248" selection-end-column="4" />
+        <state relative-caret-position="291">
+          <caret line="86" column="47" lean-forward="true" selection-start-line="86" selection-start-column="47" selection-end-line="86" selection-end-column="47" />
           <folding>
-            <element signature="e#0#16#0" expanded="true" />
+            <element signature="e#957#998#0" expanded="true" />
           </folding>
         </state>
       </provider>
