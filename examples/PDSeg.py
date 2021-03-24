@@ -78,37 +78,31 @@ class PDSeg():
                 mask = masks[i].squeeze()
                 box = top.bbox[i]
                 x1, y1, x2, y2 = map(int, box)
-                # if x2 > 500:
-                if 2.25 * (y2 - y1) > x2 - x1:
-                    res = self.get_max_min_idx(er, self.w, min(y2+ 10,self.h-1))
+                x = (x1 + x2) / 2
+                if 400 < x < 836:
+                    res = self.get_max_min_idx(er, self.w, min(y2 + 10, self.h - 1))
                     xy1, xy2 = x1, x2
                     cc = cv.circle(cc, (x1, y2), 5, self.p_color, -1)
                     cc = cv.circle(cc, (x2, y2), 5, self.p_color, -1)
                 else:
-                    if x2 < 500:
-                        res = self.get_max_min_idx(er, self.h, min(x2 + 10, self.w - 1))
-                        x = x2
+                    if 2.25 * (y2 - y1) > x2 - x1:
+                        res = self.get_max_min_idx(er, self.w, min(y2 + 10, self.h - 1))
+                        xy1, xy2 = x1, x2
+                        cc = cv.circle(cc, (x1, y2), 5, self.p_color, -1)
+                        cc = cv.circle(cc, (x2, y2), 5, self.p_color, -1)
                     else:
-                        res = self.get_max_min_idx(er, self.h, min(x1 - 10,self.w-1))
-                        x = x1
-                    xy1, xy2 = y1, y2
-                    cc = cv.circle(cc, (x, y1), 5, self.p_color, -1)
-                    cc = cv.circle(cc, (x, y2), 5, self.p_color, -1)
-                # else:
-                #     mi, ma = self.get_max_min_idx(er, self.w, y2)
-                #     xy1, xy2 = x1, x2
-                #     cc = cv.circle(cc, (x1, y2), 5, self.p_color, -1)
-                #     cc = cv.circle(cc, (x2, y2), 5, self.p_color, -1)
-                #     hw = self.w // 2
+                        res = self.get_max_min_idx(er, self.h, min(x2 + 10, self.w - 1))
+                        xy1, xy2 = y1, y2
+                        cc = cv.circle(cc, (x2, y1), 5, self.p_color, -1)
+                        cc = cv.circle(cc, (x2, y2), 5, self.p_color, -1)
                 print(res)
-                if res:
-                    for mi, ma in res:
-                        if labels[i] in {1, 2}:
-                            if abs(xy2 - mi) <= (xy2 - xy1) or abs(xy1 - ma) <= (xy2 - xy1) or (
-                                    xy1 >= mi and xy2 <= ma):
-                                cc[mask, ...] = 255
-                        elif xy1 >= mi and xy2 <= ma:
+                for mi, ma in res:
+                    if labels[i] in {1, 2}:
+                        if abs(xy2 - mi) <= (xy2 - xy1) or abs(xy1 - ma) <= (xy2 - xy1) or (
+                                xy1 >= mi and xy2 <= ma):
                             cc[mask, ...] = 255
+                    elif xy1 >= mi and xy2 <= ma:
+                        cc[mask, ...] = 255
         return cc
 
     def get_max_min_idx(self, er, cr, xy):
@@ -258,18 +252,18 @@ class PDSeg():
         for i in range(nobj):
             box = self.obj[i][5]
             x1, y1, x2, y2 = map(int, box)
-            if 2.25 * (y2 - y1) > x2 - x1:
-                mi, ma = self.get_max_min_idx(er, self.w, min(y2 + 10, self.h - 1))
+            x = (x1 + x2) / 2
+            if 400 < x < 836:
+                res = self.get_max_min_idx(er, self.w, min(y2 + 10, self.h - 1))
                 xy1, xy2 = x1, x2
-                hw = self.w // 2
             else:
-                if x2 < 500:
-                    mi, ma = self.get_max_min_idx(er, self.h, min(x2 + 10, self.w - 1))
+                if 2.25 * (y2 - y1) > x2 - x1:
+                    res = self.get_max_min_idx(er, self.w, min(y2 + 10, self.h - 1))
+                    xy1, xy2 = x1, x2
                 else:
-                    mi, ma = self.get_max_min_idx(er, self.h, min(x1 - 10, self.w - 1))
-                xy1, xy2 = y1, y2
-                hw = self.h // 2
-            if (mi != hw or ma != hw):
+                    res = self.get_max_min_idx(er, self.h, min(x2 + 10, self.w - 1))
+                    xy1, xy2 = y1, y2
+            for mi, ma in res:
                 if self.obj[i][4] in {1, 2}:
                     if abs(xy2 - mi) <= (xy2 - xy1) or abs(xy1 - ma) <= (xy2 - xy1) or (xy1 >= mi and xy2 <= ma):
                         self.obj[i][2] += 1

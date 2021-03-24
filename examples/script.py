@@ -50,6 +50,7 @@ def load_images(path_to_sequence):
     return res
 
 sequence = sys.argv[1]
+mode = sys.argv[2]
 
 file_path = os.path.join('/storage/remote/atcremers17/linp/dataset/kittic/sequences/',sequence, 'image_2')
 left_filenames = load_images(file_path)
@@ -77,7 +78,7 @@ pdseg = PDSeg(iml,coco_demo,depth_path,kernel)
 
 num_images = len(left_filenames)
 
-dpath = 'pmask/tt{}/'.format(sequence)
+dpath = 'pmask/{}{}/'.format(mode,sequence)
 if os.path.exists(dpath):
     shutil.rmtree(dpath)
 os.mkdir(dpath)
@@ -85,7 +86,12 @@ os.mkdir(dpath)
 for idx in range(num_images):
     left_image = cv.imread(left_filenames[idx], cv.IMREAD_UNCHANGED)
     prob_image = cv.imread(prob_filenames[idx])
-        # c = pdseg.pd_seg_rec(left_image, prob_image,idx)
-    c = pdseg.pd_seg_t(left_image, prob_image)
-    cv.imwrite(os.path.join(dpath, '{0:06}.png'.format(idx)), c)
+    # dpr
+    if mode == 'dpr':
+        c = pdseg.pd_seg_rec(left_image, prob_image,idx)
+        cv.imwrite(os.path.join(dpath, '{0:06}.png'.format(idx)), c*255)
+    # t
+    else:
+        c = pdseg.pd_seg_t(left_image, prob_image)
+        cv.imwrite(os.path.join(dpath, '{0:06}.png'.format(idx)), c)
     print('{} frame'.format(idx))
