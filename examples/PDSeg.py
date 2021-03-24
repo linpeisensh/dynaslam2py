@@ -56,14 +56,104 @@ class PDSeg():
                         c[mask] = 0
         return c
 
-    def pd_seg_t(self,iml,prob_map):
+    # def pd_seg_t(self,iml,prob_map):
+    #     er = prob_map[..., 0].copy()
+    #     er[er < 244] = 0
+    #     er[er >= 244] = 255
+    #
+    #     nr = prob_map.copy()
+    #     nr[prob_map[..., 0] > 244] = [0, 255, 0]
+    #     nr[prob_map[..., 0] <= 244] = [0, 0, 0]
+    #
+    #     a = self.coco.compute_prediction(iml)
+    #     top = self.coco.select_top_predictions(a)
+    #     masks = top.get_field("mask").numpy()
+    #     labels = top.get_field("labels").numpy()
+    #
+    #     c = np.zeros((self.h, self.w), dtype=np.uint8)
+    #     cc = np.repeat(c[:, :, np.newaxis], 3, axis=2)
+    #     cc = cv.add(cc, nr)
+    #     for i in range(len(masks)):
+    #         if labels[i] in {1, 2, 3, 4, 6, 8}:
+    #             mask = masks[i].squeeze()
+    #             box = top.bbox[i]
+    #             x1, y1, x2, y2 = map(int, box)
+    #             # if x2 > 500:
+    #             if 2.25 * (y2 - y1) > x2 - x1:
+    #                 res = self.get_max_min_idx(er, self.w, min(y2+5,self.h-1))
+    #                 xy1, xy2 = x1, x2
+    #                 cc = cv.circle(cc, (x1, y2), 5, self.p_color, -1)
+    #                 cc = cv.circle(cc, (x2, y2), 5, self.p_color, -1)
+    #             else:
+    #                 if x2 < 500:
+    #                     res = self.get_max_min_idx(er, self.h, min(x2 + 5, self.w - 1))
+    #                     x = x2
+    #                 else:
+    #                     res = self.get_max_min_idx(er, self.h, min(x1 - 5,self.w-1))
+    #                     x = x1
+    #                 xy1, xy2 = y1, y2
+    #                 cc = cv.circle(cc, (x, y1), 5, self.p_color, -1)
+    #                 cc = cv.circle(cc, (x, y2), 5, self.p_color, -1)
+    #             # else:
+    #             #     mi, ma = self.get_max_min_idx(er, self.w, y2)
+    #             #     xy1, xy2 = x1, x2
+    #             #     cc = cv.circle(cc, (x1, y2), 5, self.p_color, -1)
+    #             #     cc = cv.circle(cc, (x2, y2), 5, self.p_color, -1)
+    #             #     hw = self.w // 2
+    #             print(res)
+    #             if res:
+    #                 for mi, ma in res:
+    #                     if labels[i] in {1, 2}:
+    #                         if abs(xy2 - mi) <= (xy2 - xy1) or abs(xy1 - ma) <= (xy2 - xy1) or (
+    #                                 xy1 >= mi and xy2 <= ma):
+    #                             cc[mask, ...] = 255
+    #                         elif xy1 >= mi and xy2 <= ma:
+    #                             cc[mask, ...] = 255
+    #     return cc
+
+    # def get_max_min_idx(self, er, cr, xy):
+    #     res = []
+    #     l = 0
+    #     r = 1
+    #     f = (cr == self.w)
+    #     while r < cr:
+    #         tf = 0
+    #         if f:
+    #             while l < cr and er[xy, l] == 0:
+    #                 l += 1
+    #             if res and l - r < cr // 4:
+    #                 ll, lr = res.pop()
+    #                 tf = 1
+    #             r =  l + 1
+    #             if tf:
+    #                 l = ll
+    #             while r < cr and er[xy, r] == 255:
+    #                 r += 1
+    #         else:
+    #             while l < cr and er[l,xy] == 0:
+    #                 l += 1
+    #             if res and l - r < cr // 4:
+    #                 ll, lr = res.pop()
+    #                 tf = 1
+    #             r = l + 1
+    #             if tf:
+    #                 l = ll
+    #             while r < cr and er[r,xy] == 255:
+    #                 r += 1
+    #         print(r,l)
+    #         if r - l > 2:
+    #             res.append([l, r - 1])
+    #         l = r
+    #     return res
+
+    def pd_seg_t(self, iml, prob_map):
         er = prob_map[..., 0].copy()
-        er[er < 244] = 0
-        er[er >= 244] = 255
+        er[er < 128] = 0
+        er[er >= 128] = 255
 
         nr = prob_map.copy()
-        nr[prob_map[..., 0] > 244] = [0, 255, 0]
-        nr[prob_map[..., 0] <= 244] = [0, 0, 0]
+        nr[prob_map[..., 0] > 128] = [0, 255, 0]
+        nr[prob_map[..., 0] <= 128] = [0, 0, 0]
 
         a = self.coco.compute_prediction(iml)
         top = self.coco.select_top_predictions(a)
@@ -80,36 +170,67 @@ class PDSeg():
                 x1, y1, x2, y2 = map(int, box)
                 # if x2 > 500:
                 if 2.25 * (y2 - y1) > x2 - x1:
-                    res = self.get_max_min_idx(er, self.w, min(y2+5,self.h-1))
+                    mi, ma = self.get_max_min_idx(er, self.w, min(y2 + 10, self.h - 1))
                     xy1, xy2 = x1, x2
                     cc = cv.circle(cc, (x1, y2), 5, self.p_color, -1)
                     cc = cv.circle(cc, (x2, y2), 5, self.p_color, -1)
+                    hw = self.w // 2
                 else:
                     if x2 < 500:
-                        res = self.get_max_min_idx(er, self.h, min(x2 + 5, self.w - 1))
+                        mi, ma = self.get_max_min_idx(er, self.h, min(x2 + 10, self.w - 1))
                         x = x2
                     else:
-                        res = self.get_max_min_idx(er, self.h, min(x1 - 5,self.w-1))
+                        mi, ma = self.get_max_min_idx(er, self.h, min(x1 - 10, self.w - 1))
                         x = x1
                     xy1, xy2 = y1, y2
                     cc = cv.circle(cc, (x, y1), 5, self.p_color, -1)
                     cc = cv.circle(cc, (x, y2), 5, self.p_color, -1)
+                    hw = self.h // 2
                 # else:
                 #     mi, ma = self.get_max_min_idx(er, self.w, y2)
                 #     xy1, xy2 = x1, x2
                 #     cc = cv.circle(cc, (x1, y2), 5, self.p_color, -1)
                 #     cc = cv.circle(cc, (x2, y2), 5, self.p_color, -1)
                 #     hw = self.w // 2
-                print(res)
-                if res:
-                    for mi, ma in res:
-                        if labels[i] in {1, 2}:
-                            if abs(xy2 - mi) <= (xy2 - xy1) or abs(xy1 - ma) <= (xy2 - xy1) or (
-                                    xy1 >= mi and xy2 <= ma):
-                                cc[mask, ...] = 255
-                            elif xy1 >= mi and xy2 <= ma:
-                                cc[mask, ...] = 255
+                print(mi,ma)
+                if (mi != hw or ma != hw):
+                    if labels[i] in {1, 2}:
+                        if abs(xy2 - mi) <= (xy2 - xy1) or abs(xy1 - ma) <= (xy2 - xy1):
+                            cc[mask, ...] = 255
+                    if xy1 >= mi and xy2 <= ma:
+                        cc[mask, ...] = 255
         return cc
+
+    def get_max_min_idx(self, er, cr, xy):
+        fl, fr = 0, 0
+        l, r = 0, cr - 1
+        f = (cr == self.w)
+        while True:
+            if l < cr:
+                if f:
+                    if er[xy, l] == 0:
+                        l += 1
+                    else:
+                        fl = 1
+                else:
+                    if er[l, xy] == 0:
+                        l += 1
+                    else:
+                        fl = 1
+            if r >= 0:
+                if f:
+                    if er[xy, r] == 0:
+                        r -= 1
+                    else:
+                        fr = 1
+                else:
+                    if er[r, xy] == 0:
+                        r -= 1
+                    else:
+                        fr = 1
+            if l >= r or (fl and fr):
+                break
+        return l, r
 
     def pd_seg_rec(self,iml,prob_map,idx):
         er = prob_map[..., 0].copy()
@@ -216,70 +337,8 @@ class PDSeg():
         # self.track_rate(idx)
         return
 
-    # def get_max_min_idx(self, er, cr, xy):
-    #     fl, fr = 0, 0
-    #     l, r = 0, cr - 1
-    #     f = (cr == self.w)
-    #     while True:
-    #         if l < cr:
-    #             if f:
-    #                 if er[xy, l] == 0:
-    #                     l += 1
-    #                 else:
-    #                     fl = 1
-    #             else:
-    #                 if er[l, xy] == 0:
-    #                     l += 1
-    #                 else:
-    #                     fl = 1
-    #         if r >= 0:
-    #             if f:
-    #                 if er[xy, r] == 0:
-    #                     r -= 1
-    #                 else:
-    #                     fr = 1
-    #             else:
-    #                 if er[r, xy] == 0:
-    #                     r -= 1
-    #                 else:
-    #                     fr = 1
-    #         if l >= r or (fl and fr):
-    #             break
-    #     return l, r
-    def get_max_min_idx(self, er, cr, xy):
-        res = []
-        l = 0
-        r = 1
-        f = (cr == self.w)
-        while r < cr:
-            tf = 0
-            if f:
-                while l < cr and er[xy, l] == 0:
-                    l += 1
-                if res and l - r < cr // 4:
-                    ll, lr = res.pop()
-                    tf = 1
-                r =  l + 1
-                if tf:
-                    l = ll
-                while r < cr and er[xy, r] == 255:
-                    r += 1
-            else:
-                while l < cr and er[l,xy] == 0:
-                    l += 1
-                if res and l - r < cr // 4:
-                    ll, lr = res.pop()
-                    tf = 1
-                r = l + 1
-                if tf:
-                    l = ll
-                while r < cr and er[r,xy] == 255:
-                    r += 1
-            print(r,l)
-            if r - l > 2:
-                res.append([l, r - 1])
-            l = r
-        return res
+
+
 
     
 
