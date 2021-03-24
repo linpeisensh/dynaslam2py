@@ -111,29 +111,24 @@ class PDSeg():
         r = 1
         f = (cr == self.w)
         while r < cr:
-            tf = 0
             if f:
                 while l < cr and er[xy, l] == 0:
                     l += 1
-                if res and l - r < cr / 4 and r < cr / 4 * 3:
-                    ll, lr = res.pop()
-                    tf = 1
+                lr = r
                 r =  l + 1
-                if tf:
-                    l = ll
                 while r < cr and er[xy, r] == 255:
                     r += 1
+                if er[xy, r] == 255 and res and l - lr < cr / 4:
+                    l, _ = res.pop()
             else:
                 while l < cr and er[l,xy] == 0:
                     l += 1
-                if res and l - r < cr / 4 and r < cr / 4 * 3:
-                    ll, lr = res.pop()
-                    tf = 1
+                lr = r
                 r = l + 1
-                if tf:
-                    l = ll
                 while r < cr and er[r,xy] == 255:
                     r += 1
+                if er[xy, r] == 255 and res and l - lr < cr / 4:
+                    l, _ = res.pop()
             if r - l > 2:
                 res.append([l, r - 1])
             l = r
