@@ -148,8 +148,8 @@ class PDSeg():
 
     def pd_seg_t(self, iml, prob_map):
         er = prob_map[..., 0].copy()
-        er[er < 128] = 0
-        er[er >= 128] = 255
+        er[er < 244] = 0
+        er[er >= 244] = 255
 
         nr = prob_map.copy()
         nr[prob_map[..., 0] > 128] = [0, 255, 0]
