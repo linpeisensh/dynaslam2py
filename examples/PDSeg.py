@@ -264,6 +264,7 @@ class PDSeg():
                     l = ll
                 while r < cr and er[xy, r] == 1:
                     r += 1
+                print(r, l)
             else:
                 while l < cr and er[l,xy] == 0:
                     l += 1
@@ -275,7 +276,7 @@ class PDSeg():
                     l = ll
                 while r < cr and er[r,xy] == 1:
                     r += 1
-            print(r,l)
+                print(r, l)
             if r - l > 50:
                 res.append([l, r - 1])
             l = r
