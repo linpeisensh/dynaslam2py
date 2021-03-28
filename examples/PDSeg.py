@@ -25,7 +25,6 @@ class PDSeg():
         er[er < 128] = 0
         er[er >= 128] = 255
 
-        h, w = iml.shape[:2]
         a = self.coco.compute_prediction(iml)
         top = self.coco.select_top_predictions(a)
         masks = top.get_field("mask").numpy()
@@ -33,26 +32,27 @@ class PDSeg():
 
         c = np.ones((self.h, self.w),dtype=np.uint8)
         for i in range(len(masks)):
-            if labels[i] in {1, 2, 3, 4, 6, 8}:
+            if labels[i] in self.pot_moving_labels:
                 mask = masks[i].squeeze()
                 box = top.bbox[i]
                 x1, y1, x2, y2 = map(int, box)
-                if 2.25 * (y2 - y1) > x2 - x1:
-                    mi, ma = self.get_max_min_idx(er, self.w, min(y2+10,self.h-1))
+                x = (x1 + x2) / 2
+                if 400 < x < 836:
+                    res = self.get_max_min_idx(er, self.w, min(y2 + 10, self.h - 1))
                     xy1, xy2 = x1, x2
-                    hw = w // 2
                 else:
-                    if x2 < 500:
-                        mi, ma = self.get_max_min_idx(er, self.h, min(x2 + 10, self.w - 1))
+                    if 2.25 * (y2 - y1) > x2 - x1:
+                        res = self.get_max_min_idx(er, self.w, min(y2 + 10, self.h - 1))
+                        xy1, xy2 = x1, x2
                     else:
-                        mi, ma = self.get_max_min_idx(er, self.h, min(x1 - 10,self.w-1))
-                    xy1, xy2 = y1, y2
-                    hw = h // 2
-                if (mi != hw or ma != hw):
-                    if labels[i] in {1, 2}:
-                        if abs(xy2 - mi) <= (xy2 - xy1) or abs(xy1 - ma) <= (xy2 - xy1):
+                        res = self.get_max_min_idx(er, self.h, min(x2 + 10, self.w - 1))
+                        xy1, xy2 = y1, y2
+                for mi, ma in res:
+                    if labels[i] in self.sides_moving_labels:
+                        if abs(xy2 - mi) <= (xy2 - xy1) or abs(xy1 - ma) <= (xy2 - xy1) or (
+                                xy1 >= mi and xy2 <= ma):
                             c[mask] = 0
-                    if xy1 >= mi and xy2 <= ma:
+                    elif xy1 >= mi and xy2 <= ma:
                         c[mask] = 0
         return c
 

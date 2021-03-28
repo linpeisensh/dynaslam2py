@@ -32,8 +32,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/PD_SLAM.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="397">
-              <caret line="172" column="20" selection-start-line="172" selection-start-column="9" selection-end-line="172" selection-end-column="20" />
+            <state relative-caret-position="245">
+              <caret line="86" column="28" selection-start-line="86" selection-start-column="22" selection-end-line="86" selection-end-column="28" />
               <folding>
                 <element signature="e#23#33#0" expanded="true" />
               </folding>
@@ -41,11 +41,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/script.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="272">
-              <caret line="85" column="29" lean-forward="true" selection-start-line="85" selection-start-column="29" selection-end-line="85" selection-end-column="29" />
+            <state relative-caret-position="348">
+              <caret line="89" column="19" selection-start-line="89" selection-start-column="16" selection-end-line="89" selection-end-column="19" />
               <folding>
                 <element signature="e#957#998#0" expanded="true" />
               </folding>
@@ -53,11 +53,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/PDSeg.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="261">
-              <caret line="120" column="31" selection-start-line="120" selection-start-column="31" selection-end-line="120" selection-end-column="31" />
+            <state relative-caret-position="404">
+              <caret line="55" column="35" lean-forward="true" selection-start-line="55" selection-start-column="35" selection-end-line="55" selection-end-column="35" />
               <folding>
                 <element signature="e#0#16#0" expanded="true" />
               </folding>
@@ -100,7 +100,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>dseg</find>
       <find>slam0</find>
       <find>omasks</find>
       <find>track_obj</find>
@@ -125,11 +124,12 @@
       <find>dpath</find>
       <find>xy2</find>
       <find>get_max_min_idx</find>
-      <find>pd_seg</find>
       <find>pd_seg_t</find>
       <find>er</find>
       <find>shutil</find>
       <find>cr</find>
+      <find>pd_seg</find>
+      <find>pot_moving_labels</find>
     </findStrings>
     <replaceStrings>
       <replace>cv</replace>
@@ -179,8 +179,8 @@
         <option value="$PROJECT_DIR$/dsr_slam.py" />
         <option value="$PROJECT_DIR$/sptam/dynaseg.py" />
         <option value="$PROJECT_DIR$/PD_SLAM.py" />
-        <option value="$PROJECT_DIR$/PDSeg.py" />
         <option value="$PROJECT_DIR$/script.py" />
+        <option value="$PROJECT_DIR$/PDSeg.py" />
       </list>
     </option>
   </component>
@@ -373,12 +373,12 @@
       <workItem from="1614841927460" duration="68251000" />
       <workItem from="1615560087248" duration="9459000" />
       <workItem from="1615900038802" duration="8195000" />
-      <workItem from="1616093396454" duration="36169000" />
+      <workItem from="1616093396454" duration="38290000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="225317000" />
+    <option name="totallyTimeSpent" value="227438000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -674,26 +674,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/PD_SLAM.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="397">
-          <caret line="172" column="20" selection-start-line="172" selection-start-column="9" selection-end-line="172" selection-end-column="20" />
-          <folding>
-            <element signature="e#23#33#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/PDSeg.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="261">
-          <caret line="120" column="31" selection-start-line="120" selection-start-column="31" selection-end-line="120" selection-end-column="31" />
-          <folding>
-            <element signature="e#0#16#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/orbslam_stereo_kittim.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1569">
@@ -706,10 +686,30 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/script.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="85" column="29" lean-forward="true" selection-start-line="85" selection-start-column="29" selection-end-line="85" selection-end-column="29" />
+        <state relative-caret-position="348">
+          <caret line="89" column="19" selection-start-line="89" selection-start-column="16" selection-end-line="89" selection-end-column="19" />
           <folding>
             <element signature="e#957#998#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/PD_SLAM.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="245">
+          <caret line="86" column="28" selection-start-line="86" selection-start-column="22" selection-end-line="86" selection-end-column="28" />
+          <folding>
+            <element signature="e#23#33#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/PDSeg.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="404">
+          <caret line="55" column="35" lean-forward="true" selection-start-line="55" selection-start-column="35" selection-end-line="55" selection-end-column="35" />
+          <folding>
+            <element signature="e#0#16#0" expanded="true" />
           </folding>
         </state>
       </provider>
