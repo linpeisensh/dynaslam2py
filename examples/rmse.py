@@ -22,15 +22,15 @@ def get_stat(ape_metric,rpe_metric, rre_metric, file,file_path):
     return ape_stat, rpe_stat, rre_stat
 
 def sort_stat(v,save_root_path,res_root_path,i,k,d):
-    if d == 'DSR' or d == 'DS' or d == 'SD' or d == 'SD3':
+    if d == 'DSR' or d == 'DS':
         vres = sorted(v, key=lambda x: x[i])
     else:
         vres = sorted(v, key=lambda x: -x[i])
-    vres = v
+    # vres = v
     idx = 0
     res = 0
     for vi in vres[:5]:
-        # print('{} ate: {}m, rpe: {}%, rre: {}deg/100m'.format(vi[0], vi[1], vi[2], vi[3]))
+        print('{} ate: {}m, rpe: {}%, rre: {}deg/100m'.format(vi[0], vi[1], vi[2], vi[3]))
         if save_root_path != '0':
             file_path = os.path.join(res_root_path, vi[0])
             save_path = os.path.join(save_root_path, vi[0][:3] + str(idx) + vi[0][-4:])
@@ -65,8 +65,6 @@ def main(res_root_path, save_root_path):
 
     ad = defaultdict(list)
     dd = defaultdict(list)
-    sd = defaultdict(list)
-    sd3 = defaultdict(list)
     cd = defaultdict(list)
 
     for file in sorted(os.listdir(res_root_path)):
@@ -80,10 +78,6 @@ def main(res_root_path, save_root_path):
                     dd[file[1:3]].append((file,ape_stat, rpe_stat, rre_stat))
                 elif file[0] == 'c':
                     cd[file[1:3]].append((file,ape_stat, rpe_stat, rre_stat))
-                elif file[0] == 's':
-                    sd[file[1:3]].append((file, ape_stat, rpe_stat, rre_stat))
-                elif file[0] == 'sd':
-                    sd3[file[1:3]].append((file,ape_stat, rpe_stat, rre_stat))
             except:
                 print('{} error'.format(file))
                 os.remove(file_path)
@@ -107,8 +101,6 @@ def main(res_root_path, save_root_path):
         print()
     print_stat(ad,'DS')
     print_stat(dd,'DSR')
-    print_stat(sd,'SD')
-    print_stat(sd3,'SD3')
     print_stat(cd,'ORB')
 
 if __name__ == '__main__':
