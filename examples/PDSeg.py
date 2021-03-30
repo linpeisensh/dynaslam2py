@@ -78,7 +78,10 @@ class PDSeg():
                 mask = masks[i].squeeze()
                 box = top.bbox[i]
                 x1, y1, x2, y2 = map(int, box)
-                res = self.get_max_min_idx(er, self.w, min(y2 + 5, self.h - 1))
+                if x1 < 500:
+                    res = self.get_max_min_idx(er, self.w, min(y2 + 9, self.h - 1))
+                else:
+                    res = self.get_max_min_idx(er, self.w, min(y2 + 3, self.h - 1))
                 xy1, xy2 = x1, x2
                 cc = cv.circle(cc, (x1, y2), 5, self.p_color, -1)
                 cc = cv.circle(cc, (x2, y2), 5, self.p_color, -1)
