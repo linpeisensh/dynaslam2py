@@ -59,6 +59,7 @@ def load_times(path_to_sequence):
         for line in times_file:
             if len(line) > 0:
                 timestamps.append(float(line))
+    return timestamps
 
 def pose_to_transformation(pose):
     res = np.zeros((4,4))
@@ -97,7 +98,7 @@ kernel = cv.getStructuringElement(cv.MORPH_ELLIPSE, (2 * dilation + 1, 2 * dilat
 depth_path = os.path.join('/usr/stud/linp/storage/user/linp/depth/',sequence)
 
 iml = cv.imread(left_filenames[0], cv.IMREAD_UNCHANGED)
-if mode == 'dsr' or mode == 'tt':
+if mode == 'dpr' or mode == 'tt':
     pdseg = PDSeg(iml,coco_demo,depth_path,kernel)
 else:
     orb_path = '/usr/stud/linp/storage/user/linp/ORB_SLAM2'
@@ -164,6 +165,12 @@ for idx in range(num_images):
         timestamp = timestamps[idx]
         slam0.process_image_stereo(left_image[:, :, ::-1], right_image[:, :, ::-1], left_mask, right_mask, timestamp)
         trans = pose_to_transformation(slam0.get_trajectory_points()[-1])
-        c = dseg.dyn_seg_rec(trans, left_image, idx)
-        cv.imwrite(os.path.join(dpath, '{0:06}.png'.format(idx)), c * 255)
+        if idx % 3 == 0:
+            if idx:
+                c = dseg.dyn_seg_rec(trans, left_image, idx)
+            dseg.updata(left_image, right_image, idx, trans)
+        else:
+            c = dseg.dyn_seg_rec(trans, left_image, idx)
+        if idx:
+            cv.imwrite(os.path.join(dpath, '{0:06}.png'.format(idx)), c * 255)
     print('{} frame'.format(idx))

@@ -74,30 +74,30 @@ class PDSeg():
         cc = np.repeat(c[:, :, np.newaxis], 3, axis=2)
         cc = cv.add(cc, nr)
         for i in range(len(masks)):
-            if labels[i] in {1, 2, 3, 4, 6, 8}:
+            if labels[i] in self.pot_moving_labels:
                 mask = masks[i].squeeze()
                 box = top.bbox[i]
                 x1, y1, x2, y2 = map(int, box)
                 x = (x1 + x2) / 2
                 if 400 < x < 836:
-                    res = self.get_max_min_idx(er, self.w, min(y2 + 10, self.h - 1))
+                    res = self.get_max_min_idx(er, self.w, min(y2 + 5, self.h - 1))
                     xy1, xy2 = x1, x2
                     cc = cv.circle(cc, (x1, y2), 5, self.p_color, -1)
                     cc = cv.circle(cc, (x2, y2), 5, self.p_color, -1)
                 else:
                     if 2.25 * (y2 - y1) > x2 - x1:
-                        res = self.get_max_min_idx(er, self.w, min(y2 + 10, self.h - 1))
+                        res = self.get_max_min_idx(er, self.w, min(y2 + 5, self.h - 1))
                         xy1, xy2 = x1, x2
                         cc = cv.circle(cc, (x1, y2), 5, self.p_color, -1)
                         cc = cv.circle(cc, (x2, y2), 5, self.p_color, -1)
                     else:
-                        res = self.get_max_min_idx(er, self.h, min(x2 + 10, self.w - 1))
+                        res = self.get_max_min_idx(er, self.h, min(x2 + 5, self.w - 1))
                         xy1, xy2 = y1, y2
                         cc = cv.circle(cc, (x2, y1), 5, self.p_color, -1)
                         cc = cv.circle(cc, (x2, y2), 5, self.p_color, -1)
                 print(y2,res)
                 for mi, ma in res:
-                    if labels[i] in {1, 2}:
+                    if labels[i] in self.sides_moving_labels:
                         if abs(xy2 - mi) <= (xy2 - xy1) or abs(xy1 - ma) <= (xy2 - xy1) or (
                                 xy1 >= mi and xy2 <= ma):
                             cc[mask, ...] = 255
@@ -249,14 +249,14 @@ class PDSeg():
             x1, y1, x2, y2 = map(int, box)
             x = (x1 + x2) / 2
             if 400 < x < 836:
-                res = self.get_max_min_idx(er, self.w, min(y2 + 10, self.h - 1))
+                res = self.get_max_min_idx(er, self.w, min(y2 + 5, self.h - 1))
                 xy1, xy2 = x1, x2
             else:
                 if 2.25 * (y2 - y1) > x2 - x1:
-                    res = self.get_max_min_idx(er, self.w, min(y2 + 10, self.h - 1))
+                    res = self.get_max_min_idx(er, self.w, min(y2 + 5, self.h - 1))
                     xy1, xy2 = x1, x2
                 else:
-                    res = self.get_max_min_idx(er, self.h, min(x2 + 10, self.w - 1))
+                    res = self.get_max_min_idx(er, self.h, min(x2 + 5, self.w - 1))
                     xy1, xy2 = y1, y2
             for mi, ma in res:
                 if self.obj[i][4] in {1, 2}:
