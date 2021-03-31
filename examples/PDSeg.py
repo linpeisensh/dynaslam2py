@@ -93,15 +93,17 @@ class PDSeg():
 
     def get_max_min_idx(self, er, box):
         x1, y1, x2, y2 = map(int, box)
-        if self.h - y2 <15:
-            y = y2 + 10
-        else:
-            y = y2
-        y = min(y,self.h-5)
-        def helper(y):
+        def helper(y2,f):
             res = []
             l = 0
             r = 1
+            if self.h - y2 > 15:
+                if f:
+                    y = y2 + 10
+                else:
+                    y = y2 + 3
+            else:
+                y = y2
             while r < self.w:
                 while l < self.w and er[y, l] == 0:
                     l += 1
@@ -115,7 +117,7 @@ class PDSeg():
                     res.append([l, r - 1])
                 l = r
             return res
-        ans = helper(y)
+        ans = helper(y2,1)
         if ans:
             x = (x1 + x2) / 2
             dis = float('inf')
@@ -127,9 +129,9 @@ class PDSeg():
                     dis = cd
                     nm = m
             if x1 < nm:
-                res = helper(y2+10)
+                res = helper(y2,1)
             else:
-                res = helper(y2+3)
+                res = helper(y2,0)
         else:
             res = ans
         return res, x1, x2, y2
