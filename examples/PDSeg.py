@@ -86,7 +86,7 @@ class PDSeg():
                         if abs(x2 - mi) <= (x2 - x1) or abs(x1 - ma) <= (x2 - x1) or (
                                 x1 >= mi and x2 <= ma):
                             cc[mask, ...] = 255
-                    elif x1 >= mi and x2 <= ma:
+                    elif (x1 >= mi and x2 <= ma) or (mi <= x1 <= ma and self.w-x2<=30) or (mi <= x2 <= ma and x1<=30):
                         cc[mask, ...] = 255
         return cc
 
