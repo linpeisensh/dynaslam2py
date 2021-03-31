@@ -117,7 +117,7 @@ class PDSeg():
                     res.append([l, r - 1])
                 l = r
             return res
-        ans = helper(y2,1)
+        ans = helper(y2,0)
         if ans:
             x = (x1 + x2) / 2
             dis = float('inf')
