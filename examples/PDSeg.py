@@ -111,7 +111,7 @@ class PDSeg():
                 r =  l + 1
                 while r < self.w and er[y, r] == 255:
                     r += 1
-                if r <  self.w and er[y, r-1] == 255 and res and l - lr < max(self.w / 4,x2 - x1 + 30):
+                if r <  self.w and er[y, r-1] == 255 and res and l - lr < 1.2 * (x2 - x1):
                     l, _ = res.pop()
                 if r - l > 2:
                     res.append([l, r - 1])
