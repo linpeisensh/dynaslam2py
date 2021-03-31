@@ -77,7 +77,7 @@ class PDSeg():
             if labels[i] in self.pot_moving_labels:
                 mask = masks[i].squeeze()
                 box = top.bbox[i]
-                res, x1, x2, y2 = self.get_max_min_idx(er, box)
+                res, x1, x2, y1, y2 = self.get_max_min_idx(er, box)
                 cc = cv.circle(cc, (x1, y2), 5, self.p_color, -1)
                 cc = cv.circle(cc, (x2, y2), 5, self.p_color, -1)
                 print(y2,res)
@@ -86,8 +86,11 @@ class PDSeg():
                         if abs(x2 - mi) <= (x2 - x1) or abs(x1 - ma) <= (x2 - x1) or (
                                 x1 >= mi and x2 <= ma):
                             cc[mask, ...] = 255
-                    elif (x1 >= mi and x2 <= ma) or (mi <= x1 <= ma and self.w-x2<=60) or (mi <= x2 <= ma and x1<=60):
+                    elif (x1 >= mi and x2 <= ma):
                         cc[mask, ...] = 255
+                    elif 2.25 * (y2 - y1) > x2 - x1:
+                       if (mi <= x1 <= ma and self.w - x2 <= 60) or (mi <= x2 <= ma and x1 <= 60):
+                           cc[mask, ...] = 255
         return cc
 
     def get_max_min_idx(self, er, box):
@@ -133,7 +136,7 @@ class PDSeg():
                 res = helper(y2,0)
         else:
             res = ans
-        return res, x1, x2, y2
+        return res, x1, x2, y1, y2
 
     def pd_seg_rec(self,iml,prob_map,idx):
         er = prob_map[..., 0].copy()
