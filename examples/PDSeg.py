@@ -180,8 +180,8 @@ class PDSeg():
                 res[i] = False
             elif self.obj[i][1] and self.obj[i][2] / self.obj[i][1] >= 0.7:  #  or self.obj[i][2] >= 5
                 c[self.obj[i][0]] = 0
-            else:
-                self.obj[i][2] = max(0, self.obj[i][2] - 0.5)
+            # else:
+            #     self.obj[i][2] = max(0, self.obj[i][2] - 0.5)
         self.obj = np.array(self.obj, dtype=object)
         self.obj = self.obj[res]
         for obj in self.obj:
@@ -222,9 +222,9 @@ class PDSeg():
                     self.obj[x[1]][0] = masks[x[2]][0].astype(np.bool)
                     if x[4][0] >= 90 and x[4][2] <= self.w - 90:
                         self.obj[x[1]][1] += 1
-                        self.obj[x[1]][6] = False
-                    else:
                         self.obj[x[1]][6] = True
+                    else:
+                        self.obj[x[1]][6] = False
                     self.obj[x[1]][3] = idx
                     self.obj[x[1]][5] = x[4]
                     nu_obj[x[1]] = False
