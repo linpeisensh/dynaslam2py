@@ -97,6 +97,7 @@ class PDSeg():
             y = y2 + 10
         else:
             y = y2
+        y = min(y,self.h-5)
         def helper(y):
             res = []
             l = 0
