@@ -39,20 +39,20 @@ class PDSeg():
                 x = (x1 + x2) / 2
                 if 400 < x < 836:
                     res = self.get_max_min_idx(er, self.w, min(y2 + 10, self.h - 1))
-                    xy1, xy2 = x1, x2
+                    x1, x2 = x1, x2
                 else:
                     if 2.25 * (y2 - y1) > x2 - x1:
                         res = self.get_max_min_idx(er, self.w, min(y2 + 10, self.h - 1))
-                        xy1, xy2 = x1, x2
+                        x1, x2 = x1, x2
                     else:
                         res = self.get_max_min_idx(er, self.h, min(x2 + 10, self.w - 1))
-                        xy1, xy2 = y1, y2
+                        x1, x2 = y1, y2
                 for mi, ma in res:
                     if labels[i] in self.sides_moving_labels:
-                        if abs(xy2 - mi) <= (xy2 - xy1) or abs(xy1 - ma) <= (xy2 - xy1) or (
-                                xy1 >= mi and xy2 <= ma):
+                        if abs(x2 - mi) <= (x2 - x1) or abs(x1 - ma) <= (x2 - x1) or (
+                                x1 >= mi and x2 <= ma):
                             c[mask] = 0
-                    elif xy1 >= mi and xy2 <= ma:
+                    elif x1 >= mi and x2 <= ma:
                         c[mask] = 0
         return c
 
@@ -78,16 +78,15 @@ class PDSeg():
                 mask = masks[i].squeeze()
                 box = top.bbox[i]
                 res, x1, x2, y2 = self.get_max_min_idx(er, box)
-                xy1, xy2 = x1, x2
                 cc = cv.circle(cc, (x1, y2), 5, self.p_color, -1)
                 cc = cv.circle(cc, (x2, y2), 5, self.p_color, -1)
                 print(y2,res)
                 for mi, ma in res:
                     if labels[i] in self.sides_moving_labels:
-                        if abs(xy2 - mi) <= (xy2 - xy1) or abs(xy1 - ma) <= (xy2 - xy1) or (
-                                xy1 >= mi and xy2 <= ma):
+                        if abs(x2 - mi) <= (x2 - x1) or abs(x1 - ma) <= (x2 - x1) or (
+                                x1 >= mi and x2 <= ma):
                             cc[mask, ...] = 255
-                    elif xy1 >= mi and xy2 <= ma:
+                    elif x1 >= mi and x2 <= ma:
                         cc[mask, ...] = 255
         return cc
 
@@ -111,7 +110,7 @@ class PDSeg():
                 r =  l + 1
                 while r < self.w and er[y, r] == 255:
                     r += 1
-                if r <  self.w and er[y, r-1] == 255 and res and l - lr < 1.2 * (x2 - x1):
+                if r <  self.w and er[y, r-1] == 255 and res and l - lr < 1.05 * (x2 - x1):
                     l, _ = res.pop()
                 if r - l > 2:
                     res.append([l, r - 1])
@@ -162,23 +161,12 @@ class PDSeg():
 
         for i in range(nobj):
             box = self.obj[i][5]
-            x1, y1, x2, y2 = map(int, box)
-            x = (x1 + x2) / 2
-            if 400 < x < 836:
-                res = self.get_max_min_idx(er, self.w, min(y2 + 5, self.h - 1))
-                xy1, xy2 = x1, x2
-            else:
-                if 2.25 * (y2 - y1) > x2 - x1:
-                    res = self.get_max_min_idx(er, self.w, min(y2 + 5, self.h - 1))
-                    xy1, xy2 = x1, x2
-                else:
-                    res = self.get_max_min_idx(er, self.h, min(x2 + 5, self.w - 1))
-                    xy1, xy2 = y1, y2
+            res, x1, x2, y2 = self.get_max_min_idx(er, box)
             for mi, ma in res:
-                if self.obj[i][4] in {1, 2}:
-                    if abs(xy2 - mi) <= (xy2 - xy1) or abs(xy1 - ma) <= (xy2 - xy1) or (xy1 >= mi and xy2 <= ma):
+                if self.obj[i][4] in self.sides_moving_labels:
+                    if abs(x2 - mi) <= (x2 - x1) or abs(x1 - ma) <= (x2 - x1) or (x1 >= mi and x2 <= ma):
                         self.obj[i][2] += 1
-                elif xy1 >= mi and xy2 <= ma:
+                elif x1 >= mi and x2 <= ma:
                     self.obj[i][2] += 1
         c = np.ones((self.h, self.w),dtype=np.uint8)
         res = [True] * nobj

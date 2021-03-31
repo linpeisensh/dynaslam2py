@@ -44,8 +44,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/PDSeg.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="557">
-              <caret line="119" column="25" selection-start-line="119" selection-start-column="25" selection-end-line="119" selection-end-column="25" />
+            <state relative-caret-position="202">
+              <caret line="112" column="78" selection-start-line="112" selection-start-column="78" selection-end-line="112" selection-end-column="78" />
               <folding>
                 <element signature="e#0#16#0" expanded="true" />
               </folding>
@@ -90,7 +90,6 @@
     <findStrings>
       <find>p_color</find>
       <find>num_images</find>
-      <find>xy2</find>
       <find>get_max_min_idx</find>
       <find>pd_seg_t</find>
       <find>er</find>
@@ -118,6 +117,7 @@
       <find>10</find>
       <find>print</find>
       <find>cr</find>
+      <find>xy2</find>
     </findStrings>
     <replaceStrings>
       <replace>cv</replace>
@@ -141,6 +141,7 @@
       <replace>coco</replace>
       <replace>5</replace>
       <replace>self.w</replace>
+      <replace>x2</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -363,12 +364,12 @@
       <workItem from="1614841927460" duration="68251000" />
       <workItem from="1615560087248" duration="9459000" />
       <workItem from="1615900038802" duration="8195000" />
-      <workItem from="1616093396454" duration="54696000" />
+      <workItem from="1616093396454" duration="56221000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="243844000" />
+    <option name="totallyTimeSpent" value="245369000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -696,8 +697,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/PDSeg.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="557">
-          <caret line="119" column="25" selection-start-line="119" selection-start-column="25" selection-end-line="119" selection-end-column="25" />
+        <state relative-caret-position="202">
+          <caret line="112" column="78" selection-start-line="112" selection-start-column="78" selection-end-line="112" selection-end-column="78" />
           <folding>
             <element signature="e#0#16#0" expanded="true" />
           </folding>
