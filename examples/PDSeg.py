@@ -140,8 +140,8 @@ class PDSeg():
 
     def pd_seg_rec(self,iml,prob_map,idx):
         er = prob_map[..., 0].copy()
-        er[er < 128] = 0
-        er[er >= 128] = 255
+        er[er < 244] = 0
+        er[er >= 244] = 255
 
         frame_gray = cv.cvtColor(iml, cv.COLOR_BGR2GRAY)
         nobj = len(self.obj)
@@ -163,21 +163,22 @@ class PDSeg():
         nobj = len(self.obj)
 
         for i in range(nobj):
-            box = self.obj[i][5]
-            res, x1, x2, y2 = self.get_max_min_idx(er, box)
-            for mi, ma in res:
-                if self.obj[i][4] in self.sides_moving_labels:
-                    if abs(x2 - mi) <= (x2 - x1) or abs(x1 - ma) <= (x2 - x1) or (x1 >= mi and x2 <= ma):
+            if self.obj[i][6]:
+                box = self.obj[i][5]
+                res, x1, x2, y1, y2 = self.get_max_min_idx(er, box)
+                for mi, ma in res:
+                    if self.obj[i][4] in self.sides_moving_labels:
+                        if abs(x2 - mi) <= (x2 - x1) or abs(x1 - ma) <= (x2 - x1) or (x1 >= mi and x2 <= ma):
+                            self.obj[i][2] += 1
+                    elif x1 >= mi and x2 <= ma:
                         self.obj[i][2] += 1
-                elif x1 >= mi and x2 <= ma:
-                    self.obj[i][2] += 1
         c = np.ones((self.h, self.w),dtype=np.uint8)
         res = [True] * nobj
         print('num of objs', nobj)
         for i in range(nobj):
             if idx - self.obj[i][3] != 0:
                 res[i] = False
-            elif self.obj[i][2] / self.obj[i][1] >= 0.6 or self.obj[i][2] >= 5:  #
+            elif self.obj[i][2] / self.obj[i][1] >= 0.7:  #  or self.obj[i][2] >= 5
                 c[self.obj[i][0]] = 0
             else:
                 self.obj[i][2] = max(0, self.obj[i][2] - 0.5)
@@ -219,7 +220,11 @@ class PDSeg():
             if nu_obj[x[1]] and nu_mask[x[2]]:
                 if x[0] > 0 and x[3] == self.obj[x[1]][4]:
                     self.obj[x[1]][0] = masks[x[2]][0].astype(np.bool)
-                    self.obj[x[1]][1] += 1
+                    if x[4][0] >= 90 and x[4][2] <= self.w - 90:
+                        self.obj[x[1]][1] += 1
+                        self.obj[x[1]][6] = False
+                    else:
+                        self.obj[x[1]][6] = True
                     self.obj[x[1]][3] = idx
                     self.obj[x[1]][5] = x[4]
                     nu_obj[x[1]] = False
@@ -228,7 +233,10 @@ class PDSeg():
                     break
         for i in range(nm):
             if nu_mask[i]:
-                self.obj.append([masks[i][0].astype(np.bool), 1, 0, idx, masks[i][1],masks[i][2]]) # mask, appear, dyn, idx, label, box
+                if masks[i][2][0] >= 90 and masks[i][2][2] <= self.w - 90:
+                    self.obj.append([masks[i][0].astype(np.bool), 1, 0, idx, masks[i][1],masks[i][2], True]) # mask, appear, dyn, idx, label, box, in region
+                else:
+                    self.obj.append([masks[i][0].astype(np.bool), 0, 0, idx, masks[i][1], masks[i][2], False])
         # self.track_rate(idx)
         return
 

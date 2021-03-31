@@ -44,8 +44,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/PDSeg.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="354">
-              <caret line="93" column="17" lean-forward="true" selection-start-line="93" selection-start-column="17" selection-end-line="93" selection-end-column="17" />
+            <state relative-caret-position="80">
+              <caret line="164" column="29" lean-forward="true" selection-start-line="164" selection-start-column="29" selection-end-line="164" selection-end-column="29" />
               <folding>
                 <element signature="e#0#16#0" expanded="true" />
               </folding>
@@ -88,7 +88,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>p_color</find>
       <find>num_images</find>
       <find>get_max_min_idx</find>
       <find>pd_seg_t</find>
@@ -118,6 +117,7 @@
       <find>print</find>
       <find>cr</find>
       <find>xy2</find>
+      <find>nu_obj</find>
     </findStrings>
     <replaceStrings>
       <replace>cv</replace>
@@ -364,12 +364,12 @@
       <workItem from="1614841927460" duration="68251000" />
       <workItem from="1615560087248" duration="9459000" />
       <workItem from="1615900038802" duration="8195000" />
-      <workItem from="1616093396454" duration="60868000" />
+      <workItem from="1616093396454" duration="62705000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="250016000" />
+    <option name="totallyTimeSpent" value="251853000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -697,8 +697,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/PDSeg.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="354">
-          <caret line="93" column="17" lean-forward="true" selection-start-line="93" selection-start-column="17" selection-end-line="93" selection-end-column="17" />
+        <state relative-caret-position="80">
+          <caret line="164" column="29" lean-forward="true" selection-start-line="164" selection-start-column="29" selection-end-line="164" selection-end-column="29" />
           <folding>
             <element signature="e#0#16#0" expanded="true" />
           </folding>
