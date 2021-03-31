@@ -88,7 +88,7 @@ class PDSeg():
                             cc[mask, ...] = 255
                     elif (x1 >= mi and x2 <= ma):
                         cc[mask, ...] = 255
-                    elif self.h - y2 >= 5:
+                    elif self.h - y2 > 9:
                        if (mi <= x1 <= ma and self.w - x2 <= 60) or (mi <= x2 <= ma and x1 <= 60):
                            cc[mask, ...] = 255
         return cc
