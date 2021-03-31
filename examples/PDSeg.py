@@ -178,7 +178,7 @@ class PDSeg():
         for i in range(nobj):
             if idx - self.obj[i][3] != 0:
                 res[i] = False
-            elif self.obj[i][1] and self.obj[i][2] / self.obj[i][1] >= 0.7:  #  or self.obj[i][2] >= 5
+            elif self.obj[i][1] and self.obj[i][2] / self.obj[i][1] >= 0.6:  #  or self.obj[i][2] >= 5
                 c[self.obj[i][0]] = 0
             # else:
             #     self.obj[i][2] = max(0, self.obj[i][2] - 0.5)
