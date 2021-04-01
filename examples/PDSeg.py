@@ -86,11 +86,8 @@ class PDSeg():
                         if abs(x2 - mi) <= (x2 - x1) or abs(x1 - ma) <= (x2 - x1) or (
                                 x1 >= mi and x2 <= ma):
                             cc[mask, ...] = 255
-                    elif (x1 >= mi and x2 <= ma):
+                    elif (x1 >= mi and x2 <= ma and self.w - x2 <= 90 and x1 <= 90):
                         cc[mask, ...] = 255
-                    elif self.h - y2 > 9:
-                       if (mi <= x1 <= ma and self.w - x2 <= 60) or (mi <= x2 <= ma and x1 <= 60):
-                           cc[mask, ...] = 255
         return cc
 
     def get_max_min_idx(self, er, box):
