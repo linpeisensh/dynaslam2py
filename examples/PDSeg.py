@@ -217,7 +217,7 @@ class PDSeg():
             if nu_obj[x[1]] and nu_mask[x[2]]:
                 if x[0] > 0 and x[3] == self.obj[x[1]][4]:
                     self.obj[x[1]][0] = masks[x[2]][0].astype(np.bool)
-                    if x[4][0] >= 90 and x[4][2] <= self.w - 90:
+                    if x[4][0] >= 90 and x[4][2] <= self.w - 90 and x[4][3] >= 180:
                         self.obj[x[1]][1] += 1
                         self.obj[x[1]][6] = True
                     else:
