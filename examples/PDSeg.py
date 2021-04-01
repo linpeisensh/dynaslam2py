@@ -110,7 +110,7 @@ class PDSeg():
                 r =  l + 1
                 while r < self.w and er[y, r] == 255:
                     r += 1
-                if r <  self.w and er[y, r-1] == 255 and res and l - lr < 1.05 * (x2 - x1):
+                if r <  self.w and er[y, r-1] == 255 and res and l - lr < max(1.05 * (x2 - x1),self.w/4):
                     l, _ = res.pop()
                 if r - l > 2:
                     res.append([l, r - 1])
@@ -217,7 +217,7 @@ class PDSeg():
             if nu_obj[x[1]] and nu_mask[x[2]]:
                 if x[0] > 0 and x[3] == self.obj[x[1]][4]:
                     self.obj[x[1]][0] = masks[x[2]][0].astype(np.bool)
-                    if x[4][0] >= 90 and x[4][2] <= self.w - 90 and x[4][3] >= 204:
+                    if x[4][0] >= 90 and x[4][2] <= self.w - 90 and x[4][3] >= 218:
                         self.obj[x[1]][1] += 1
                         self.obj[x[1]][6] = True
                     else:
@@ -230,7 +230,7 @@ class PDSeg():
                     break
         for i in range(nm):
             if nu_mask[i]:
-                if masks[i][2][0] >= 90 and masks[i][2][2] <= self.w - 90 and masks[i][2][3] >= 204:
+                if masks[i][2][0] >= 90 and masks[i][2][2] <= self.w - 90 and masks[i][2][3] >= 218:
                     self.obj.append([masks[i][0].astype(np.bool), 1, 0, idx, masks[i][1],masks[i][2], True]) # mask, appear, dyn, idx, label, box, in region
                 else:
                     self.obj.append([masks[i][0].astype(np.bool), 0, 0, idx, masks[i][1], masks[i][2], False])
