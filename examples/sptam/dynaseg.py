@@ -73,26 +73,6 @@ class DynaSeg():
         points = cv.reprojectImageTo3D(disp, self.Q)
         return points
 
-    # def track_obj(self, mask, idx):
-    #     n = len(self.obj)
-    #     max_IOU = 0
-    #     ci = n
-    #     mIOU = 0
-    #     for i in range(n):
-    #         cIOU = get_IOU(mask, self.obj[i][0])
-    #         if cIOU > self.IOU_thd and cIOU > max_IOU:
-    #             max_IOU = cIOU
-    #             ci = i
-    #         mIOU = max(cIOU, mIOU)
-    #     if ci == n:
-    #         # print(n,mIOU)
-    #         self.obj.append([mask.astype(np.bool), 1, 0, idx])
-    #     else:
-    #         self.obj[ci][1] += 1
-    #         self.obj[ci][0] = mask.astype(np.bool)
-    #         self.obj[ci][3] = idx
-    #     return ci
-
     def projection(self, frame, frame_gray):
         # calculate optical flow
         p1, st, err = cv.calcOpticalFlowPyrLK(self.old_gray, frame_gray, self.p1, None, **self.lk_params)
@@ -293,10 +273,10 @@ class DynaSegt(DynaSeg):
         self.points = self.get_points(i, iml, imr)
         self.otfm = np.linalg.inv(trans)
 
-    def get_points(self, i, iml, imr):
-        disp = cv.imread(os.path.join(self.disp_path, str(i).zfill(6) + '.png'))[..., 0]
-        points = cv.reprojectImageTo3D(disp, self.Q)
-        return points
+    # def get_points(self, i, iml, imr):
+    #     disp = cv.imread(os.path.join(self.disp_path, str(i).zfill(6) + '.png'))[..., 0]
+    #     points = cv.reprojectImageTo3D(disp, self.Q)
+    #     return points
 
     def projection(self, trans, frame_gray):
         # calculate optical flow

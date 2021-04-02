@@ -148,6 +148,7 @@ if os.path.exists(dpath):
 os.mkdir(dpath)
 
 print('sequence ',sequence)
+print(mode)
 for idx in range(num_images):
     left_image = cv.imread(left_filenames[idx], cv.IMREAD_UNCHANGED)
     right_image = cv.imread(right_filenames[idx], cv.IMREAD_UNCHANGED)
