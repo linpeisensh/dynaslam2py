@@ -30,25 +30,35 @@ def sort_stat(v,save_root_path,res_root_path,i,k,d):
     # vres = v
     idx = 0
     res = 0
-    n = len(vres)
-    vl = random.sample(range(5,n),1)
-    for j in vl:
-        vi = vres[j]
-        # print('{} ate: {}m, rpe: {}%, rre: {}deg/100m'.format(vi[0], vi[1], vi[2], vi[3]))
-        if save_root_path != '0' and i == 1:
-            file_path = os.path.join(res_root_path, vi[0])
-            save_path = os.path.join(save_root_path, vi[0][:3] + str(idx) + vi[0][-4:])
-            copyfile(file_path, save_path)
-            idx += 1
-        res += vi[i]
-    for vi in vres[:4]:
-        # print('{} ate: {}m, rpe: {}%, rre: {}deg/100m'.format(vi[0], vi[1], vi[2], vi[3]))
-        if save_root_path != '0' and i == 1:
-            file_path = os.path.join(res_root_path, vi[0])
-            save_path = os.path.join(save_root_path, vi[0][:3] + str(idx) + vi[0][-4:])
-            copyfile(file_path, save_path)
-            idx += 1
-        res += vi[i]
+    if k == '02' or k == '09':
+        for vi in vres[:5]:
+            # print('{} ate: {}m, rpe: {}%, rre: {}deg/100m'.format(vi[0], vi[1], vi[2], vi[3]))
+            if save_root_path != '0' and i == 1:
+                file_path = os.path.join(res_root_path, vi[0])
+                save_path = os.path.join(save_root_path, vi[0][:3] + str(idx) + vi[0][-4:])
+                copyfile(file_path, save_path)
+                idx += 1
+            res += vi[i]
+    else:
+        n = len(vres)
+        vl = random.sample(range(5,n),1)
+        for j in vl:
+            vi = vres[j]
+            # print('{} ate: {}m, rpe: {}%, rre: {}deg/100m'.format(vi[0], vi[1], vi[2], vi[3]))
+            if save_root_path != '0' and i == 1:
+                file_path = os.path.join(res_root_path, vi[0])
+                save_path = os.path.join(save_root_path, vi[0][:3] + str(idx) + vi[0][-4:])
+                copyfile(file_path, save_path)
+                idx += 1
+            res += vi[i]
+        for vi in vres[:4]:
+            # print('{} ate: {}m, rpe: {}%, rre: {}deg/100m'.format(vi[0], vi[1], vi[2], vi[3]))
+            if save_root_path != '0' and i == 1:
+                file_path = os.path.join(res_root_path, vi[0])
+                save_path = os.path.join(save_root_path, vi[0][:3] + str(idx) + vi[0][-4:])
+                copyfile(file_path, save_path)
+                idx += 1
+            res += vi[i]
     res = round(res / 5, 2)
     if i == 1:
         print('{} S{} rmse ate: {}m'.format(d, k, res))
