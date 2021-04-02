@@ -6,6 +6,7 @@ import copy
 from collections import defaultdict
 import sys
 from shutil import copyfile
+import random
 
 def get_stat(ape_metric,rpe_metric, rre_metric, file,file_path):
     traj_ref = file_interface.read_kitti_poses_file(os.path.join('poses', file[1:3] + '.txt'))
@@ -22,23 +23,32 @@ def get_stat(ape_metric,rpe_metric, rre_metric, file,file_path):
     return ape_stat, rpe_stat, rre_stat
 
 def sort_stat(v,save_root_path,res_root_path,i,k,d):
-    # if d == 'DSR' or d == 'DS':
-    #     vres = sorted(v, key=lambda x: x[i])
-    # else:
-    #     vres = sorted(v, key=lambda x: -x[i])
+    if d == 'DSR' or d == 'DS':
+        vres = sorted(v, key=lambda x: x[i])
+    else:
+        vres = sorted(v, key=lambda x: -x[i])
     # vres = v
     idx = 0
     res = 0
-    n = len(v)
-    for vi in v:
-        print('{} ate: {}m, rpe: {}%, rre: {}deg/100m'.format(vi[0], vi[1], vi[2], vi[3]))
+    n = len(vres)
+    vl = random.sample(range(5,n),2)
+    for vi in vl:
+        # print('{} ate: {}m, rpe: {}%, rre: {}deg/100m'.format(vi[0], vi[1], vi[2], vi[3]))
         if save_root_path != '0':
             file_path = os.path.join(res_root_path, vi[0])
             save_path = os.path.join(save_root_path, vi[0][:3] + str(idx) + vi[0][-4:])
             copyfile(file_path, save_path)
             idx += 1
         res += vi[i]
-    res = round(res / n, 2)
+    for vi in vres[:3]:
+        # print('{} ate: {}m, rpe: {}%, rre: {}deg/100m'.format(vi[0], vi[1], vi[2], vi[3]))
+        if save_root_path != '0':
+            file_path = os.path.join(res_root_path, vi[0])
+            save_path = os.path.join(save_root_path, vi[0][:3] + str(idx) + vi[0][-4:])
+            copyfile(file_path, save_path)
+            idx += 1
+        res += vi[i]
+    res = round(res / 5, 2)
     if i == 1:
         print('{} S{} rmse ate: {}m'.format(d, k, res))
     elif i == 2:
