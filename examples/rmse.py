@@ -32,7 +32,8 @@ def sort_stat(v,save_root_path,res_root_path,i,k,d):
     res = 0
     n = len(vres)
     vl = random.sample(range(5,n),2)
-    for vi in vl:
+    for i in vl:
+        vi = vres[i]
         # print('{} ate: {}m, rpe: {}%, rre: {}deg/100m'.format(vi[0], vi[1], vi[2], vi[3]))
         if save_root_path != '0':
             file_path = os.path.join(res_root_path, vi[0])
