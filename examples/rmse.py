@@ -22,14 +22,15 @@ def get_stat(ape_metric,rpe_metric, rre_metric, file,file_path):
     return ape_stat, rpe_stat, rre_stat
 
 def sort_stat(v,save_root_path,res_root_path,i,k,d):
-    if d == 'DSR' or d == 'DS':
-        vres = sorted(v, key=lambda x: x[i])
-    else:
-        vres = sorted(v, key=lambda x: -x[i])
+    # if d == 'DSR' or d == 'DS':
+    #     vres = sorted(v, key=lambda x: x[i])
+    # else:
+    #     vres = sorted(v, key=lambda x: -x[i])
     # vres = v
     idx = 0
     res = 0
-    for vi in vres[:5]:
+    n = len(v)
+    for vi in v:
         print('{} ate: {}m, rpe: {}%, rre: {}deg/100m'.format(vi[0], vi[1], vi[2], vi[3]))
         if save_root_path != '0':
             file_path = os.path.join(res_root_path, vi[0])
@@ -37,7 +38,7 @@ def sort_stat(v,save_root_path,res_root_path,i,k,d):
             copyfile(file_path, save_path)
             idx += 1
         res += vi[i]
-    res = round(res / 5, 2)
+    res = round(res / n, 2)
     if i == 1:
         print('{} S{} rmse ate: {}m'.format(d, k, res))
     elif i == 2:
