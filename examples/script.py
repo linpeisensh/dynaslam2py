@@ -169,10 +169,18 @@ for idx in range(num_images):
         trans = pose_to_transformation(slam0.get_trajectory_points()[-1])
         if idx % 3 == 0:
             if idx:
-                c = dseg.dyn_seg_rec(trans, left_image, idx)
+                if mode == 'dsr':
+                    c = dseg.dyn_seg_rec(trans, left_image, idx)
+                else:
+                    c = dseg.dyn_seg(trans, left_image)
             dseg.updata(left_image, right_image, idx, trans)
         else:
-            c = dseg.dyn_seg_rec(trans, left_image, idx)
+            if mode == 'dsr':
+                c = dseg.dyn_seg_rec(trans, left_image, idx)
+            else:
+                c = dseg.dyn_seg(trans, left_image)
         if idx:
             cv.imwrite(os.path.join(dpath, '{0:06}.png'.format(idx)), c * 255)
     print('{} frame'.format(idx))
+    if mode != 'dpr' or mode != 'tt':
+        print('mean dcverror: {}'.format(np.mean(dseg.cverrs)))
