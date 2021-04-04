@@ -36,10 +36,16 @@ from maskrcnn_benchmark.config import cfg
 from demo.predictor import COCODemo
 
 from PDSeg import PDSeg
-from sptam.dynaseg import DynaSegt
-from sptam.msptam import stereoCamera
+from sptam.dynaseg import DynaSegt,DynaSeg
+from sptam.msptam import SPTAM, stereoCamera
+from sptam.components import Camera
+from sptam.components import StereoFrame
+from sptam.feature import ImageFeature
+from sptam.params import ParamsKITTI
+from sptam.dataset import KITTIOdometry
 
 import orbslam2
+import g2o
 
 import sys
 import cv2 as cv
@@ -47,6 +53,7 @@ import traceback
 import numpy as np
 import os
 import shutil
+from threading import Thread
 
 def load_images(path_to_sequence):
     res = [os.path.join(path_to_sequence, img) for img in os.listdir(path_to_sequence)]
@@ -73,11 +80,12 @@ def pose_to_transformation(pose):
 sequence = sys.argv[1]
 mode = sys.argv[2]
 
-file_path = os.path.join('/storage/remote/atcremers17/linp/dataset/kittic/sequences/',sequence, 'image_2')
+sequence_path = os.path.join('/storage/remote/atcremers17/linp/dataset/kittic/sequences/',sequence)
+file_path = os.path.join(sequence_path, 'image_2')
 left_filenames = load_images(file_path)
-file_path = os.path.join('/storage/remote/atcremers17/linp/dataset/kittic/sequences/',sequence, 'image_3')
+file_path = os.path.join(sequence_path, 'image_3')
 right_filenames = load_images(file_path)
-timestamps = load_times(os.path.join('/storage/remote/atcremers17/linp/dataset/kittic/sequences/',sequence))
+timestamps = load_times(sequence_path)
 
 prob_path = os.path.join('/usr/stud/linp/storage/user/linp/prob/', sequence)
 prob_filenames = load_images(prob_path)
@@ -101,18 +109,6 @@ iml = cv.imread(left_filenames[0], cv.IMREAD_UNCHANGED)
 if mode == 'dpr' or mode == 'tt':
     pdseg = PDSeg(iml,coco_demo,depth_path,kernel)
 else:
-    orb_path = '/usr/stud/linp/storage/user/linp/ORB_SLAM2'
-    vocab_path = os.path.join(orb_path, 'Vocabulary/ORBvoc.txt')
-    ins = int(sequence)
-    if ins < 3:
-        settings_path = os.path.join(orb_path, 'Examples/Stereo/KITTI00-02.yaml')
-    elif ins == 3:
-        settings_path = os.path.join(orb_path, 'Examples/Stereo/KITTI03.yaml')
-    else:
-        settings_path = os.path.join(orb_path, 'Examples/Stereo/KITTI04-12.yaml')
-    slam0 = orbslam2.System(vocab_path, settings_path, orbslam2.Sensor.STEREO)
-    slam0.set_use_viewer(False)
-    slam0.initialize()
     feature_params = dict(maxCorners=1000,
                           qualityLevel=0.1,
                           minDistance=7,
@@ -136,8 +132,32 @@ else:
               'speckleRange': 1,
               'mode': cv.STEREO_SGBM_MODE_SGBM_3WAY
               }
-
-    dseg = DynaSegt(iml, coco_demo, feature_params, depth_path, config, paraml, lk_params, mtx, dist, kernel, loadmodel)
+    if mode[0] == 'd':
+        orb_path = '/usr/stud/linp/storage/user/linp/ORB_SLAM2'
+        vocab_path = os.path.join(orb_path, 'Vocabulary/ORBvoc.txt')
+        ins = int(sequence)
+        if ins < 3:
+            settings_path = os.path.join(orb_path, 'Examples/Stereo/KITTI00-02.yaml')
+        elif ins == 3:
+            settings_path = os.path.join(orb_path, 'Examples/Stereo/KITTI03.yaml')
+        else:
+            settings_path = os.path.join(orb_path, 'Examples/Stereo/KITTI04-12.yaml')
+        slam0 = orbslam2.System(vocab_path, settings_path, orbslam2.Sensor.STEREO)
+        slam0.set_use_viewer(False)
+        slam0.initialize()
+        dseg = DynaSegt(iml, coco_demo, feature_params, depth_path, config, paraml, lk_params, mtx, dist, kernel, loadmodel)
+    else:
+        params = ParamsKITTI()
+        dataset = KITTIOdometry(sequence_path)
+        sptam = SPTAM(params)
+        config = stereoCamera()
+        dseg = DynaSeg(iml, coco_demo, feature_params, depth_path, config, paraml, lk_params, mtx, dist, kernel,
+                       loadmodel)
+        cam = Camera(
+            dataset.cam.fx, dataset.cam.fy, dataset.cam.cx, dataset.cam.cy,
+            dataset.cam.width, dataset.cam.height,
+            params.frustum_near, params.frustum_far,
+            dataset.cam.baseline)
 
 
 num_images = len(left_filenames)
@@ -162,25 +182,51 @@ for idx in range(num_images):
         c = pdseg.pd_seg_t(left_image, prob_image)
         cv.imwrite(os.path.join(dpath, '{0:06}.png'.format(idx)), c)
     else:
-        left_mask = np.ones((dseg.h, dseg.w, 1), dtype=np.uint8)
-        right_mask = np.ones((dseg.h, dseg.w, 1), dtype=np.uint8)
         timestamp = timestamps[idx]
-        slam0.process_image_stereo(left_image[:, :, ::-1], right_image[:, :, ::-1], left_mask, right_mask, timestamp)
-        trans = pose_to_transformation(slam0.get_trajectory_points()[-1])
-        if idx % 3 == 0:
-            if idx:
-                if mode == 'dsr':
+        if mode[0] == 'd':
+            left_mask = np.ones((dseg.h, dseg.w, 1), dtype=np.uint8)
+            right_mask = np.ones((dseg.h, dseg.w, 1), dtype=np.uint8)
+            slam0.process_image_stereo(left_image[:, :, ::-1], right_image[:, :, ::-1], left_mask, right_mask, timestamp)
+            trans = pose_to_transformation(slam0.get_trajectory_points()[-1])
+            if idx % 3 == 0:
+                if idx:
+                    if mode == 'dsr':
+                        c = dseg.dyn_seg_rec(trans, left_image, idx)
+                    else:
+                        c = dseg.dyn_seg(trans, left_image)
+                dseg.updata(left_image, right_image, idx, trans)
+            else:
+                if mode[:3] == 'dsr':
                     c = dseg.dyn_seg_rec(trans, left_image, idx)
                 else:
                     c = dseg.dyn_seg(trans, left_image)
-            dseg.updata(left_image, right_image, idx, trans)
+            if idx:
+                cv.imwrite(os.path.join(dpath, '{0:06}.png'.format(idx)), c * 255)
         else:
-            if mode == 'dsr':
-                c = dseg.dyn_seg_rec(trans, left_image, idx)
+            featurel = ImageFeature(left_image, params)
+            featurer = ImageFeature(right_image, params)
+            t = Thread(target=featurer.extract)
+            t.start()
+            featurel.extract()
+            t.join()
+            frame = StereoFrame(idx, g2o.Isometry3d(), featurel, featurer, cam, timestamp=timestamp)
+
+            if not sptam.is_initialized():
+                sptam.initialize(frame)
             else:
-                c = dseg.dyn_seg(trans, left_image)
-        if idx:
-            cv.imwrite(os.path.join(dpath, '{0:06}.png'.format(idx)), c * 255)
+                sptam.track(frame)
+
+            if idx % 3 == 0:
+                if idx:
+                    c = dseg.dyn_seg(frame, left_image)
+                dseg.updata(left_image, right_image, idx, frame)
+            else:
+                c = dseg.dyn_seg(frame, left_image)
+            if idx:
+                c = cv.dilate(c, kernel)
+                cv.imwrite(os.path.join(dpath, '{0:06}.png'.format(idx)), c * 255)
+
+
     print('{} frame'.format(idx))
     if mode != 'dpr' or mode != 'tt':
         print('mean dcverror: {}'.format(np.mean(dseg.cverrs)))
