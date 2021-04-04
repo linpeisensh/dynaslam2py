@@ -106,6 +106,7 @@ kernel = cv.getStructuringElement(cv.MORPH_ELLIPSE, (2 * dilation + 1, 2 * dilat
 depth_path = os.path.join('/usr/stud/linp/storage/user/linp/depth/',sequence)
 
 iml = cv.imread(left_filenames[0], cv.IMREAD_UNCHANGED)
+f = 0
 if mode == 'dpr' or mode == 'tt':
     pdseg = PDSeg(iml,coco_demo,depth_path,kernel)
 else:
@@ -133,6 +134,7 @@ else:
               'mode': cv.STEREO_SGBM_MODE_SGBM_3WAY
               }
     if mode[0] == 'd':
+        f = 1
         orb_path = '/usr/stud/linp/storage/user/linp/ORB_SLAM2'
         vocab_path = os.path.join(orb_path, 'Vocabulary/ORBvoc.txt')
         ins = int(sequence)
@@ -147,6 +149,7 @@ else:
         slam0.initialize()
         dseg = DynaSegt(iml, coco_demo, feature_params, depth_path, config, paraml, lk_params, mtx, dist, kernel, loadmodel)
     else:
+        f = 2
         params = ParamsKITTI()
         dataset = KITTIOdometry(sequence_path)
         sptam = SPTAM(params)
@@ -169,6 +172,7 @@ os.mkdir(dpath)
 
 print('sequence ',sequence)
 print(mode)
+
 for idx in range(num_images):
     left_image = cv.imread(left_filenames[idx], cv.IMREAD_UNCHANGED)
     right_image = cv.imread(right_filenames[idx], cv.IMREAD_UNCHANGED)
@@ -228,5 +232,9 @@ for idx in range(num_images):
 
 
     print('{} frame'.format(idx))
-    if mode != 'dpr' or mode != 'tt':
-        print('mean dcverror: {}'.format(np.mean(dseg.cverrs)))
+if mode != 'dpr' or mode != 'tt':
+    print('mean dcverror: {}'.format(np.mean(dseg.cverrs)))
+if f == 1:
+    slam0.shutdown()
+elif f == 2:
+    sptam.stop()

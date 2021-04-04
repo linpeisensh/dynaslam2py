@@ -273,11 +273,6 @@ class DynaSegt(DynaSeg):
         self.points = self.get_points(i, iml, imr)
         self.otfm = np.linalg.inv(trans)
 
-    def get_points(self, i, iml, imr):
-        disp = cv.imread(os.path.join(self.disp_path, str(i).zfill(6) + '.png'))[..., 0]
-        points = cv.reprojectImageTo3D(disp, self.Q)
-        return points
-
     def projection(self, trans, frame_gray):
         # calculate optical flow
         p1, st, err = cv.calcOpticalFlowPyrLK(self.old_gray, frame_gray, self.p1, None, **self.lk_params)
