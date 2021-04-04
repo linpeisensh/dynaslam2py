@@ -173,7 +173,7 @@ class PDSeg():
         res = [True] * nobj
         print('num of objs', nobj)
         for i in range(nobj):
-            if idx - self.obj[i][3] != 0:
+            if idx - self.obj[i][3] >= 10 or (idx - self.obj[i][3] and np.sum(self.obj[i][0]) < self.obj[i][7]):
                 res[i] = False
             elif self.obj[i][1] and self.obj[i][2] / self.obj[i][1] >= 0.6:  #  or self.obj[i][2] >= 5
                 c[self.obj[i][0]] = 0
@@ -216,6 +216,7 @@ class PDSeg():
         for x in res:
             if nu_obj[x[1]] and nu_mask[x[2]]:
                 if x[0] > 0 and x[3] == self.obj[x[1]][4]:
+                    self.obj[x[1]][7] = np.sum(self.obj[x[1]][0])
                     self.obj[x[1]][0] = masks[x[2]][0].astype(np.bool)
                     if x[4][0] >= 90 and x[4][2] <= self.w - 90 and x[4][3] >= 213:
                         self.obj[x[1]][1] += 1
@@ -231,9 +232,9 @@ class PDSeg():
         for i in range(nm):
             if nu_mask[i]:
                 if masks[i][2][0] >= 90 and masks[i][2][2] <= self.w - 90 and masks[i][2][3] >= 213:
-                    self.obj.append([masks[i][0].astype(np.bool), 1, 0, idx, masks[i][1],masks[i][2], True]) # mask, appear, dyn, idx, label, box, in region
+                    self.obj.append([masks[i][0].astype(np.bool), 1, 0, idx, masks[i][1],masks[i][2], True,0]) # mask, appear, dyn, idx, label, box, in region, last_mask
                 else:
-                    self.obj.append([masks[i][0].astype(np.bool), 0, 0, idx, masks[i][1], masks[i][2], False])
+                    self.obj.append([masks[i][0].astype(np.bool), 0, 0, idx, masks[i][1], masks[i][2], False,0])
         # self.track_rate(idx)
         return
 

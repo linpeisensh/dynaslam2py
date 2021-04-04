@@ -31,11 +31,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/script.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="671">
-              <caret line="240" lean-forward="true" selection-start-line="240" selection-end-line="240" />
+            <state relative-caret-position="119">
+              <caret line="116" column="27" lean-forward="true" selection-start-line="116" selection-start-column="27" selection-end-line="116" selection-end-column="27" />
               <folding>
                 <element signature="e#957#998#0" expanded="true" />
               </folding>
@@ -43,23 +43,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/orbslam_stereo_kittim.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="271">
-              <caret line="197" column="16" lean-forward="true" selection-start-line="197" selection-start-column="4" selection-end-line="197" selection-end-column="16" />
-              <folding>
-                <element signature="e#23#33#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/PDSeg.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="79">
-              <caret line="240" lean-forward="true" selection-start-line="240" selection-end-line="240" />
+            <state relative-caret-position="176">
+              <caret line="175" column="45" lean-forward="true" selection-start-line="175" selection-start-column="45" selection-end-line="175" selection-end-column="45" />
               <folding>
                 <element signature="e#0#16#0" expanded="true" />
               </folding>
@@ -82,8 +70,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/sptam/dynaseg.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-166">
-              <caret line="303" column="19" selection-start-line="303" selection-start-column="13" selection-end-line="303" selection-end-column="19" />
+            <state relative-caret-position="1145">
+              <caret line="318" lean-forward="true" selection-start-line="318" selection-end-line="318" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
               </folding>
@@ -102,7 +90,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>disp_path</find>
       <find>config</find>
       <find>getRectifyTransform</find>
       <find>feature_params</find>
@@ -127,11 +114,12 @@
       <find>sequence_path</find>
       <find>params</find>
       <find>Thread</find>
-      <find>cam</find>
       <find>dseg</find>
-      <find>cverrs</find>
-      <find>slam</find>
       <find>slam0</find>
+      <find>cverrs</find>
+      <find>cam</find>
+      <find>slam</find>
+      <find>lk_params</find>
     </findStrings>
     <replaceStrings>
       <replace>cv</replace>
@@ -181,12 +169,12 @@
         <option value="$PROJECT_DIR$/orbslam_stereo_kittim.py" />
         <option value="$PROJECT_DIR$/ds_slam.py" />
         <option value="$PROJECT_DIR$/dsr_slam.py" />
-        <option value="$PROJECT_DIR$/PDSeg.py" />
         <option value="$PROJECT_DIR$/PD_SLAM.py" />
         <option value="$PROJECT_DIR$/rmse.py" />
         <option value="$USER_HOME$/AppData/Local/Packages/CanonicalGroupLimited.UbuntuonWindows_79rhkp1fndgsc/LocalState/rootfs/home/linpeisen/kitti/rmse.py" />
         <option value="$PROJECT_DIR$/sptam/dynaseg.py" />
         <option value="$PROJECT_DIR$/script.py" />
+        <option value="$PROJECT_DIR$/PDSeg.py" />
       </list>
     </option>
   </component>
@@ -379,12 +367,12 @@
       <workItem from="1614841927460" duration="68251000" />
       <workItem from="1615560087248" duration="9459000" />
       <workItem from="1615900038802" duration="8195000" />
-      <workItem from="1616093396454" duration="84828000" />
+      <workItem from="1616093396454" duration="89146000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="273976000" />
+    <option name="totallyTimeSpent" value="278294000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -680,32 +668,22 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/orbslam_stereo_kittim.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="271">
-          <caret line="197" column="16" lean-forward="true" selection-start-line="197" selection-start-column="4" selection-end-line="197" selection-end-column="16" />
-          <folding>
-            <element signature="e#23#33#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/sptam/dynaseg.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-166">
-          <caret line="303" column="19" selection-start-line="303" selection-start-column="13" selection-end-line="303" selection-end-column="19" />
+        <state relative-caret-position="1145">
+          <caret line="318" lean-forward="true" selection-start-line="318" selection-end-line="318" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/PDSeg.py">
+    <entry file="file://$PROJECT_DIR$/orbslam_stereo_kittim.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="79">
-          <caret line="240" lean-forward="true" selection-start-line="240" selection-end-line="240" />
+        <state relative-caret-position="271">
+          <caret line="197" column="16" lean-forward="true" selection-start-line="197" selection-start-column="4" selection-end-line="197" selection-end-column="16" />
           <folding>
-            <element signature="e#0#16#0" expanded="true" />
+            <element signature="e#23#33#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -722,10 +700,20 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/script.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="671">
-          <caret line="240" lean-forward="true" selection-start-line="240" selection-end-line="240" />
+        <state relative-caret-position="119">
+          <caret line="116" column="27" lean-forward="true" selection-start-line="116" selection-start-column="27" selection-end-line="116" selection-end-column="27" />
           <folding>
             <element signature="e#957#998#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/PDSeg.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="176">
+          <caret line="175" column="45" lean-forward="true" selection-start-line="175" selection-start-column="45" selection-end-line="175" selection-end-column="45" />
+          <folding>
+            <element signature="e#0#16#0" expanded="true" />
           </folding>
         </state>
       </provider>
