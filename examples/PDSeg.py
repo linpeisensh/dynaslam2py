@@ -145,14 +145,15 @@ class PDSeg():
         for i in range(nobj):
             cm = np.where(self.obj[i][0] == True)
             cmps = np.array(list(zip(cm[1], cm[0]))).astype(np.float32)
-            nmps, st, err = cv.calcOpticalFlowPyrLK(self.old_gray, frame_gray, cmps, None, **self.lk_params)
-            nm = np.zeros_like(self.obj[i][0], dtype=np.uint8)
-            for nmp in nmps:
-                x, y = round(nmp[1]), round(nmp[0])
-                if 0 <= x < self.h and 0 <= y < self.w:
-                    nm[x, y] = 1
-            nm = cv.erode(cv.dilate(nm, self.kernel), self.kernel)
-            self.obj[i][0] = nm.astype(np.bool)
+            if cmps:
+                nmps, st, err = cv.calcOpticalFlowPyrLK(self.old_gray, frame_gray, cmps, None, **self.lk_params)
+                nm = np.zeros_like(self.obj[i][0], dtype=np.uint8)
+                for nmp in nmps:
+                    x, y = round(nmp[1]), round(nmp[0])
+                    if 0 <= x < self.h and 0 <= y < self.w:
+                        nm[x, y] = 1
+                nm = cv.erode(cv.dilate(nm, self.kernel), self.kernel)
+                self.obj[i][0] = nm.astype(np.bool)
 
         self.obj = list(self.obj)
         self.track_obj(iml, idx)
