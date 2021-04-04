@@ -142,6 +142,7 @@ class PDSeg():
 
         frame_gray = cv.cvtColor(iml, cv.COLOR_BGR2GRAY)
         nobj = len(self.obj)
+        res = [True] * nobj
         for i in range(nobj):
             cm = np.where(self.obj[i][0] == True)
             cmps = np.array(list(zip(cm[1], cm[0]))).astype(np.float32)
@@ -154,8 +155,10 @@ class PDSeg():
                         nm[x, y] = 1
                 nm = cv.erode(cv.dilate(nm, self.kernel), self.kernel)
                 self.obj[i][0] = nm.astype(np.bool)
+            else:
+                res[i] = False
 
-        self.obj = list(self.obj)
+        self.obj = list(self.obj[res])
         self.track_obj(iml, idx)
 
         nobj = len(self.obj)
