@@ -201,9 +201,10 @@ class PDSeg():
         print('num of objs', nobj)
         for i in range(nobj):
             if self.obj[i][4] in self.cars:
-                box = self.obj[i][5]
-                x1, y1, x2, y2 = map(int, box)
-                if idx - self.obj[i][3] >= 5 or (idx - self.obj[i][3] and (np.sum(self.obj[i][0]) < self.obj[i][7] or x1 <= 15 or x2 >= self.w-15 or y1 <= 15 or y2 >= self.h - 15)):
+                # box = self.obj[i][5]
+                # x1, y1, x2, y2 = map(int, box)
+                # or x1 <= 15 or x2 >= self.w - 15 or y1 <= 15 or y2 >= self.h - 15
+                if idx - self.obj[i][3] >= 5 or (idx - self.obj[i][3] and (np.sum(self.obj[i][0]) < self.obj[i][7])):
                     res[i] = False
                 elif self.obj[i][1] and self.obj[i][2] / self.obj[i][1] >= 0.6:  #  or self.obj[i][2] >= 5
                     c[self.obj[i][0]] = 0
