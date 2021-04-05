@@ -192,7 +192,7 @@ class PDSeg():
                         self.obj[i][2] += 1
         c = np.ones((self.h, self.w),dtype=np.uint8)
         res = [True] * nobj
-        print('num of objs', nobj)
+
         for i in range(nobj):
             if self.obj[i][4] in self.cars:
                 box = self.obj[i][5]
@@ -210,6 +210,8 @@ class PDSeg():
             #     self.obj[i][2] = max(0, self.obj[i][2] - 0.5)
         self.obj = np.array(self.obj, dtype=object)
         self.obj = self.obj[res]
+        nobj = len(self.obj)
+        print('num of objs', nobj)
         for obj in self.obj:
             print('a: {}, d: {}'.format(obj[1], obj[2]))
         self.old_gray = frame_gray.copy()

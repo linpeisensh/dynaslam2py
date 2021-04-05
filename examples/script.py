@@ -174,6 +174,7 @@ print('sequence ',sequence)
 print(mode)
 
 for idx in range(num_images):
+    print('{} frame'.format(idx))
     left_image = cv.imread(left_filenames[idx], cv.IMREAD_UNCHANGED)
     right_image = cv.imread(right_filenames[idx], cv.IMREAD_UNCHANGED)
     prob_image = cv.imread(prob_filenames[idx])
@@ -231,7 +232,7 @@ for idx in range(num_images):
                 cv.imwrite(os.path.join(dpath, '{0:06}.png'.format(idx)), c * 255)
 
 
-    print('{} frame'.format(idx))
+
 if mode != 'dpr' and mode != 'tt':
     print('mean dcverror: {}'.format(np.mean(dseg.cverrs)))
 if f == 1:
