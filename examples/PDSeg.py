@@ -11,6 +11,7 @@ class PDSeg():
         self.obj = np.array([])
         self.sides_moving_labels = {1,2}
         self.pot_moving_labels = {1,2,3,4,6,8}
+        self.cars = {3,6,8}
         self.old_gray = cv.cvtColor(iml, cv.COLOR_BGR2GRAY)
 
         self.kernel = kernel
@@ -20,41 +21,41 @@ class PDSeg():
 
         self.p_color = (0, 0, 255)
 
-    def pd_seg(self,iml,prob_map):
-        er = prob_map[..., 0].copy()
-        er[er < 128] = 0
-        er[er >= 128] = 255
-
-        a = self.coco.compute_prediction(iml)
-        top = self.coco.select_top_predictions(a)
-        masks = top.get_field("mask").numpy()
-        labels = top.get_field("labels").numpy()
-
-        c = np.ones((self.h, self.w),dtype=np.uint8)
-        for i in range(len(masks)):
-            if labels[i] in self.pot_moving_labels:
-                mask = masks[i].squeeze()
-                box = top.bbox[i]
-                x1, y1, x2, y2 = map(int, box)
-                x = (x1 + x2) / 2
-                if 400 < x < 836:
-                    res = self.get_max_min_idx(er, self.w, min(y2 + 10, self.h - 1))
-                    x1, x2 = x1, x2
-                else:
-                    if 2.25 * (y2 - y1) > x2 - x1:
-                        res = self.get_max_min_idx(er, self.w, min(y2 + 10, self.h - 1))
-                        x1, x2 = x1, x2
-                    else:
-                        res = self.get_max_min_idx(er, self.h, min(x2 + 10, self.w - 1))
-                        x1, x2 = y1, y2
-                for mi, ma in res:
-                    if labels[i] in self.sides_moving_labels:
-                        if abs(x2 - mi) <= (x2 - x1) or abs(x1 - ma) <= (x2 - x1) or (
-                                x1 >= mi and x2 <= ma):
-                            c[mask] = 0
-                    elif x1 >= mi and x2 <= ma:
-                        c[mask] = 0
-        return c
+    # def pd_seg(self,iml,prob_map):
+    #     er = prob_map[..., 0].copy()
+    #     er[er < 128] = 0
+    #     er[er >= 128] = 255
+    #
+    #     a = self.coco.compute_prediction(iml)
+    #     top = self.coco.select_top_predictions(a)
+    #     masks = top.get_field("mask").numpy()
+    #     labels = top.get_field("labels").numpy()
+    #
+    #     c = np.ones((self.h, self.w),dtype=np.uint8)
+    #     for i in range(len(masks)):
+    #         if labels[i] in self.pot_moving_labels:
+    #             mask = masks[i].squeeze()
+    #             box = top.bbox[i]
+    #             x1, y1, x2, y2 = map(int, box)
+    #             x = (x1 + x2) / 2
+    #             if 400 < x < 836:
+    #                 res = self.get_max_min_idx(er, self.w, min(y2 + 10, self.h - 1))
+    #                 x1, x2 = x1, x2
+    #             else:
+    #                 if 2.25 * (y2 - y1) > x2 - x1:
+    #                     res = self.get_max_min_idx(er, self.w, min(y2 + 10, self.h - 1))
+    #                     x1, x2 = x1, x2
+    #                 else:
+    #                     res = self.get_max_min_idx(er, self.h, min(x2 + 10, self.w - 1))
+    #                     x1, x2 = y1, y2
+    #             for mi, ma in res:
+    #                 if labels[i] in self.sides_moving_labels:
+    #                     if abs(x2 - mi) <= (x2 - x1) or abs(x1 - ma) <= (x2 - x1) or (
+    #                             x1 >= mi and x2 <= ma):
+    #                         c[mask] = 0
+    #                 elif x1 >= mi and x2 <= ma:
+    #                     c[mask] = 0
+    #     return c
 
     def pd_seg_t(self,iml,prob_map):
         er = prob_map[..., 0].copy()
@@ -177,7 +178,7 @@ class PDSeg():
         res = [True] * nobj
         print('num of objs', nobj)
         for i in range(nobj):
-            if idx - self.obj[i][3] >= 5 or (idx - self.obj[i][3] and np.sum(self.obj[i][0]) < self.obj[i][7]):
+            if idx - self.obj[i][3] >= 5 or (idx - self.obj[i][3] and np.sum(self.obj[i][0]) < self.obj[i][7] and self.obj[i][4] in self.cars):
                 res[i] = False
             elif self.obj[i][1] and self.obj[i][2] / self.obj[i][1] >= 0.6:  #  or self.obj[i][2] >= 5
                 c[self.obj[i][0]] = 0
