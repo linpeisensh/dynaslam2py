@@ -232,7 +232,7 @@ for idx in range(num_images):
 
 
     print('{} frame'.format(idx))
-if mode != 'dpr' or mode != 'tt':
+if mode != 'dpr' and mode != 'tt':
     print('mean dcverror: {}'.format(np.mean(dseg.cverrs)))
 if f == 1:
     slam0.shutdown()

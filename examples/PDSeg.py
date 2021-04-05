@@ -20,6 +20,7 @@ class PDSeg():
                      criteria=(cv.TERM_CRITERIA_EPS | cv.TERM_CRITERIA_COUNT, 10, 0.03))
 
         self.p_color = (0, 0, 255)
+        self.er = np.zeros((self.h,self.w))
 
     # def pd_seg(self,iml,prob_map):
     #     er = prob_map[..., 0].copy()
@@ -179,7 +180,9 @@ class PDSeg():
         print('num of objs', nobj)
         for i in range(nobj):
             if self.obj[i][4] in self.cars:
-                if idx - self.obj[i][3] >= 5 or (idx - self.obj[i][3] and np.sum(self.obj[i][0]) < self.obj[i][7]):
+                box = self.obj[i][5]
+                x1, y1, x2, y2 = map(int, box)
+                if idx - self.obj[i][3] >= 5 or (idx - self.obj[i][3] and (np.sum(self.obj[i][0]) < self.obj[i][7] or x1 <= 45 or x2 >= self.w-45 or y1 <= 45 or y2 >= self.h - 45)):
                     res[i] = False
                 elif self.obj[i][1] and self.obj[i][2] / self.obj[i][1] >= 0.6:  #  or self.obj[i][2] >= 5
                     c[self.obj[i][0]] = 0
@@ -212,7 +215,7 @@ class PDSeg():
             mask = omasks[i].squeeze()
             self.omasks[mask] = 0
             if labels[i] in self.pot_moving_labels:
-                mask = mask.astype(np.uint8)
+                # mask = mask.astype(np.uint8)
                 masks.append([mask,labels[i],top.bbox[i]])
         res = []
         nc = len(self.obj)
@@ -228,7 +231,7 @@ class PDSeg():
             if nu_obj[x[1]] and nu_mask[x[2]]:
                 if x[0] > 0 and x[3] == self.obj[x[1]][4]:
                     self.obj[x[1]][7] = np.sum(self.obj[x[1]][0])
-                    self.obj[x[1]][0] = masks[x[2]][0].astype(np.bool)
+                    self.obj[x[1]][0] = masks[x[2]][0] #.astype(np.bool)
                     if x[4][0] >= 90 and x[4][2] <= self.w - 90 and x[4][3] >= 213:
                         self.obj[x[1]][1] += 1
                         self.obj[x[1]][6] = True
@@ -242,10 +245,10 @@ class PDSeg():
                     break
         for i in range(nm):
             if nu_mask[i]:
-                if masks[i][2][0] >= 90 and masks[i][2][2] <= self.w - 90 and masks[i][2][3] >= 213:
-                    self.obj.append([masks[i][0].astype(np.bool), 1, 0, idx, masks[i][1],masks[i][2], True,0]) # mask, appear, dyn, idx, label, box, in region, last_mask
-                else:
-                    self.obj.append([masks[i][0].astype(np.bool), 0, 0, idx, masks[i][1], masks[i][2], False,0])
+                if masks[i][2][0] >= 90 and masks[i][2][2] <= self.w - 90 and masks[i][2][3] >= 213: # .astype(np.bool)
+                    self.obj.append([masks[i][0], 1, 0, idx, masks[i][1],masks[i][2], True,0]) # mask, appear, dyn, idx, label, box, in region, last_mask
+                else: # .astype(np.bool)
+                    self.obj.append([masks[i][0], 0, 0, idx, masks[i][1], masks[i][2], False,0])
         # self.track_rate(idx)
         return
 
