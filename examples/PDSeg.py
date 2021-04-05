@@ -137,6 +137,12 @@ class PDSeg():
             res = ans
         return res, x1, x2, y1, y2
 
+    def limit(self,xy,f):
+        if f:
+            return max(min(xy,self.h-1),0)
+        else:
+            return max(min(xy, self.w - 1), 0)
+
     def pd_seg_rec(self,iml,prob_map,idx):
         er = prob_map[..., 0].copy()
         er[er < 244] = 0
@@ -164,7 +170,7 @@ class PDSeg():
                         dy += (y-cmps[i,1])
                 dx /= idx
                 dy /= idx
-                self.obj[i][5] = [x1+dx,y1+dy,x2+dx,y2+dy]
+                self.obj[i][5] = [self.limit(x1+dx,1),self.limit(y1+dy,0),self.limit(x2+dx,1),self.limit(y2+dy,0)]
                 nm = cv.erode(cv.dilate(nm, self.kernel), self.kernel)
                 self.obj[i][0] = nm.astype(np.bool)
             else:
@@ -210,8 +216,6 @@ class PDSeg():
         self.old_gray = frame_gray.copy()
         return c
 
-
-    
     def track_obj(self, iml, idx):
         image = iml.astype(np.uint8)
         prediction = self.coco.compute_prediction(image)
