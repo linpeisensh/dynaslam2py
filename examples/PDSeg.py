@@ -169,7 +169,7 @@ class PDSeg():
                 self.obj[i][5] = [self.limit(y1+dy,0),self.limit(x1+dx,1),self.limit(y2+dy,0),self.limit(x2+dx,1)]
                 for x, y in zip(cmps[0], cmps[1]):
                     cx, cy = self.limit(x+dx,1), self.limit(y+dy,0)
-                    nm[cx,cy] = True
+                    nm[round(cx),round(cy)] = True
                 # print(self.obj[i][5])
                 self.obj[i][0] = nm
             else:
