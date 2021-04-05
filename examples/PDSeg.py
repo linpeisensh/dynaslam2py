@@ -156,7 +156,8 @@ class PDSeg():
             cmps = np.array(list(zip(cm[1], cm[0]))).astype(np.float32)
             if len(cmps):
                 box = self.obj[i][5]
-                x1, y1, x2, y2 = map(int, box)
+                y1, x1, y2, x2,  = map(int, box)
+                print(x1, y1, x2, y2)
                 nmps, st, err = cv.calcOpticalFlowPyrLK(self.old_gray, frame_gray, cmps, None, **self.lk_params)
                 nm = np.zeros_like(self.obj[i][0], dtype=np.uint8)
                 idx = 0
@@ -166,11 +167,12 @@ class PDSeg():
                     if 0 <= x < self.h and 0 <= y < self.w:
                         nm[x, y] = 1
                         idx += 1
-                        dx += (x-cmps[i,0])
-                        dy += (y-cmps[i,1])
+                        dx += (x-cmps[i,1])
+                        dy += (y-cmps[i,0])
                 dx /= idx
                 dy /= idx
-                self.obj[i][5] = [self.limit(x1+dx,1),self.limit(y1+dy,0),self.limit(x2+dx,1),self.limit(y2+dy,0)]
+                self.obj[i][5] = [self.limit(y1+dy,0),self.limit(x1+dx,1),self.limit(y2+dy,0),self.limit(x2+dx,1)]
+                print(self.obj[i][5])
                 nm = cv.erode(cv.dilate(nm, self.kernel), self.kernel)
                 self.obj[i][0] = nm.astype(np.bool)
             else:
