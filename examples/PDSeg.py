@@ -18,9 +18,15 @@ class PDSeg():
         self.lk_params = dict(winSize=(15, 15),
                      maxLevel=2,
                      criteria=(cv.TERM_CRITERIA_EPS | cv.TERM_CRITERIA_COUNT, 10, 0.03))
+        self.fb_params = dict(pyr_scale=0.5,
+                         levels=3,
+                         winsize=3,
+                         iterations=3,
+                         poly_n=5,
+                         poly_sigma=1.2,
+                         flags=0)
 
         self.p_color = (0, 0, 255)
-        self.er = np.zeros((self.h,self.w))
 
     # def pd_seg(self,iml,prob_map):
     #     er = prob_map[..., 0].copy()
@@ -157,27 +163,15 @@ class PDSeg():
             if len(cmps):
                 y1, x1, y2, x2,  = self.obj[i][5]
                 # print(y1, x1, y2, x2)
-                nmps, st, err = cv.calcOpticalFlowPyrLK(self.old_gray, frame_gray, cmps, None, **self.lk_params)
-                nm = np.zeros_like(self.obj[i][0], dtype=np.uint8)
-                idx = 0
-                dx, dy = 0, 0
-                for j,nmp in enumerate(nmps):
-                    x, y = round(nmp[1]), round(nmp[0])
-                    if 0 <= x < self.h and 0 <= y < self.w:
-                        nm[x, y] = 1
-                        idx += 1
-                        dx += (x-cmps[i,1])
-                        dy += (y-cmps[i,0])
-                if idx:
-                    dx /= idx
-                    dy /= idx
-                else:
-                    res[i] = False
-                    continue
+                flow = cv.calcOpticalFlowFarneback(self.old_gray, frame_gray, None, **self.fb_params)
+                nm = np.zeros_like(self.obj[i][0], dtype=np.bool)
+                dy, dx = np.mean(flow[self.obj[i][0]], axis=0)
                 self.obj[i][5] = [self.limit(y1+dy,0),self.limit(x1+dx,1),self.limit(y2+dy,0),self.limit(x2+dx,1)]
+                for x, y in zip(cmps[0], cmps[1]):
+                    cx, cy = self.limit(x+dx,1), self.limit(y+dy,0)
+                    nm[cx,cy] = True
                 # print(self.obj[i][5])
-                nm = cv.erode(cv.dilate(nm, self.kernel), self.kernel)
-                self.obj[i][0] = nm.astype(np.bool)
+                self.obj[i][0] = nm
             else:
                 res[i] = False
 
@@ -201,10 +195,9 @@ class PDSeg():
         print('num of objs', nobj)
         for i in range(nobj):
             if self.obj[i][4] in self.cars:
-                # box = self.obj[i][5]
-                # x1, y1, x2, y2 = map(int, box)
-                # or x1 <= 15 or x2 >= self.w - 15 or y1 <= 15 or y2 >= self.h - 15
-                if idx - self.obj[i][3] >= 5 or (idx - self.obj[i][3] and (np.sum(self.obj[i][0]) < self.obj[i][7])):
+                box = self.obj[i][5]
+                x1, y1, x2, y2 = map(int, box)
+                if idx - self.obj[i][3] >= 5 or (idx - self.obj[i][3] and (np.sum(self.obj[i][0]) < self.obj[i][7] or x1 <= 15 or x2 >= self.w - 15 or y1 <= 15 or y2 >= self.h - 15)):
                     res[i] = False
                 elif self.obj[i][1] and self.obj[i][2] / self.obj[i][1] >= 0.6:  #  or self.obj[i][2] >= 5
                     c[self.obj[i][0]] = 0
