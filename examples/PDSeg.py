@@ -168,8 +168,12 @@ class PDSeg():
                         idx += 1
                         dx += (x-cmps[i,1])
                         dy += (y-cmps[i,0])
-                dx /= idx
-                dy /= idx
+                if idx:
+                    dx /= idx
+                    dy /= idx
+                else:
+                    res[i] = False
+                    continue
                 self.obj[i][5] = [self.limit(y1+dy,0),self.limit(x1+dx,1),self.limit(y2+dy,0),self.limit(x2+dx,1)]
                 # print(self.obj[i][5])
                 nm = cv.erode(cv.dilate(nm, self.kernel), self.kernel)
