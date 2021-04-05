@@ -177,7 +177,7 @@ class PDSeg():
         res = [True] * nobj
         print('num of objs', nobj)
         for i in range(nobj):
-            if idx - self.obj[i][3] >= 10 or (idx - self.obj[i][3] and np.sum(self.obj[i][0]) < self.obj[i][7]):
+            if idx - self.obj[i][3] >= 5 or (idx - self.obj[i][3] and np.sum(self.obj[i][0]) < self.obj[i][7]):
                 res[i] = False
             elif self.obj[i][1] and self.obj[i][2] / self.obj[i][1] >= 0.6:  #  or self.obj[i][2] >= 5
                 c[self.obj[i][0]] = 0
