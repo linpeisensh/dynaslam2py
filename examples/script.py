@@ -187,6 +187,7 @@ for idx in range(1085,num_images):
         for obj in pdseg.obj:
             if obj[2]:
                 c[obj[0]] = 255
+                print(obj[5])
         cv.imwrite(os.path.join(dpath, '{0:06}.png'.format(idx)), c)
     # t
     elif mode == 'tt':
