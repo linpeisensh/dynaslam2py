@@ -109,8 +109,8 @@ class PDSeg():
         for i in range(len(masks)):
             if labels[i] in self.pot_moving_labels:
                 mask = masks[i].squeeze()
-                box = top.bbox[i]
-                res, x1, x2, y1, y2 = self.get_max_min_idx(er, box)
+                x1, y1, x2, y2 = top.bbox[i]
+                res = self.get_max_min_idx(er, x1, y1, x2, y2)
                 cc = cv.circle(cc, (x1, y2), 5, self.p_color, -1)
                 cc = cv.circle(cc, (x2, y2), 5, self.p_color, -1)
                 print(y2,res)
@@ -123,8 +123,7 @@ class PDSeg():
                         cc[mask, ...] = 255
         return cc
 
-    def get_max_min_idx(self, er, box):
-        x1, y1, x2, y2 = map(int, box)
+    def get_max_min_idx(self, er, x1, y1, x2, y2):
         def helper(y2,f):
             res = []
             l = 0
@@ -166,7 +165,7 @@ class PDSeg():
                 res = helper(y2,0)
         else:
             res = ans
-        return res, x1, x2, y1, y2
+        return res
 
     def limit(self,xy,f):
         if f:
@@ -205,7 +204,8 @@ class PDSeg():
         nobj = len(self.obj)
 
         for i in range(nobj):
-            res, x1, x2, y1, y2 = self.get_max_min_idx(er, self.obj[i][5])
+            x1, y1, x2, y2 = self.obj[i][5]
+            res= self.get_max_min_idx(er, x1, y1, x2, y2)
             if x1 >= 90 and x2 <= self.w - 90 and y2 >= 213:
                 self.obj[i][1] += 1
                 for mi, ma in res:
