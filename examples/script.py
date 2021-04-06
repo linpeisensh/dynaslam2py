@@ -173,15 +173,20 @@ os.mkdir(dpath)
 print('sequence ',sequence)
 print(mode)
 
-for idx in range(num_images):
+for idx in range(1085,num_images):
     print('{} frame'.format(idx))
     left_image = cv.imread(left_filenames[idx], cv.IMREAD_UNCHANGED)
     right_image = cv.imread(right_filenames[idx], cv.IMREAD_UNCHANGED)
     prob_image = cv.imread(prob_filenames[idx])
     # dpr
     if mode == 'dpr':
-        c = pdseg.pd_seg_rec(left_image, prob_image,idx)
-        cv.imwrite(os.path.join(dpath, '{0:06}.png'.format(idx)), c*255)
+        # c = pdseg.pd_seg_rec(left_image, prob_image,idx)
+        # cv.imwrite(os.path.join(dpath, '{0:06}.png'.format(idx)), c*255)
+        c = np.zeros(left_image.shape[:2])
+        for obj in pdseg.obj:
+            if obj[2]:
+                c[obj[0]] = 255
+        cv.imwrite(os.path.join(dpath, '{0:06}.png'.format(idx)), c)
     # t
     elif mode == 'tt':
         c = pdseg.pd_seg_t(left_image, prob_image)
