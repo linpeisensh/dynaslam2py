@@ -182,6 +182,7 @@ for idx in range(1085,num_images):
     if mode == 'dpr':
         # c = pdseg.pd_seg_rec(left_image, prob_image,idx)
         # cv.imwrite(os.path.join(dpath, '{0:06}.png'.format(idx)), c*255)
+        cc = pdseg.pd_seg_rec(left_image, prob_image, idx)
         c = np.zeros(left_image.shape[:2])
         for obj in pdseg.obj:
             if obj[2]:
