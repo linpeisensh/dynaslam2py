@@ -180,15 +180,15 @@ for idx in range(1085,num_images):
     prob_image = cv.imread(prob_filenames[idx])
     # dpr
     if mode == 'dpr':
-        # c = pdseg.pd_seg_rec(left_image, prob_image,idx)
-        # cv.imwrite(os.path.join(dpath, '{0:06}.png'.format(idx)), c*255)
-        cc = pdseg.pd_seg_rec(left_image, prob_image, idx)
-        c = np.zeros(left_image.shape[:2])
-        for obj in pdseg.obj:
-            if obj[2]:
-                c[obj[0]] = 255
-                print(obj[5])
-        cv.imwrite(os.path.join(dpath, '{0:06}.png'.format(idx)), c)
+        c = pdseg.pd_seg_rec(left_image, prob_image,idx)
+        cv.imwrite(os.path.join(dpath, '{0:06}.png'.format(idx)), c*255)
+        # cc = pdseg.pd_seg_rec(left_image, prob_image, idx)
+        # c = np.zeros(left_image.shape[:2])
+        # for obj in pdseg.obj:
+        #     if obj[2]:
+        #         c[obj[0]] = 255
+        #         print(obj[5])
+        # cv.imwrite(os.path.join(dpath, '{0:06}.png'.format(idx)), c)
     # t
     elif mode == 'tt':
         c = pdseg.pd_seg_t(left_image, prob_image)
