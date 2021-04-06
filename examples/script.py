@@ -108,62 +108,64 @@ depth_path = os.path.join('/usr/stud/linp/storage/user/linp/depth/',sequence)
 iml = cv.imread(left_filenames[0], cv.IMREAD_UNCHANGED)
 f = 0
 config = stereoCamera(sequence)
-if mode == 'dpr' or mode == 'tt':
-    pdseg = PDSeg(iml,coco_demo,depth_path,kernel,config)
-else:
-    feature_params = dict(maxCorners=1000,
-                          qualityLevel=0.1,
-                          minDistance=7,
-                          blockSize=7)
-    mtx = np.array([[707.0912, 0, 601.8873], [0, 707.0912, 183.1104], [0, 0, 1]])
-    dist = np.array([[0] * 4]).reshape(1, 4).astype(np.float32)
-    lk_params = dict(winSize=(15, 15),
-                     maxLevel=2,
-                     criteria=(cv.TERM_CRITERIA_EPS | cv.TERM_CRITERIA_COUNT, 10, 0.03))
-    loadmodel = './finetune_300.tar'
-    paraml = {'minDisparity': 1,
-              'numDisparities': 64,
-              'blockSize': 10,
-              'P1': 4 * 3 * 9 ** 2,
-              'P2': 4 * 3 * 9 ** 2,
-              'disp12MaxDiff': 1,
-              'preFilterCap': 10,
-              'uniquenessRatio': 15,
-              'speckleWindowSize': 100,
-              'speckleRange': 1,
-              'mode': cv.STEREO_SGBM_MODE_SGBM_3WAY
-              }
-    if mode[0] == 'd':
-        f = 1
-        orb_path = '/usr/stud/linp/storage/user/linp/ORB_SLAM2'
-        vocab_path = os.path.join(orb_path, 'Vocabulary/ORBvoc.txt')
-        ins = int(sequence)
-        if ins < 3:
-            settings_path = os.path.join(orb_path, 'Examples/Stereo/KITTI00-02.yaml')
-        elif ins == 3:
-            settings_path = os.path.join(orb_path, 'Examples/Stereo/KITTI03.yaml')
-        else:
-            settings_path = os.path.join(orb_path, 'Examples/Stereo/KITTI04-12.yaml')
-        slam0 = orbslam2.System(vocab_path, settings_path, orbslam2.Sensor.STEREO)
-        slam0.set_use_viewer(False)
-        slam0.initialize()
-        dseg = DynaSegt(iml, coco_demo, feature_params, depth_path, config, paraml, lk_params, mtx, dist, kernel, loadmodel)
-    else:
-        f = 2
-        params = ParamsKITTI()
-        dataset = KITTIOdometry(sequence_path)
-        sptam = SPTAM(params)
-        dseg = DynaSeg(iml, coco_demo, feature_params, depth_path, config, paraml, lk_params, mtx, dist, kernel,
-                       loadmodel)
-        cam = Camera(
-            dataset.cam.fx, dataset.cam.fy, dataset.cam.cx, dataset.cam.cy,
-            dataset.cam.width, dataset.cam.height,
-            params.frustum_near, params.frustum_far,
-            dataset.cam.baseline)
-
-
 num_images = len(left_filenames)
 if mode != 'm':
+    if mode == 'dpr' or mode == 'tt':
+        pdseg = PDSeg(iml,coco_demo,depth_path,kernel,config)
+    else:
+        feature_params = dict(maxCorners=1000,
+                              qualityLevel=0.1,
+                              minDistance=7,
+                              blockSize=7)
+        mtx = np.array([[707.0912, 0, 601.8873], [0, 707.0912, 183.1104], [0, 0, 1]])
+        dist = np.array([[0] * 4]).reshape(1, 4).astype(np.float32)
+        lk_params = dict(winSize=(15, 15),
+                         maxLevel=2,
+                         criteria=(cv.TERM_CRITERIA_EPS | cv.TERM_CRITERIA_COUNT, 10, 0.03))
+        loadmodel = './finetune_300.tar'
+        paraml = {'minDisparity': 1,
+                  'numDisparities': 64,
+                  'blockSize': 10,
+                  'P1': 4 * 3 * 9 ** 2,
+                  'P2': 4 * 3 * 9 ** 2,
+                  'disp12MaxDiff': 1,
+                  'preFilterCap': 10,
+                  'uniquenessRatio': 15,
+                  'speckleWindowSize': 100,
+                  'speckleRange': 1,
+                  'mode': cv.STEREO_SGBM_MODE_SGBM_3WAY
+                  }
+        if mode[0] == 'd':
+            f = 1
+            orb_path = '/usr/stud/linp/storage/user/linp/ORB_SLAM2'
+            vocab_path = os.path.join(orb_path, 'Vocabulary/ORBvoc.txt')
+            ins = int(sequence)
+            if ins < 3:
+                settings_path = os.path.join(orb_path, 'Examples/Stereo/KITTI00-02.yaml')
+            elif ins == 3:
+                settings_path = os.path.join(orb_path, 'Examples/Stereo/KITTI03.yaml')
+            else:
+                settings_path = os.path.join(orb_path, 'Examples/Stereo/KITTI04-12.yaml')
+            slam0 = orbslam2.System(vocab_path, settings_path, orbslam2.Sensor.STEREO)
+            slam0.set_use_viewer(False)
+            slam0.initialize()
+            dseg = DynaSegt(iml, coco_demo, feature_params, depth_path, config, paraml, lk_params, mtx, dist, kernel, loadmodel)
+        else:
+            f = 2
+            params = ParamsKITTI()
+            dataset = KITTIOdometry(sequence_path)
+            sptam = SPTAM(params)
+            dseg = DynaSeg(iml, coco_demo, feature_params, depth_path, config, paraml, lk_params, mtx, dist, kernel,
+                           loadmodel)
+            cam = Camera(
+                dataset.cam.fx, dataset.cam.fy, dataset.cam.cx, dataset.cam.cy,
+                dataset.cam.width, dataset.cam.height,
+                params.frustum_near, params.frustum_far,
+                dataset.cam.baseline)
+
+
+
+
     dpath = 'pmask/{}{}/'.format(mode,sequence)
     if os.path.exists(dpath):
         shutil.rmtree(dpath)
