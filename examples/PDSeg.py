@@ -3,7 +3,6 @@ import numpy as np
 from copy import deepcopy as dp
 
 from psmnet.submission import PSMNet
-from sptam.msptam import stereoCamera
 
 class PDSeg():
     def __init__(self, iml, coco, depth_path, kernel,config):
@@ -50,8 +49,9 @@ class PDSeg():
               'mode': cv.STEREO_SGBM_MODE_SGBM_3WAY
               }
         self.psmnet = PSMNet('./finetune_300.tar')
-        self.Q = self.getRectifyTransform()
         self.config = config
+        self.Q = self.getRectifyTransform()
+
 
     # def pd_seg(self,iml,prob_map):
     #     er = prob_map[..., 0].copy()
