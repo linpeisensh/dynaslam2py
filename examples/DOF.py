@@ -35,18 +35,24 @@ h,w = iml.shape[:2]
 p_color = (0, 0, 255) # BGR
 o_color = (0, 255, 0)
 res = []
+biml = iml.copy()
 for i in range(len(masks)):
-  if labels[i] in {1,2,3,4,6,8}:
-    box = top.bbox[i]
-    x1,y1,x2,y2 = map(int,box)
-    res.append([masks[i].squeeze(),x1,y1,x2,y2])
+    if labels[i] in {1,2,3,4,6,8}:
+        box = top.bbox[i]
+        x1,y1,x2,y2 = map(int,box)
+        mask = masks[i].squeeze()
+        res.append([mask,x1,y1,x2,y2])
+        biml[mask] = o_color
+cv.imwrite('dol/{0:06}.png'.format(s),biml)
+
 old_gray = cv.cvtColor(iml, cv.COLOR_BGR2GRAY)
 
 n = 5
 for i in range(1,n):
-    print('{} frame'.format(s+i))
+    ci = s+i
+    print('{} frame'.format(ci))
     cr = []
-    iml = cv.imread('/storage/remote/atcremers17/linp/dataset/kittic/sequences/{}/'.format(sequence)+'image_2/{0:06}.png'.format(s+i))
+    iml = cv.imread('/storage/remote/atcremers17/linp/dataset/kittic/sequences/{}/'.format(sequence)+'image_2/{0:06}.png'.format(ci))
     frame_gray = cv.cvtColor(iml, cv.COLOR_BGR2GRAY)
     flow = cv.calcOpticalFlowFarneback(old_gray, frame_gray, None, **fb_params)
     # res, st, err = cv.calcOpticalFlowPyrLK(old_gray, frame_gray, res, None, **lk_params)
@@ -76,4 +82,4 @@ for i in range(1,n):
         biml = cv.circle(biml,(x1,y1),5,p_color,-1)
         biml = cv.circle(biml,(x2,y2),5,p_color,-1)
         biml[mask] = p_color
-    cv.imwrite('dol/{0:06}.png'.format(s+i),biml)
+    cv.imwrite('dol/{0:06}.png'.format(ci),biml)
