@@ -245,17 +245,47 @@ class SPTAM(object):
 
 
 class stereoCamera(object):
-    def __init__(self):
-        self.cam_matrix_left = np.array([[707.0912, 0, 601.8873], [0, 707.0912, 183.1104], [0, 0, 1]])
-        self.cam_matrix_right = np.array([[707.0912, 0, 601.8873], [0, 707.0912, 183.1104], [0, 0, 1]])
+    def __init__(self,sequence):
+        se = int(sequence)
+        if 0 <= se < 3:
+            self.cam_matrix_left = np.array([[718.856, 0, 607.1928], [0, 718.856, 185.2157], [0, 0, 1]])
+            self.cam_matrix_right = np.array([[718.856, 0, 607.1928], [0, 718.856, 185.2157], [0, 0, 1]])
 
-        self.distortion_l = np.array([[0] * 5])
-        self.distortion_r = np.array([[0] * 5])
+            self.distortion_l = np.array([[0] * 5])
+            self.distortion_r = np.array([[0] * 5])
 
-        self.R = np.eye(3)
+            self.R = np.eye(3)
 
-        self.T = np.array([[0.53715], [0], [0]])
+            self.T = np.array([[0.53716], [0], [0]])
 
-        self.focal_length = 707.0912
+            self.focal_length = 718.856
 
-        self.baseline = 0.53715
+            self.baseline = 0.53716
+        elif se == 3:
+            self.cam_matrix_left = np.array([[721.5377, 0, 609.5593], [0, 721.5377, 172.854], [0, 0, 1]])
+            self.cam_matrix_right = np.array([[721.5377, 0, 609.5593], [0, 721.5377, 172.854], [0, 0, 1]])
+
+            self.distortion_l = np.array([[0] * 5])
+            self.distortion_r = np.array([[0] * 5])
+
+            self.R = np.eye(3)
+
+            self.T = np.array([[0.53715], [0], [0]])
+
+            self.focal_length = 721.5377
+
+            self.baseline = 0.53715
+        else:
+            self.cam_matrix_left = np.array([[707.0912, 0, 601.8873], [0, 707.0912, 183.1104], [0, 0, 1]])
+            self.cam_matrix_right = np.array([[707.0912, 0, 601.8873], [0, 707.0912, 183.1104], [0, 0, 1]])
+
+            self.distortion_l = np.array([[0] * 5])
+            self.distortion_r = np.array([[0] * 5])
+
+            self.R = np.eye(3)
+
+            self.T = np.array([[0.53715], [0], [0]])
+
+            self.focal_length = 707.0912
+
+            self.baseline = 0.53715

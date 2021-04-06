@@ -107,14 +107,14 @@ depth_path = os.path.join('/usr/stud/linp/storage/user/linp/depth/',sequence)
 
 iml = cv.imread(left_filenames[0], cv.IMREAD_UNCHANGED)
 f = 0
+config = stereoCamera(sequence)
 if mode == 'dpr' or mode == 'tt':
-    pdseg = PDSeg(iml,coco_demo,depth_path,kernel)
+    pdseg = PDSeg(iml,coco_demo,depth_path,kernel,config)
 else:
     feature_params = dict(maxCorners=1000,
                           qualityLevel=0.1,
                           minDistance=7,
                           blockSize=7)
-    config = stereoCamera()
     mtx = np.array([[707.0912, 0, 601.8873], [0, 707.0912, 183.1104], [0, 0, 1]])
     dist = np.array([[0] * 4]).reshape(1, 4).astype(np.float32)
     lk_params = dict(winSize=(15, 15),
