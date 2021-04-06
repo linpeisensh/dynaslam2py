@@ -269,7 +269,7 @@ class PDSeg():
         res.sort(key=lambda x: -x[0])
         for x in res:
             if nu_obj[x[1]] and nu_mask[x[2]]:
-                if x[0] > 0:
+                if x[0] > 0 and x[3] == self.obj[x[1]][4]:
                     self.obj[x[1]][6] = np.sum(self.obj[x[1]][0])
                     self.obj[x[1]][0] = masks[x[2]][0] #.astype(np.bool)
                     self.obj[x[1]][3] = idx
