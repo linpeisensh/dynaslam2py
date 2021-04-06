@@ -173,7 +173,7 @@ os.mkdir(dpath)
 print('sequence ',sequence)
 print(mode)
 
-for idx in range(1085,num_images):
+for idx in range(num_images):
     print('{} frame'.format(idx))
     left_image = cv.imread(left_filenames[idx], cv.IMREAD_UNCHANGED)
     right_image = cv.imread(right_filenames[idx], cv.IMREAD_UNCHANGED)

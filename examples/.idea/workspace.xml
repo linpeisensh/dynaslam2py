@@ -31,11 +31,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/script.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="454">
-              <caret line="189" column="27" selection-start-line="189" selection-start-column="27" selection-end-line="189" selection-end-column="27" />
+            <state relative-caret-position="188">
+              <caret line="175" column="17" selection-start-line="175" selection-start-column="17" selection-end-line="175" selection-end-column="17" />
               <folding>
                 <element signature="e#957#998#0" expanded="true" />
               </folding>
@@ -55,10 +55,10 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/PDSeg.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="241">
+            <state relative-caret-position="298">
               <caret line="385" column="14" lean-forward="true" selection-start-line="385" selection-start-column="14" selection-end-line="385" selection-end-column="14" />
               <folding>
                 <element signature="e#0#16#0" expanded="true" />
@@ -187,8 +187,8 @@
         <option value="$PROJECT_DIR$/dense_optical_flow.py" />
         <option value="$PROJECT_DIR$/DOF.py" />
         <option value="$PROJECT_DIR$/sptam/msptam.py" />
-        <option value="$PROJECT_DIR$/script.py" />
         <option value="$PROJECT_DIR$/PDSeg.py" />
+        <option value="$PROJECT_DIR$/script.py" />
       </list>
     </option>
   </component>
@@ -372,12 +372,12 @@
       <workItem from="1614841927460" duration="68251000" />
       <workItem from="1615560087248" duration="9459000" />
       <workItem from="1615900038802" duration="8195000" />
-      <workItem from="1616093396454" duration="116583000" />
+      <workItem from="1616093396454" duration="117200000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="305731000" />
+    <option name="totallyTimeSpent" value="306348000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -723,22 +723,22 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/script.py">
+    <entry file="file://$PROJECT_DIR$/PDSeg.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="454">
-          <caret line="189" column="27" selection-start-line="189" selection-start-column="27" selection-end-line="189" selection-end-column="27" />
+        <state relative-caret-position="298">
+          <caret line="385" column="14" lean-forward="true" selection-start-line="385" selection-start-column="14" selection-end-line="385" selection-end-column="14" />
           <folding>
-            <element signature="e#957#998#0" expanded="true" />
+            <element signature="e#0#16#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/PDSeg.py">
+    <entry file="file://$PROJECT_DIR$/script.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="241">
-          <caret line="385" column="14" lean-forward="true" selection-start-line="385" selection-start-column="14" selection-end-line="385" selection-end-column="14" />
+        <state relative-caret-position="188">
+          <caret line="175" column="17" selection-start-line="175" selection-start-column="17" selection-end-line="175" selection-end-column="17" />
           <folding>
-            <element signature="e#0#16#0" expanded="true" />
+            <element signature="e#957#998#0" expanded="true" />
           </folding>
         </state>
       </provider>
