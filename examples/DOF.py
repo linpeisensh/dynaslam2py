@@ -26,7 +26,7 @@ fb_params = dict(pyr_scale = 0.5,
 sequence = sys.argv[1]
 s = sys.argv[2]
 
-iml = cv.imread(os.path.join('/storage/remote/atcremers17/linp/dataset/kittic/sequences/{}'.format(sequence),'image_2/{0:06}.png'.format(s)))
+iml = cv.imread('/storage/remote/atcremers17/linp/dataset/kittic/sequences/{}/'.format(sequence)+'image_2/{0:06}.png'.format(s))
 a = coco_demo.compute_prediction(iml)
 top = coco_demo.select_top_predictions(a)
 masks = top.get_field("mask").numpy()
@@ -44,8 +44,9 @@ old_gray = cv.cvtColor(iml, cv.COLOR_BGR2GRAY)
 
 n = 5
 for i in range(1,n):
+    print('{} frame'.format(s+i))
     cr = []
-    iml = cv.imread('/storage/remote/atcremers17/linp/dataset/kittic/sequences/07/image_2/{0:06}.png'.format(s+i))
+    iml = cv.imread('/storage/remote/atcremers17/linp/dataset/kittic/sequences/{}/'.format(sequence)+'image_2/{0:06}.png'.format(s+i))
     frame_gray = cv.cvtColor(iml, cv.COLOR_BGR2GRAY)
     flow = cv.calcOpticalFlowFarneback(old_gray, frame_gray, None, **fb_params)
     # res, st, err = cv.calcOpticalFlowPyrLK(old_gray, frame_gray, res, None, **lk_params)
