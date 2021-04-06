@@ -280,7 +280,7 @@ class PDSeg():
                     break
         for i in range(nm):
             if nu_mask[i]:
-                self.obj.append([masks[i][0], 1, 0, idx, masks[i][1],masks[i][2], 0]) # mask, appear, dyn, idx, label, box, last_mask
+                self.obj.append([masks[i][0], 0, 0, idx, masks[i][1],masks[i][2], 0]) # mask, appear, dyn, idx, label, box, last_mask
         # self.track_rate(idx)
         return
 
