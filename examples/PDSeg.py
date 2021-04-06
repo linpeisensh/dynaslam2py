@@ -165,7 +165,7 @@ class PDSeg():
                 flow = cv.calcOpticalFlowFarneback(self.old_gray, frame_gray, None, **self.fb_params)
                 nm = np.zeros_like(self.obj[i][0], dtype=np.bool)
                 dy, dx = np.mean(flow[self.obj[i][0]], axis=0)
-                self.obj[i][5] = [self.limit(y1+dy,0),self.limit(x1+dx,1),self.limit(y2+dy,0),self.limit(x2+dx,1)]
+                # self.obj[i][5] = [self.limit(y1+dy,0),self.limit(x1+dx,1),self.limit(y2+dy,0),self.limit(x2+dx,1)]
                 for x, y in zip(cm[0], cm[1]):
                     cx, cy = self.limit(x+dx,1), self.limit(y+dy,0)
                     nm[round(cx),round(cy)] = True
