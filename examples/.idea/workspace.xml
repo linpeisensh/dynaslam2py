@@ -31,11 +31,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/script.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-116">
-              <caret line="176" column="33" selection-start-line="176" selection-start-column="33" selection-end-line="176" selection-end-column="33" />
+            <state relative-caret-position="309">
+              <caret line="79" selection-start-line="79" selection-end-line="80" selection-end-column="18" />
               <folding>
                 <element signature="e#957#998#0" expanded="true" />
               </folding>
@@ -43,11 +43,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/PDSeg.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="955">
-              <caret line="212" column="28" lean-forward="true" selection-start-line="212" selection-start-column="28" selection-end-line="212" selection-end-column="28" />
+            <state relative-caret-position="385">
+              <caret line="173" column="35" lean-forward="true" selection-start-line="173" selection-start-column="35" selection-end-line="173" selection-end-column="35" />
               <folding>
                 <element signature="e#0#16#0" expanded="true" />
               </folding>
@@ -90,7 +90,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>getRectifyTransform</find>
       <find>feature_params</find>
       <find>stereoCamera</find>
       <find>loadmodel</find>
@@ -100,7 +99,6 @@
       <find>pot_moving_labels</find>
       <find>self.Q</find>
       <find>timestamps</find>
-      <find>self.old_gray</find>
       <find>self.pot_moving_labels</find>
       <find>10</find>
       <find>print</find>
@@ -119,7 +117,9 @@
       <find>cam</find>
       <find>slam</find>
       <find>astype</find>
+      <find>self.old_gray</find>
       <find>lk_params</find>
+      <find>coco_demo</find>
     </findStrings>
     <replaceStrings>
       <replace>cv</replace>
@@ -173,8 +173,9 @@
         <option value="$PROJECT_DIR$/rmse.py" />
         <option value="$USER_HOME$/AppData/Local/Packages/CanonicalGroupLimited.UbuntuonWindows_79rhkp1fndgsc/LocalState/rootfs/home/linpeisen/kitti/rmse.py" />
         <option value="$PROJECT_DIR$/sptam/dynaseg.py" />
-        <option value="$PROJECT_DIR$/PDSeg.py" />
         <option value="$PROJECT_DIR$/script.py" />
+        <option value="$PROJECT_DIR$/PDSeg.py" />
+        <option value="$PROJECT_DIR$/dense_optical_flow.py" />
       </list>
     </option>
   </component>
@@ -195,16 +196,6 @@
             <path>
               <item name="examples" type="b2602c69:ProjectViewProjectNode" />
               <item name="examples" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="examples" type="b2602c69:ProjectViewProjectNode" />
-              <item name="examples" type="462c0819:PsiDirectoryNode" />
-              <item name="cpp" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="examples" type="b2602c69:ProjectViewProjectNode" />
-              <item name="examples" type="462c0819:PsiDirectoryNode" />
-              <item name="sptam" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -367,12 +358,12 @@
       <workItem from="1614841927460" duration="68251000" />
       <workItem from="1615560087248" duration="9459000" />
       <workItem from="1615900038802" duration="8195000" />
-      <workItem from="1616093396454" duration="102916000" />
+      <workItem from="1616093396454" duration="104291000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="292064000" />
+    <option name="totallyTimeSpent" value="293439000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -387,7 +378,7 @@
     <frame x="-8" y="-8" width="1376" height="744" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.22264437" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.22264437" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -698,22 +689,32 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/script.py">
+    <entry file="file://$PROJECT_DIR$/PDSeg.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-116">
-          <caret line="176" column="33" selection-start-line="176" selection-start-column="33" selection-end-line="176" selection-end-column="33" />
+        <state relative-caret-position="385">
+          <caret line="173" column="35" lean-forward="true" selection-start-line="173" selection-start-column="35" selection-end-line="173" selection-end-column="35" />
           <folding>
-            <element signature="e#957#998#0" expanded="true" />
+            <element signature="e#0#16#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/PDSeg.py">
+    <entry file="file://$PROJECT_DIR$/dense_optical_flow.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="955">
-          <caret line="212" column="28" lean-forward="true" selection-start-line="212" selection-start-column="28" selection-end-line="212" selection-end-column="28" />
+        <state relative-caret-position="190">
+          <caret line="22" column="28" lean-forward="true" selection-start-line="22" selection-start-column="28" selection-end-line="22" selection-end-column="28" />
           <folding>
             <element signature="e#0#16#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/script.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="309">
+          <caret line="79" selection-start-line="79" selection-end-line="80" selection-end-column="18" />
+          <folding>
+            <element signature="e#957#998#0" expanded="true" />
           </folding>
         </state>
       </provider>
