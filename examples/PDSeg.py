@@ -381,6 +381,8 @@ def get_IOU(m1, m2):
     s2 = np.sum(m2)
     if s1 and s2:
         s = s1 / s2 if s1 > s2 else s2 / s1
+        if s > 2.1:
+            return 0
         U *= s
     else:
         U = 0
