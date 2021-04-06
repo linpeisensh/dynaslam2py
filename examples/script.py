@@ -164,85 +164,104 @@ else:
 
 
 num_images = len(left_filenames)
+if mode != 'm':
+    dpath = 'pmask/{}{}/'.format(mode,sequence)
+    if os.path.exists(dpath):
+        shutil.rmtree(dpath)
+    os.mkdir(dpath)
 
-dpath = 'pmask/{}{}/'.format(mode,sequence)
-if os.path.exists(dpath):
-    shutil.rmtree(dpath)
-os.mkdir(dpath)
+    print('sequence ',sequence)
+    print(mode)
 
-print('sequence ',sequence)
-print(mode)
 
-for idx in range(num_images):
-    print('{} frame'.format(idx))
-    left_image = cv.imread(left_filenames[idx], cv.IMREAD_UNCHANGED)
-    right_image = cv.imread(right_filenames[idx], cv.IMREAD_UNCHANGED)
-    prob_image = cv.imread(prob_filenames[idx])
-    # dpr
-    if mode == 'dpr':
-        c = pdseg.pd_seg_rec(left_image, prob_image,idx)
-        cv.imwrite(os.path.join(dpath, '{0:06}.png'.format(idx)), c*255)
-        # cc = pdseg.pd_seg_rec(left_image, prob_image, idx)
-        # c = np.zeros(left_image.shape[:2])
-        # for obj in pdseg.obj:
-        #     if obj[2]:
-        #         c[obj[0]] = 255
-        #         print(obj[5])
-        # cv.imwrite(os.path.join(dpath, '{0:06}.png'.format(idx)), c)
-    # t
-    elif mode == 'tt':
-        c = pdseg.pd_seg_t(left_image, prob_image)
-        cv.imwrite(os.path.join(dpath, '{0:06}.png'.format(idx)), c)
-    else:
-        timestamp = timestamps[idx]
-        if mode[0] == 'd':
-            left_mask = np.ones((dseg.h, dseg.w, 1), dtype=np.uint8)
-            right_mask = np.ones((dseg.h, dseg.w, 1), dtype=np.uint8)
-            slam0.process_image_stereo(left_image[:, :, ::-1], right_image[:, :, ::-1], left_mask, right_mask, timestamp)
-            trans = pose_to_transformation(slam0.get_trajectory_points()[-1])
-            if idx % 3 == 0:
-                if idx:
-                    if mode == 'dsr':
+
+    for idx in range(num_images):
+        print('{} frame'.format(idx))
+        left_image = cv.imread(left_filenames[idx], cv.IMREAD_UNCHANGED)
+        right_image = cv.imread(right_filenames[idx], cv.IMREAD_UNCHANGED)
+        prob_image = cv.imread(prob_filenames[idx])
+        # dpr
+        if mode == 'dpr':
+            c = pdseg.pd_seg_rec(left_image, prob_image,idx)
+            cv.imwrite(os.path.join(dpath, '{0:06}.png'.format(idx)), c*255)
+            # cc = pdseg.pd_seg_rec(left_image, prob_image, idx)
+            # c = np.zeros(left_image.shape[:2])
+            # for obj in pdseg.obj:
+            #     if obj[2]:
+            #         c[obj[0]] = 255
+            #         print(obj[5])
+            # cv.imwrite(os.path.join(dpath, '{0:06}.png'.format(idx)), c)
+        # t
+        elif mode == 'tt':
+            c = pdseg.pd_seg_t(left_image, prob_image)
+            cv.imwrite(os.path.join(dpath, '{0:06}.png'.format(idx)), c)
+        else:
+            timestamp = timestamps[idx]
+            if mode[0] == 'd':
+                left_mask = np.ones((dseg.h, dseg.w, 1), dtype=np.uint8)
+                right_mask = np.ones((dseg.h, dseg.w, 1), dtype=np.uint8)
+                slam0.process_image_stereo(left_image[:, :, ::-1], right_image[:, :, ::-1], left_mask, right_mask, timestamp)
+                trans = pose_to_transformation(slam0.get_trajectory_points()[-1])
+                if idx % 3 == 0:
+                    if idx:
+                        if mode == 'dsr':
+                            c = dseg.dyn_seg_rec(trans, left_image, idx)
+                        else:
+                            c = dseg.dyn_seg(trans, left_image)
+                    dseg.updata(left_image, right_image, idx, trans)
+                else:
+                    if mode[:3] == 'dsr':
                         c = dseg.dyn_seg_rec(trans, left_image, idx)
                     else:
                         c = dseg.dyn_seg(trans, left_image)
-                dseg.updata(left_image, right_image, idx, trans)
-            else:
-                if mode[:3] == 'dsr':
-                    c = dseg.dyn_seg_rec(trans, left_image, idx)
-                else:
-                    c = dseg.dyn_seg(trans, left_image)
-            if idx:
-                cv.imwrite(os.path.join(dpath, '{0:06}.png'.format(idx)), c * 255)
-        else:
-            featurel = ImageFeature(left_image, params)
-            featurer = ImageFeature(right_image, params)
-            t = Thread(target=featurer.extract)
-            t.start()
-            featurel.extract()
-            t.join()
-            frame = StereoFrame(idx, g2o.Isometry3d(), featurel, featurer, cam, timestamp=timestamp)
-
-            if not sptam.is_initialized():
-                sptam.initialize(frame)
-            else:
-                sptam.track(frame)
-
-            if idx % 3 == 0:
                 if idx:
-                    c = dseg.dyn_seg(frame, left_image)
-                dseg.updata(left_image, right_image, idx, frame)
+                    cv.imwrite(os.path.join(dpath, '{0:06}.png'.format(idx)), c * 255)
             else:
-                c = dseg.dyn_seg(frame, left_image)
-            if idx:
-                c = cv.dilate(c, kernel)
-                cv.imwrite(os.path.join(dpath, '{0:06}.png'.format(idx)), c * 255)
+                featurel = ImageFeature(left_image, params)
+                featurer = ImageFeature(right_image, params)
+                t = Thread(target=featurer.extract)
+                t.start()
+                featurel.extract()
+                t.join()
+                frame = StereoFrame(idx, g2o.Isometry3d(), featurel, featurer, cam, timestamp=timestamp)
+
+                if not sptam.is_initialized():
+                    sptam.initialize(frame)
+                else:
+                    sptam.track(frame)
+
+                if idx % 3 == 0:
+                    if idx:
+                        c = dseg.dyn_seg(frame, left_image)
+                    dseg.updata(left_image, right_image, idx, frame)
+                else:
+                    c = dseg.dyn_seg(frame, left_image)
+                if idx:
+                    c = cv.dilate(c, kernel)
+                    cv.imwrite(os.path.join(dpath, '{0:06}.png'.format(idx)), c * 255)
 
 
 
-if mode != 'dpr' and mode != 'tt':
-    print('mean dcverror: {}'.format(np.mean(dseg.cverrs)))
-if f == 1:
-    slam0.shutdown()
-elif f == 2:
-    sptam.stop()
+    if mode != 'dpr' and mode != 'tt':
+        print('mean dcverror: {}'.format(np.mean(dseg.cverrs)))
+    if f == 1:
+        slam0.shutdown()
+    elif f == 2:
+        sptam.stop()
+else:
+    dpath = 'mask/o{}/'.format(sequence)
+    if os.path.exists(dpath):
+        shutil.rmtree(dpath)
+    os.mkdir(dpath)
+    
+    print('sequence ',sequence)
+    for idx in range(num_images):
+        print('{} frame'.format(idx))
+        left_image = cv.imread(left_filenames[idx], cv.IMREAD_UNCHANGED)
+        a = coco_demo.compute_prediction(iml)
+        top = coco_demo.select_top_predictions(a)
+        masks = top.get_field("mask").numpy()
+        c = np.zeros(left_image.shape[:2])
+        for m in masks:
+            c[m.squeeze()] = 255
+        cv.imwrite(os.path.join(dpath, '{0:06}.png'.format(idx)), c)
