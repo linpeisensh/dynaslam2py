@@ -161,7 +161,7 @@ class PDSeg():
             cm = np.where(self.obj[i][0] == True)
             if len(cm):
                 y1, x1, y2, x2,  = self.obj[i][5]
-                print(y1, x1, y2, x2)
+                # print(y1, x1, y2, x2)
                 flow = cv.calcOpticalFlowFarneback(self.old_gray, frame_gray, None, **self.fb_params)
                 nm = np.zeros_like(self.obj[i][0], dtype=np.bool)
                 dy, dx = np.mean(flow[self.obj[i][0]], axis=0)
@@ -169,7 +169,7 @@ class PDSeg():
                 for x, y in zip(cm[0], cm[1]):
                     cx, cy = self.limit(x+dx,1), self.limit(y+dy,0)
                     nm[round(cx),round(cy)] = True
-                print(self.obj[i][5])
+                # print(self.obj[i][5])
                 self.obj[i][0] = nm
             else:
                 res[i] = False
