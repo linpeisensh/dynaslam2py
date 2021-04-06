@@ -24,7 +24,7 @@ fb_params = dict(pyr_scale = 0.5,
                  poly_sigma = 1.2,
                  flags = 0)
 sequence = sys.argv[1]
-s = sys.argv[2]
+s = int(sys.argv[2])
 
 iml = cv.imread('/storage/remote/atcremers17/linp/dataset/kittic/sequences/{}/'.format(sequence)+'image_2/{0:06}.png'.format(s))
 a = coco_demo.compute_prediction(iml)
