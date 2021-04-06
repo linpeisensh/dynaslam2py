@@ -153,7 +153,6 @@ else:
         params = ParamsKITTI()
         dataset = KITTIOdometry(sequence_path)
         sptam = SPTAM(params)
-        config = stereoCamera()
         dseg = DynaSeg(iml, coco_demo, feature_params, depth_path, config, paraml, lk_params, mtx, dist, kernel,
                        loadmodel)
         cam = Camera(
@@ -253,7 +252,7 @@ else:
     if os.path.exists(dpath):
         shutil.rmtree(dpath)
     os.mkdir(dpath)
-    
+
     print('sequence ',sequence)
     for idx in range(num_images):
         print('{} frame'.format(idx))
