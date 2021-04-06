@@ -166,7 +166,7 @@ if mode != 'm':
 
 
 
-    dpath = 'pmask/{}{}/'.format(mode,sequence)
+    dpath = '{}{}/'.format(mode,sequence) #pmask/
     if os.path.exists(dpath):
         shutil.rmtree(dpath)
     os.mkdir(dpath)
