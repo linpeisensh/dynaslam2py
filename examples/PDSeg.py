@@ -124,7 +124,7 @@ class PDSeg():
         return cc
 
     def get_max_min_idx(self, er, x1, y1, x2, y2):
-        x1, y1, x2, y2 = map(round,[x1, y1, x2, y2])
+        x1, y1, x2, y2 = map(int,[x1, y1, x2, y2])
         def helper(y2,f):
             res = []
             l = 0
