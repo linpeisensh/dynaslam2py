@@ -259,7 +259,7 @@ else:
     for idx in range(num_images):
         print('{} frame'.format(idx))
         left_image = cv.imread(left_filenames[idx], cv.IMREAD_UNCHANGED)
-        a = coco_demo.compute_prediction(iml)
+        a = coco_demo.compute_prediction(left_image)
         top = coco_demo.select_top_predictions(a)
         masks = top.get_field("mask").numpy()
         c = np.zeros(left_image.shape[:2])
