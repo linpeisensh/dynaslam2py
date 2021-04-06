@@ -18,6 +18,7 @@ import fcntl
 
 from PDSeg import PDSeg
 from sptam.dataset import KITTIOdometry
+from sptam.msptam import stereoCamera
 
 
 def main(orb_path, device, data_path, save, sequence):
@@ -70,11 +71,12 @@ def main(orb_path, device, data_path, save, sequence):
         min_image_size=800,
         confidence_threshold=0.7,
     )
+    config = stereoCamera(sequence)
 
     loadmodel = './finetune_300.tar'
 
     iml = cv.imread(dataset.left[0], cv.IMREAD_UNCHANGED)
-    pdseg = PDSeg(iml,coco_demo,depth_path,kernel)
+    pdseg = PDSeg(iml,coco_demo,depth_path,kernel,config)
     for idx in range(num_images):
         t0 = time.time()
         left_image = cv.imread(dataset.left[idx], cv.IMREAD_UNCHANGED)
@@ -117,7 +119,7 @@ def main(orb_path, device, data_path, save, sequence):
             print('error in frame {}'.format(idx))
             break
     i = 0
-    result_path = 'pdr/d{}{}.txt'.format(sequence,i)
+    result_path = 'rdr/d{}{}.txt'.format(sequence,i)
     while True:
         if not os.path.exists(result_path):
             s_flag = save_trajectory(slam.get_trajectory_points(), result_path)
@@ -125,7 +127,7 @@ def main(orb_path, device, data_path, save, sequence):
                 print(result_path)
                 break
         i += 1
-        result_path = 'pdr/d{}{}.txt'.format(sequence, i)
+        result_path = 'rdr/d{}{}.txt'.format(sequence, i)
 
     slam.shutdown()
     times_track = sorted(times_track)
