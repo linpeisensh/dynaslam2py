@@ -231,6 +231,7 @@ class RRSeg():
 class RDRSeg(RRSeg):
     def __init__(self,iml, coco, depth_path, kernel,config):
         super(RDRSeg, self).__init__(iml, coco, depth_path, kernel)
+        self.config = config
         self.Q = self.getRectifyTransform()
         self.mtx, self.dist = np.array([[707.0912, 0, 601.8873], [0, 707.0912, 183.1104], [0, 0, 1]]), np.array(
             [[0] * 4]).reshape(1, 4).astype(np.float32)
