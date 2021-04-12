@@ -1,11 +1,11 @@
 import cv2 as cv
 import numpy as np
 from copy import deepcopy as dp
+import os
 
-from psmnet.submission import PSMNet
 
 class RRSeg():
-    def __init__(self, iml, coco, depth_path, kernel,config):
+    def __init__(self, iml, coco, depth_path, kernel):
         self.coco = coco
         self.depth_path = depth_path
         self.h, self.w = iml.shape[:2]
@@ -30,64 +30,8 @@ class RRSeg():
 
         self.p_color = (0, 0, 255)
 
-        self.mtx, self.dist = np.array([[707.0912, 0, 601.8873], [0, 707.0912, 183.1104], [0, 0, 1]]), np.array([[0] * 4]).reshape(1, 4).astype(np.float32)
-        self.cverrs = []
-        self.feature_params = dict(maxCorners=1000,
-                          qualityLevel=0.1,
-                          minDistance=7,
-                          blockSize=7)
-        self.paraml = {'minDisparity': 1,
-              'numDisparities': 64,
-              'blockSize': 10,
-              'P1': 4 * 3 * 9 ** 2,
-              'P2': 4 * 3 * 9 ** 2,
-              'disp12MaxDiff': 1,
-              'preFilterCap': 10,
-              'uniquenessRatio': 15,
-              'speckleWindowSize': 100,
-              'speckleRange': 1,
-              'mode': cv.STEREO_SGBM_MODE_SGBM_3WAY
-              }
-        self.psmnet = PSMNet('./finetune_300.tar')
-        self.config = config
-        self.Q = self.getRectifyTransform()
 
 
-    # def pd_seg(self,iml,prob_map):
-    #     er = prob_map[..., 0].copy()
-    #     er[er < 128] = 0
-    #     er[er >= 128] = 255
-    #
-    #     a = self.coco.compute_prediction(iml)
-    #     top = self.coco.select_top_predictions(a)
-    #     masks = top.get_field("mask").numpy()
-    #     labels = top.get_field("labels").numpy()
-    #
-    #     c = np.ones((self.h, self.w),dtype=np.uint8)
-    #     for i in range(len(masks)):
-    #         if labels[i] in self.pot_moving_labels:
-    #             mask = masks[i].squeeze()
-    #             box = top.bbox[i]
-    #             x1, y1, x2, y2 = map(int, box)
-    #             x = (x1 + x2) / 2
-    #             if 400 < x < 836:
-    #                 res = self.get_max_min_idx(er, self.w, min(y2 + 10, self.h - 1))
-    #                 x1, x2 = x1, x2
-    #             else:
-    #                 if 2.25 * (y2 - y1) > x2 - x1:
-    #                     res = self.get_max_min_idx(er, self.w, min(y2 + 10, self.h - 1))
-    #                     x1, x2 = x1, x2
-    #                 else:
-    #                     res = self.get_max_min_idx(er, self.h, min(x2 + 10, self.w - 1))
-    #                     x1, x2 = y1, y2
-    #             for mi, ma in res:
-    #                 if labels[i] in self.sides_moving_labels:
-    #                     if abs(x2 - mi) <= (x2 - x1) or abs(x1 - ma) <= (x2 - x1) or (
-    #                             x1 >= mi and x2 <= ma):
-    #                         c[mask] = 0
-    #                 elif x1 >= mi and x2 <= ma:
-    #                     c[mask] = 0
-    #     return c
 
     def rr_seg_t(self,iml,prob_map):
         er = prob_map[..., 0].copy()
@@ -285,6 +229,30 @@ class RRSeg():
         return
 
 class RDRSeg(RRSeg):
+    def __init__(self,iml, coco, depth_path, kernel,config):
+        super(RDRSeg, self).__init__(iml, coco, depth_path, kernel)
+        self.Q = self.getRectifyTransform()
+        self.mtx, self.dist = np.array([[707.0912, 0, 601.8873], [0, 707.0912, 183.1104], [0, 0, 1]]), np.array(
+            [[0] * 4]).reshape(1, 4).astype(np.float32)
+        self.cverrs = []
+        self.feature_params = dict(maxCorners=1000,
+                                   qualityLevel=0.1,
+                                   minDistance=7,
+                                   blockSize=7)
+        self.paraml = {'minDisparity': 1,
+                       'numDisparities': 64,
+                       'blockSize': 10,
+                       'P1': 4 * 3 * 9 ** 2,
+                       'P2': 4 * 3 * 9 ** 2,
+                       'disp12MaxDiff': 1,
+                       'preFilterCap': 10,
+                       'uniquenessRatio': 15,
+                       'speckleWindowSize': 100,
+                       'speckleRange': 1,
+                       'mode': cv.STEREO_SGBM_MODE_SGBM_3WAY
+                       }
+        self.config = config
+
     def stereoMatchSGBM(self, iml, imr):
         left_matcher = cv.StereoSGBM_create(**self.paraml)
 
@@ -297,25 +265,65 @@ class RDRSeg(RRSeg):
     def get_points(self, i, iml, imr):
         iml_, imr_ = preprocess(iml, imr)
         disp = self.stereoMatchSGBM(iml_, imr_)
-        # dis = np.load(os.path.join(self.disp_path, str(i).zfill(6) + '.npy'))
-        dis = self.psmnet.main(iml,imr)
+        dis = cv.imread(os.path.join(self.depth_path, str(i).zfill(6) + '.png'))[..., 0]
         disp[disp == 0] = dis[disp == 0]
         points = cv.reprojectImageTo3D(disp, self.Q)
         return points
 
-    def updata(self, iml, imr, i, trans):
+    # def update(self, iml, imr, i, trans):
+    #     self.old_gray = cv.cvtColor(iml, cv.COLOR_BGR2GRAY)
+    #     self.p = cv.goodFeaturesToTrack(self.old_gray, mask=None, **self.feature_params)
+    #     self.p1 = dp(self.p)
+    #     self.ast = np.ones((self.p.shape[0], 1))
+    #     self.points = self.get_points(i, iml, imr)
+    #     self.otfm = np.linalg.inv(trans)
+    #
+    # def projection(self, trans, frame_gray):
+    #     # calculate optical flow
+    #     p1, st, err = cv.calcOpticalFlowPyrLK(self.old_gray, frame_gray, self.p1, None, **self.lk_params)
+    #     self.ast *= st
+    #     tfm = trans
+    #     tfm = self.otfm.dot(tfm)
+    #     b = cv.Rodrigues(tfm[:3, :3])
+    #     R = b[0]
+    #     t = tfm[:3, 3].reshape((3, 1))
+    #
+    #     P = p1[self.ast == 1]
+    #     objpa = np.array([self.points[int(y), int(x)] for x, y in self.p[self.ast == 1].squeeze()])
+    #     imgpts, jac = cv.projectPoints(objpa, R, t, self.mtx, self.dist)
+    #     imgpts = imgpts.squeeze()
+    #     P = P.squeeze()[~np.isnan(imgpts).any(axis=1)]
+    #     imgpts = imgpts[~np.isnan(imgpts).any(axis=1)]
+    #     P = P[(0 < imgpts[:, 0]) * (imgpts[:, 0] < self.w) * (0 < imgpts[:, 1]) * (imgpts[:, 1] < self.h)]
+    #     imgpts = imgpts[(0 < imgpts[:, 0]) * (imgpts[:, 0] < self.w) * (0 < imgpts[:, 1]) * (imgpts[:, 1] < self.h)]
+    #     error = ((P - imgpts) ** 2).sum(-1)
+    #     P = P[error < 1e6]
+    #     imgpts = imgpts[error < 1e6].astype(np.float32)
+    #     error = error[error < 1e6]
+    #
+    #     if len(imgpts):
+    #         cverror = cv.norm(P, imgpts, cv.NORM_L2) / len(imgpts)
+    #     else:
+    #         cverror = float('inf')
+    #     print(cverror)
+    #     self.cverrs.append(cverror)
+    #     self.p1 = p1
+    #     ge = norm(error,imgpts)
+    #     return ge, P
+
+    def update(self, iml, imr, i, frame):
         self.old_gray = cv.cvtColor(iml, cv.COLOR_BGR2GRAY)
         self.p = cv.goodFeaturesToTrack(self.old_gray, mask=None, **self.feature_params)
         self.p1 = dp(self.p)
         self.ast = np.ones((self.p.shape[0], 1))
         self.points = self.get_points(i, iml, imr)
-        self.otfm = np.linalg.inv(trans)
+        self.otfm = np.linalg.inv(Rt_to_tran(frame.transform_matrix))
 
-    def projection(self, trans, frame_gray):
+    def projection(self, frame, frame_gray):
         # calculate optical flow
         p1, st, err = cv.calcOpticalFlowPyrLK(self.old_gray, frame_gray, self.p1, None, **self.lk_params)
         self.ast *= st
-        tfm = trans
+        tfm = Rt_to_tran(frame.transform_matrix)
         tfm = self.otfm.dot(tfm)
         b = cv.Rodrigues(tfm[:3, :3])
         R = b[0]
@@ -323,7 +331,7 @@ class RDRSeg(RRSeg):
 
         P = p1[self.ast == 1]
         objpa = np.array([self.points[int(y), int(x)] for x, y in self.p[self.ast == 1].squeeze()])
-        imgpts, jac = cv.projectPoints(objpa, R, t, self.mtx, self.dist)
+        imgpts, jac = cv.projectPoints(objpa, R, -t, self.mtx, self.dist)
         imgpts = imgpts.squeeze()
         P = P.squeeze()[~np.isnan(imgpts).any(axis=1)]
         imgpts = imgpts[~np.isnan(imgpts).any(axis=1)]

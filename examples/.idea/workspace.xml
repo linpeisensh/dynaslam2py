@@ -34,8 +34,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/script.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-743">
-              <caret line="165" column="72" lean-forward="true" selection-start-line="165" selection-start-column="12" selection-end-line="165" selection-end-column="72" />
+            <state relative-caret-position="176">
+              <caret line="117" column="58" selection-start-line="117" selection-start-column="44" selection-end-line="117" selection-end-column="58" />
               <folding>
                 <element signature="e#957#998#0" expanded="true" />
               </folding>
@@ -46,8 +46,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/RDR.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="462">
-              <caret line="111" column="22" selection-start-line="111" selection-start-column="22" selection-end-line="111" selection-end-column="22" />
+            <state relative-caret-position="19">
+              <caret line="115" column="23" selection-start-line="115" selection-start-column="23" selection-end-line="115" selection-end-column="23" />
               <folding>
                 <element signature="e#0#41#0" expanded="true" />
               </folding>
@@ -58,20 +58,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/RDRSeg.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-881">
-              <caret line="387" lean-forward="true" selection-start-line="387" selection-end-line="387" />
-              <folding>
-                <element signature="e#0#16#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/DOF.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="272">
-              <caret line="31" column="37" lean-forward="true" selection-start-line="29" selection-end-line="31" selection-end-column="37" />
+            <state relative-caret-position="176">
+              <caret line="226" column="25" selection-start-line="226" selection-start-column="25" selection-end-line="226" selection-end-column="25" />
               <folding>
                 <element signature="e#0#16#0" expanded="true" />
               </folding>
@@ -82,8 +70,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/PD_SLAM.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-7">
-              <caret line="129" column="57" lean-forward="true" selection-start-line="129" selection-start-column="57" selection-end-line="129" selection-end-column="57" />
+            <state relative-caret-position="214">
+              <caret line="25" column="63" lean-forward="true" selection-start-line="24" selection-start-column="4" selection-end-line="25" selection-end-column="63" />
               <folding>
                 <element signature="e#23#33#0" expanded="true" />
               </folding>
@@ -94,8 +82,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/sptam/dynaseg.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="385">
-              <caret line="245" column="40" lean-forward="true" selection-start-line="236" selection-start-column="16" selection-end-line="245" selection-end-column="40" />
+            <state relative-caret-position="309">
+              <caret line="106" column="20" lean-forward="true" selection-start-line="75" selection-start-column="4" selection-end-line="106" selection-end-column="20" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
               </folding>
@@ -114,18 +102,7 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>nu_obj</find>
-      <find>left_filenames</find>
-      <find>sequence_path</find>
-      <find>Thread</find>
-      <find>slam0</find>
-      <find>cam</find>
-      <find>astype</find>
-      <find>lk_params</find>
-      <find>cverrs</find>
-      <find>coco_demo</find>
       <find>mtx</find>
-      <find>feature_params</find>
       <find>self.old_gray</find>
       <find>paraml</find>
       <find>preprocess</find>
@@ -143,7 +120,18 @@
       <find>frame_gray</find>
       <find>dseg</find>
       <find>timestamps</find>
+      <find>update</find>
       <find>timestamp</find>
+      <find>PSMNet</find>
+      <find>updata</find>
+      <find>self.psmnet</find>
+      <find>main</find>
+      <find>vocab_path</find>
+      <find>ORB_SLAM2</find>
+      <find>DynaSLAM</find>
+      <find>rdrseg</find>
+      <find>get_points</find>
+      <find>feature_params</find>
     </findStrings>
     <replaceStrings>
       <replace>cv</replace>
@@ -168,8 +156,10 @@
       <replace>self.w</replace>
       <replace>coco</replace>
       <replace>x2</replace>
-      <replace>gi</replace>
+      <replace>DynaSLAM</replace>
+      <replace>RDRSLAM</replace>
       <replace>rdr</replace>
+      <replace>gi</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -203,6 +193,7 @@
         <option value="$PROJECT_DIR$/PD_SLAM.py" />
         <option value="$PROJECT_DIR$/rmse.py" />
         <option value="$PROJECT_DIR$/script.py" />
+        <option value="D:/RDR/README.md" />
         <option value="$PROJECT_DIR$/RDRSeg.py" />
         <option value="$PROJECT_DIR$/RDR.py" />
       </list>
@@ -388,12 +379,12 @@
       <workItem from="1614841927460" duration="68251000" />
       <workItem from="1615560087248" duration="9459000" />
       <workItem from="1615900038802" duration="8195000" />
-      <workItem from="1616093396454" duration="127187000" />
+      <workItem from="1616093396454" duration="138926000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="316335000" />
+    <option name="totallyTimeSpent" value="328074000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -699,16 +690,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/DOF.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="31" column="37" lean-forward="true" selection-start-line="29" selection-end-line="31" selection-end-column="37" />
-          <folding>
-            <element signature="e#0#16#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/rmse.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="342">
@@ -729,50 +710,81 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/PD_SLAM.py">
+    <entry file="file://$PROJECT_DIR$/DOF.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-7">
-          <caret line="129" column="57" lean-forward="true" selection-start-line="129" selection-start-column="57" selection-end-line="129" selection-end-column="57" />
-          <folding>
-            <element signature="e#23#33#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/sptam/dynaseg.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="385">
-          <caret line="245" column="40" lean-forward="true" selection-start-line="236" selection-start-column="16" selection-end-line="245" selection-end-column="40" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/RDRSeg.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-881">
-          <caret line="387" lean-forward="true" selection-start-line="387" selection-end-line="387" />
+        <state relative-caret-position="272">
+          <caret line="31" column="37" lean-forward="true" selection-start-line="29" selection-end-line="31" selection-end-column="37" />
           <folding>
             <element signature="e#0#16#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/PD_SLAM.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="214">
+          <caret line="25" column="63" lean-forward="true" selection-start-line="24" selection-start-column="4" selection-end-line="25" selection-end-column="63" />
+          <folding>
+            <element signature="e#23#33#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://D:/dsptam/test.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://D:/orb2o/README.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor />
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://D:/RDR/README.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="271">
+            <caret line="28" column="89" selection-start-line="28" selection-start-column="89" selection-end-line="28" selection-end-column="89" />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sptam/dynaseg.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="309">
+          <caret line="106" column="20" lean-forward="true" selection-start-line="75" selection-start-column="4" selection-end-line="106" selection-end-column="20" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/script.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-743">
-          <caret line="165" column="72" lean-forward="true" selection-start-line="165" selection-start-column="12" selection-end-line="165" selection-end-column="72" />
+        <state relative-caret-position="176">
+          <caret line="117" column="58" selection-start-line="117" selection-start-column="44" selection-end-line="117" selection-end-column="58" />
           <folding>
             <element signature="e#957#998#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/RDRSeg.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="176">
+          <caret line="226" column="25" selection-start-line="226" selection-start-column="25" selection-end-line="226" selection-end-column="25" />
+          <folding>
+            <element signature="e#0#16#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/RDR.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="462">
-          <caret line="111" column="22" selection-start-line="111" selection-start-column="22" selection-end-line="111" selection-end-column="22" />
+        <state relative-caret-position="19">
+          <caret line="115" column="23" selection-start-line="115" selection-start-column="23" selection-end-line="115" selection-end-column="23" />
           <folding>
             <element signature="e#0#41#0" expanded="true" />
           </folding>

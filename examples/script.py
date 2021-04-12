@@ -1,7 +1,7 @@
 from maskrcnn_benchmark.config import cfg
 from demo.predictor import COCODemo
 
-from PDSeg import PDSeg
+from RDRSeg import RRSeg
 from sptam.dynaseg import DynaSegt,DynaSeg
 from sptam.msptam import SPTAM, stereoCamera
 from sptam.components import Camera
@@ -76,9 +76,8 @@ f = 0
 config = stereoCamera(sequence)
 num_images = len(left_filenames)
 if mode != 'm':
-    pdseg = PDSeg(iml, coco_demo, depth_path, kernel, config)
     if mode == 'dpr' or mode == 'tt':
-        pass
+        pdseg = RRSeg(iml,coco_demo,depth_path,kernel,config)
     else:
         feature_params = dict(maxCorners=1000,
                               qualityLevel=0.1,
@@ -116,8 +115,7 @@ if mode != 'm':
             slam0 = orbslam2.System(vocab_path, settings_path, orbslam2.Sensor.STEREO)
             slam0.set_use_viewer(False)
             slam0.initialize()
-            if mode == 'dsr':
-                dseg = DynaSegt(iml, coco_demo, feature_params, depth_path, config, paraml, lk_params, mtx, dist, kernel, loadmodel)
+            dseg = DynaSegt(iml, coco_demo, feature_params, depth_path, config, paraml, lk_params, mtx, dist, kernel, loadmodel)
         else:
             f = 2
             params = ParamsKITTI()
@@ -134,7 +132,7 @@ if mode != 'm':
 
 
 
-    dpath = 'pmask/{}{}/'.format(mode,sequence) #
+    dpath = 'pmask/{}{}/'.format(mode,sequence)
     if os.path.exists(dpath):
         shutil.rmtree(dpath)
     os.mkdir(dpath)
