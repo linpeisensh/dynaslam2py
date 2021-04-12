@@ -30,7 +30,7 @@ def sort_stat(v,save_root_path,res_root_path,i,k,d):
     # vres = v
     idx = 0
     res = 0
-    if k == '02' or k == '09':
+    if k == '01' or k == '02' or k == '09':
         for vi in vres[:5]:
             # print('{} ate: {}m, rpe: {}%, rre: {}deg/100m'.format(vi[0], vi[1], vi[2], vi[3]))
             if save_root_path != '0' and i == 1:

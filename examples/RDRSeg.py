@@ -4,7 +4,7 @@ from copy import deepcopy as dp
 
 from psmnet.submission import PSMNet
 
-class PDSeg():
+class RRSeg():
     def __init__(self, iml, coco, depth_path, kernel,config):
         self.coco = coco
         self.depth_path = depth_path
@@ -89,7 +89,7 @@ class PDSeg():
     #                     c[mask] = 0
     #     return c
 
-    def pd_seg_t(self,iml,prob_map):
+    def rr_seg_t(self,iml,prob_map):
         er = prob_map[..., 0].copy()
         er[er < 244] = 0
         er[er >= 244] = 255
@@ -174,7 +174,7 @@ class PDSeg():
         else:
             return max(min(xy, self.w - 1), 0)
 
-    def pd_seg_rec(self,iml,prob_map,idx):
+    def rr_seg_rec(self,iml,prob_map,idx):
         er = prob_map[..., 0].copy()
         er[er < 244] = 0
         er[er >= 244] = 255
@@ -284,6 +284,7 @@ class PDSeg():
         # self.track_rate(idx)
         return
 
+class RDRSeg(RRSeg):
     def stereoMatchSGBM(self, iml, imr):
         left_matcher = cv.StereoSGBM_create(**self.paraml)
 
@@ -354,6 +355,90 @@ class PDSeg():
         R1, R2, P1, P2, Q, roi1, roi2 = cv.stereoRectify(left_K, left_distortion, right_K, right_distortion,
                                                          (self.w, self.h), R, T, alpha=0)
         return Q
+
+    def rdr_seg_rec(self,iml,prob_map,idx,trans):
+        er = prob_map[..., 0].copy()
+        er[er < 244] = 0
+        er[er >= 244] = 255
+
+        frame_gray = cv.cvtColor(iml, cv.COLOR_BGR2GRAY)
+        nobj = len(self.obj)
+        res = [True] * nobj
+        for i in range(nobj):
+            cm = np.where(self.obj[i][0] == True)
+            if len(cm):
+                y1, x1, y2, x2,  = self.obj[i][5]
+                # print(y1, x1, y2, x2)
+                flow = cv.calcOpticalFlowFarneback(self.old_gray, frame_gray, None, **self.fb_params)
+                nm = np.zeros_like(self.obj[i][0], dtype=np.bool)
+                dy, dx = np.mean(flow[self.obj[i][0]], axis=0)
+                self.obj[i][5] = [self.limit(y1+dy,0),self.limit(x1+dx,1),self.limit(y2+dy,0),self.limit(x2+dx,1)]
+                for x, y in zip(cm[0], cm[1]):
+                    cx, cy = self.limit(x+dx,1), self.limit(y+dy,0)
+                    nm[round(cx),round(cy)] = True
+                # print(self.obj[i][5])
+                self.obj[i][0] = nm
+            else:
+                res[i] = False
+
+        self.obj = list(self.obj[res])
+        self.track_obj(iml, idx)
+
+        ge, P = self.projection(trans, frame_gray)
+
+        nobj = len(self.obj)
+
+        for i in range(nobj):
+            x1, y1, x2, y2 = self.obj[i][5]
+            if x1 >= 90 and x2 <= self.w - 90:
+                if y2 >= 213:
+                    res = self.get_max_min_idx(er, x1, y1, x2, y2)
+                    self.obj[i][1] += 1
+                    for mi, ma in res:
+                        if self.obj[i][4] in self.sides_moving_labels:
+                            if abs(x2 - mi) <= (x2 - x1) or abs(x1 - ma) <= (x2 - x1) or (x1 >= mi and x2 <= ma):
+                                self.obj[i][2] += 1
+                        elif x1 >= mi and x2 <= ma:
+                            self.obj[i][2] += 1
+                else:
+                    ao = 0
+                    co = 0
+                    for gi in range(len(ge)):
+                        x, y = round(P[gi][1]), round(P[gi][0])
+                        if 0 <= x < self.h and 0 <= y < self.w and self.obj[i][0][x, y]:
+                            ao += 1
+                            if ge[gi]:
+                                co += 1
+                    if ao > 1 and co / ao > 0.5:
+                        self.obj[i][2] += 1
+                        self.obj[i][1] += 1
+
+        c = np.ones((self.h, self.w),dtype=np.uint8)
+        res = [True] * nobj
+
+        for i in range(nobj):
+            if self.obj[i][4] in self.cars:
+                box = self.obj[i][5]
+                x1, y1, x2, y2 = map(int, box)
+                if idx - self.obj[i][3] >= 5 or (idx - self.obj[i][3] and (np.sum(self.obj[i][0]) < self.obj[i][6] or x1 <= 15 or x2 >= self.w - 15 or y1 <= 15 or y2 >= self.h - 15)):
+                    res[i] = False
+                elif self.obj[i][1] and self.obj[i][2] / self.obj[i][1] >= 0.6:  #  or self.obj[i][2] >= 5
+                    c[self.obj[i][0]] = 0
+            elif idx - self.obj[i][3]:
+                res[i] = False
+            elif self.obj[i][1] and self.obj[i][2] / self.obj[i][1] >= 0.6:  #  or self.obj[i][2] >= 5
+                c[self.obj[i][0]] = 0
+
+            # else:
+            #     self.obj[i][2] = max(0, self.obj[i][2] - 0.5)
+        self.obj = np.array(self.obj, dtype=object)
+        self.obj = self.obj[res]
+        nobj = len(self.obj)
+        print('num of objs', nobj)
+        for obj in self.obj:
+            print('a: {}, d: {}'.format(obj[1], obj[2]))
+        self.old_gray = frame_gray.copy()
+        return c
 
 
 
