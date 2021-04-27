@@ -136,7 +136,7 @@ class RTSeg():
         else:
             return max(min(xy, self.w - 1), 0)
 
-    def rr_seg_rec(self,iml,prob_map,idx):
+    def rt_seg_rec(self,iml,prob_map,idx):
         er = prob_map[..., 0].copy()
         er[er < 244] = 0
         er[er >= 244] = 255
@@ -321,7 +321,7 @@ class RDTSeg(RTSeg):
                                                          (self.w, self.h), R, T, alpha=0)
         return Q
 
-    def rdr_seg_rec(self,iml,prob_map,idx,trans):
+    def rdt_seg_rec(self,iml,prob_map,idx,trans):
         er = prob_map[..., 0].copy()
         er[er < 244] = 0
         er[er >= 244] = 255

@@ -78,7 +78,7 @@ config = stereoCamera(sequence)
 num_images = len(left_filenames)
 if mode != 'm':
     if mode == 'dpr' or mode == 'tt':
-        pdseg = RTSeg(iml,coco_demo,depth_path,kernel,config)
+        rtseg = RTSeg(iml,coco_demo,depth_path,kernel,config)
     # else:
     #     feature_params = dict(maxCorners=1000,
     #                           qualityLevel=0.1,
@@ -150,18 +150,18 @@ if mode != 'm':
         prob_image = cv.imread(prob_filenames[idx])
         # dpr
         if mode == 'dpr':
-            c = pdseg.pd_seg_rec(left_image, prob_image,idx)
+            c = rtseg.rt_seg_rec(left_image, prob_image,idx)
             cv.imwrite(os.path.join(dpath, '{0:06}.png'.format(idx)), c*255)
-            # cc = pdseg.pd_seg_rec(left_image, prob_image, idx)
+            # cc = rtseg.pd_seg_rec(left_image, prob_image, idx)
             # c = np.zeros(left_image.shape[:2])
-            # for obj in pdseg.obj:
+            # for obj in rtseg.obj:
             #     if obj[2]:
             #         c[obj[0]] = 255
             #         print(obj[5])
             # cv.imwrite(os.path.join(dpath, '{0:06}.png'.format(idx)), c)
         # t
         elif mode == 'tt':
-            c = pdseg.pd_seg_t(left_image, prob_image)
+            c = rtseg.rr_seg_t(left_image, prob_image)
             cv.imwrite(os.path.join(dpath, '{0:06}.png'.format(idx)), c)
         # else:
         #     timestamp = timestamps[idx]

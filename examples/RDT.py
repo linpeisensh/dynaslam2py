@@ -128,7 +128,7 @@ def main(orb_path, data_path, device, save, sequence):
         if idx % 3 == 0:
             if idx:
                 rdtseg.update(left_image, right_image, idx, trans)
-        c = rdtseg.rdr_seg_rec(left_image, prob_image, idx,trans)
+        c = rdtseg.rdt_seg_rec(left_image, prob_image, idx,trans)
         if save == '1':
             cv.imwrite(os.path.join(dpath, '{0:06}.png'.format(idx)), c)
         slam.process_image_stereo(left_image[:, :, ::-1], right_image[:, :, ::-1], left_mask, right_mask, timestamp)
