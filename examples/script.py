@@ -1,7 +1,7 @@
 from maskrcnn_benchmark.config import cfg
 from demo.predictor import COCODemo
 
-from RDRSeg import RRSeg
+from RDTSeg import RTSeg
 from sptam.dynaseg import DynaSegt,DynaSeg
 from sptam.msptam import SPTAM, stereoCamera
 from sptam.components import Camera
@@ -10,8 +10,8 @@ from sptam.feature import ImageFeature
 from sptam.params import ParamsKITTI
 from sptam.dataset import KITTIOdometry
 
-import orbslam2
-import g2o
+# import orbslam2
+# import g2o
 
 import sys
 import cv2 as cv
@@ -77,7 +77,7 @@ config = stereoCamera(sequence)
 num_images = len(left_filenames)
 if mode != 'm':
     if mode == 'dpr' or mode == 'tt':
-        pdseg = RRSeg(iml,coco_demo,depth_path,kernel,config)
+        pdseg = RTSeg(iml,coco_demo,depth_path,kernel,config)
     # else:
     #     feature_params = dict(maxCorners=1000,
     #                           qualityLevel=0.1,
