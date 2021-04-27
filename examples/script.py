@@ -46,7 +46,7 @@ def pose_to_transformation(pose):
 sequence = sys.argv[1]
 mode = sys.argv[2]
 
-sequence_path = os.path.join('/storage/remote/atcremers17/linp/dataset/kittic/sequences/',sequence)
+sequence_path = os.path.join('/storage/remote/atcremers54/linp/dataset/kittic/sequences/',sequence)
 file_path = os.path.join(sequence_path, 'image_2')
 left_filenames = load_images(file_path)
 file_path = os.path.join(sequence_path, 'image_3')
