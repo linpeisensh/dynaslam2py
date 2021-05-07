@@ -31,11 +31,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/script.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="328">
-              <caret line="160" column="46" selection-start-line="160" selection-start-column="46" selection-end-line="160" selection-end-column="46" />
+            <state relative-caret-position="317">
+              <caret line="152" column="34" selection-start-line="152" selection-start-column="22" selection-end-line="152" selection-end-column="34" />
               <folding>
                 <element signature="e#0#41#0" expanded="true" />
               </folding>
@@ -43,11 +43,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/RDTSeg.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="206">
-              <caret line="53" column="16" selection-start-line="53" selection-start-column="8" selection-end-line="53" selection-end-column="16" />
+            <state relative-caret-position="431">
+              <caret line="191" column="41" lean-forward="true" selection-start-line="191" selection-start-column="41" selection-end-line="191" selection-end-column="41" />
               <folding>
                 <element signature="e#0#16#0" expanded="true" />
               </folding>
@@ -58,8 +58,11 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/RDT.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-2464">
-              <caret column="5" selection-start-column="5" selection-end-column="5" />
+            <state relative-caret-position="557">
+              <caret line="129" column="66" lean-forward="true" selection-start-line="129" selection-start-column="66" selection-end-line="129" selection-end-column="66" />
+              <folding>
+                <element signature="e#0#41#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -67,7 +70,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/PD_SLAM.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="214">
+            <state relative-caret-position="114">
               <caret line="25" column="63" selection-start-line="24" selection-start-column="4" selection-end-line="25" selection-end-column="63" />
               <folding>
                 <element signature="e#23#33#0" expanded="true" />
@@ -87,10 +90,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>params</find>
-      <find>slam</find>
-      <find>pdr</find>
-      <find>prob_map</find>
       <find>config</find>
       <find>psmnet</find>
       <find>dyn_seg_rec</find>
@@ -115,8 +114,12 @@
       <find>RRSeg</find>
       <find>pdseg</find>
       <find>rdr_seg</find>
-      <find>rtseg</find>
       <find>rt_seg_rec</find>
+      <find>shutil</find>
+      <find>rec</find>
+      <find>rtseg</find>
+      <find>Rec</find>
+      <find>self.cars</find>
     </findStrings>
     <replaceStrings>
       <replace>cv</replace>
@@ -147,6 +150,7 @@
       <replace>gi</replace>
       <replace>rt_seg_rec</replace>
       <replace>rtseg</replace>
+      <replace>track</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -182,9 +186,9 @@
         <option value="D:/RDR/README.md" />
         <option value="$PROJECT_DIR$/RDR.py" />
         <option value="$PROJECT_DIR$/RDRSeg.py" />
-        <option value="$PROJECT_DIR$/RDTSeg.py" />
-        <option value="$PROJECT_DIR$/RDT.py" />
         <option value="$PROJECT_DIR$/script.py" />
+        <option value="$PROJECT_DIR$/RDT.py" />
+        <option value="$PROJECT_DIR$/RDTSeg.py" />
       </list>
     </option>
   </component>
@@ -369,12 +373,13 @@
       <workItem from="1615560087248" duration="9459000" />
       <workItem from="1615900038802" duration="8195000" />
       <workItem from="1616093396454" duration="139744000" />
-      <workItem from="1619555596139" duration="2208000" />
+      <workItem from="1619555596139" duration="5822000" />
+      <workItem from="1620369430421" duration="780000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="331100000" />
+    <option name="totallyTimeSpent" value="335494000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -389,7 +394,7 @@
     <frame x="-8" y="-8" width="1376" height="744" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.17781155" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.18009119" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -693,16 +698,6 @@
     <entry file="file://D:/dsptam/test.py" />
     <entry file="file://D:/orb2o/README.md" />
     <entry file="file://D:/RDR/README.md" />
-    <entry file="file://$PROJECT_DIR$/RDRSeg.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="81">
-          <caret line="233" column="28" selection-start-line="233" selection-start-column="28" selection-end-line="233" selection-end-column="28" />
-          <folding>
-            <element signature="e#0#16#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/RDR.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1785">
@@ -725,7 +720,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/PD_SLAM.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="214">
+        <state relative-caret-position="114">
           <caret line="25" column="63" selection-start-line="24" selection-start-column="4" selection-end-line="25" selection-end-column="63" />
           <folding>
             <element signature="e#23#33#0" expanded="true" />
@@ -733,29 +728,42 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/RDT.py">
+    <entry file="file://$PROJECT_DIR$/script.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2464">
-          <caret column="5" selection-start-column="5" selection-end-column="5" />
+        <state relative-caret-position="317">
+          <caret line="152" column="34" selection-start-line="152" selection-start-column="22" selection-end-line="152" selection-end-column="34" />
+          <folding>
+            <element signature="e#0#41#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/RDTSeg.py">
+    <entry file="file://$PROJECT_DIR$/RDT.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="206">
-          <caret line="53" column="16" selection-start-line="53" selection-start-column="8" selection-end-line="53" selection-end-column="16" />
+        <state relative-caret-position="557">
+          <caret line="129" column="66" lean-forward="true" selection-start-line="129" selection-start-column="66" selection-end-line="129" selection-end-column="66" />
+          <folding>
+            <element signature="e#0#41#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/RDRSeg.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="100">
+          <caret line="165" column="42" selection-start-line="165" selection-start-column="38" selection-end-line="165" selection-end-column="42" />
           <folding>
             <element signature="e#0#16#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/script.py">
+    <entry file="file://$PROJECT_DIR$/RDTSeg.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="328">
-          <caret line="160" column="46" selection-start-line="160" selection-start-column="46" selection-end-line="160" selection-end-column="46" />
+        <state relative-caret-position="431">
+          <caret line="191" column="41" lean-forward="true" selection-start-line="191" selection-start-column="41" selection-end-line="191" selection-end-column="41" />
           <folding>
-            <element signature="e#0#41#0" expanded="true" />
+            <element signature="e#0#16#0" expanded="true" />
           </folding>
         </state>
       </provider>

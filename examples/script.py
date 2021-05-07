@@ -150,7 +150,7 @@ if mode != 'm':
         prob_image = cv.imread(prob_filenames[idx])
         # dpr
         if mode == 'dpr':
-            c = rtseg.rt_seg_rec(left_image, prob_image,idx)
+            c = rtseg.rt_seg_track(left_image, prob_image,idx)
             cv.imwrite(os.path.join(dpath, '{0:06}.png'.format(idx)), c*255)
             # cc = rtseg.pd_seg_rec(left_image, prob_image, idx)
             # c = np.zeros(left_image.shape[:2])

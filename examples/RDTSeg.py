@@ -136,7 +136,7 @@ class RTSeg():
         else:
             return max(min(xy, self.w - 1), 0)
 
-    def rt_seg_rec(self,iml,prob_map,idx):
+    def rt_seg_track(self,iml,prob_map,idx):
         er = prob_map[..., 0].copy()
         er[er < 244] = 0
         er[er >= 244] = 255
@@ -173,10 +173,12 @@ class RTSeg():
                 self.obj[i][1] += 1
                 for mi, ma in res:
                     if self.obj[i][4] in self.sides_moving_labels:
-                        if abs(x2 - mi) <= (x2 - x1) or abs(x1 - ma) <= (x2 - x1) or (x1 >= mi and x2 <= ma):
+                        if mi <= x1 <= ma or mi <= x2 <= ma:
                             self.obj[i][2] += 1
+                            self.obj[i][7] = idx
                     elif x1 >= mi and x2 <= ma:
                         self.obj[i][2] += 1
+                        self.obj[i][7] = idx
         c = np.ones((self.h, self.w),dtype=np.uint8)
         res = [True] * nobj
 
@@ -186,11 +188,11 @@ class RTSeg():
                 x1, y1, x2, y2 = map(int, box)
                 if idx - self.obj[i][3] >= 5 or (idx - self.obj[i][3] and (np.sum(self.obj[i][0]) < self.obj[i][6] or x1 <= 15 or x2 >= self.w - 15 or y1 <= 15 or y2 >= self.h - 15)):
                     res[i] = False
-                elif self.obj[i][1] and self.obj[i][2] / self.obj[i][1] >= 0.6:  #  or self.obj[i][2] >= 5
+                elif self.obj[i][1] and self.obj[i][2] / self.obj[i][1] >= 0.6 and idx - self.obj[i][7] <= 5:
                     c[self.obj[i][0]] = 0
             elif idx - self.obj[i][3]:
                 res[i] = False
-            elif self.obj[i][1] and self.obj[i][2] / self.obj[i][1] >= 0.6:  #  or self.obj[i][2] >= 5
+            elif self.obj[i][1] and self.obj[i][2] / self.obj[i][1] >= 0.6 and idx - self.obj[i][7] <= 5:
                 c[self.obj[i][0]] = 0
 
             # else:
@@ -242,7 +244,7 @@ class RTSeg():
                     break
         for i in range(nm):
             if nu_mask[i]:
-                self.obj.append([masks[i][0], 0, 0, idx, masks[i][1],masks[i][2], 0]) # mask, appear, dyn, idx, label, box, last_mask
+                self.obj.append([masks[i][0], 0, 0, idx, masks[i][1],masks[i][2], 0,0]) # mask, appear, dyn, idx, label, box, last_mask, last_d_idx
         # self.track_rate(idx)
         return
 
@@ -321,7 +323,7 @@ class RDTSeg(RTSeg):
                                                          (self.w, self.h), R, T, alpha=0)
         return Q
 
-    def rdt_seg_rec(self,iml,prob_map,idx,trans):
+    def rdt_seg_track(self,iml,prob_map,idx,trans):
         er = prob_map[..., 0].copy()
         er[er < 244] = 0
         er[er >= 244] = 255
