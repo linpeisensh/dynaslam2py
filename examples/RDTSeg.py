@@ -175,10 +175,8 @@ class RTSeg():
                     if self.obj[i][4] in self.sides_moving_labels:
                         if mi <= x1 <= ma or mi <= x2 <= ma:
                             self.obj[i][2] += 1
-                            self.obj[i][7] = idx
                     elif x1 >= mi and x2 <= ma:
                         self.obj[i][2] += 1
-                        self.obj[i][7] = idx
         c = np.ones((self.h, self.w),dtype=np.uint8)
         res = [True] * nobj
 
@@ -188,11 +186,11 @@ class RTSeg():
                 x1, y1, x2, y2 = map(int, box)
                 if idx - self.obj[i][3] >= 5 or (idx - self.obj[i][3] and (np.sum(self.obj[i][0]) < self.obj[i][6] or x1 <= 15 or x2 >= self.w - 15 or y1 <= 15 or y2 >= self.h - 15)):
                     res[i] = False
-                elif self.obj[i][1] and self.obj[i][2] / self.obj[i][1] >= 0.6 and idx - self.obj[i][7] <= 5:
+                elif self.obj[i][1] and self.obj[i][2] / self.obj[i][1] >= 0.6:
                     c[self.obj[i][0]] = 0
             elif idx - self.obj[i][3]:
                 res[i] = False
-            elif self.obj[i][1] and self.obj[i][2] / self.obj[i][1] >= 0.6 and idx - self.obj[i][7] <= 5:
+            elif self.obj[i][1] and self.obj[i][2] / self.obj[i][1] >= 0.6:
                 c[self.obj[i][0]] = 0
 
             # else:
