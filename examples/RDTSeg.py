@@ -51,7 +51,7 @@ class RTSeg():
         self.config = config
 
 
-    def rr_seg_t(self,iml,prob_map):
+    def rt_seg_t(self,iml,prob_map):
         er = prob_map[..., 0].copy()
         er[er < 244] = 0
         er[er >= 244] = 255
@@ -77,13 +77,11 @@ class RTSeg():
                 cc = cv.circle(cc, (x2, y2), 5, self.p_color, -1)
                 print(y2,res)
                 for mi, ma in res:
-                    # if labels[i] in self.sides_moving_labels:
-                    #     if abs(x2 - mi) <= (x2 - x1) or abs(x1 - ma) <= (x2 - x1) or (
-                    #             x1 >= mi and x2 <= ma):
-                    #         cc[mask, ...] = 255
-                    # elif (x1 >= mi and x2 <= ma and self.w - 90 >= x2 and x1 >= 90):
-                    #     cc[mask, ...] = 255
-                    if (x1 >= mi and x2 <= ma and self.w - 90 >= x2 and x1 >= 90):
+                    if labels[i] in self.sides_moving_labels:
+                        if abs(x2 - mi) <= (x2 - x1) or abs(x1 - ma) <= (x2 - x1) or (
+                                x1 >= mi and x2 <= ma):
+                            cc[mask, ...] = 255
+                    elif (x1 >= mi and x2 <= ma and self.w - 90 >= x2 and x1 >= 90):
                         cc[mask, ...] = 255
         return cc
 
@@ -158,7 +156,6 @@ class RTSeg():
                 for x, y in zip(cm[0], cm[1]):
                     cx, cy = self.limit(x+dx,1), self.limit(y+dy,0)
                     nm[round(cx),round(cy)] = True
-                # print(self.obj[i][5])
                 self.obj[i][0] = nm
             else:
                 res[i] = False
@@ -174,12 +171,10 @@ class RTSeg():
             if x1 >= 90 and x2 <= self.w - 90 and y2 >= 213:
                 self.obj[i][1] += 1
                 for mi, ma in res:
-                    # if self.obj[i][4] in self.sides_moving_labels:
-                    #     if mi <= x1 <= ma or mi <= x2 <= ma:
-                    #         self.obj[i][2] += 1
-                    # elif x1 >= mi and x2 <= ma:
-                    #     self.obj[i][2] += 1
-                    if x1 >= mi and x2 <= ma:
+                    if self.obj[i][4] in self.sides_moving_labels:
+                        if mi <= x1 <= ma or mi <= x2 <= ma:
+                            self.obj[i][2] += 1
+                    elif x1 >= mi and x2 <= ma:
                         self.obj[i][2] += 1
         c = np.ones((self.h, self.w),dtype=np.uint8)
         res = [True] * nobj

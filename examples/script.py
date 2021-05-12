@@ -161,7 +161,7 @@ if mode != 'm':
             # cv.imwrite(os.path.join(dpath, '{0:06}.png'.format(idx)), c)
         # t
         elif mode == 'tt':
-            c = rtseg.rr_seg_t(left_image, prob_image)
+            c = rtseg.rt_seg_t(left_image, prob_image)
             cv.imwrite(os.path.join(dpath, '{0:06}.png'.format(idx)), c)
         # else:
         #     timestamp = timestamps[idx]
