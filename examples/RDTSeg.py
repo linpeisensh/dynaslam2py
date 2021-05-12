@@ -77,11 +77,13 @@ class RTSeg():
                 cc = cv.circle(cc, (x2, y2), 5, self.p_color, -1)
                 print(y2,res)
                 for mi, ma in res:
-                    if labels[i] in self.sides_moving_labels:
-                        if abs(x2 - mi) <= (x2 - x1) or abs(x1 - ma) <= (x2 - x1) or (
-                                x1 >= mi and x2 <= ma):
-                            cc[mask, ...] = 255
-                    elif (x1 >= mi and x2 <= ma and self.w - 90 >= x2 and x1 >= 90):
+                    # if labels[i] in self.sides_moving_labels:
+                    #     if abs(x2 - mi) <= (x2 - x1) or abs(x1 - ma) <= (x2 - x1) or (
+                    #             x1 >= mi and x2 <= ma):
+                    #         cc[mask, ...] = 255
+                    # elif (x1 >= mi and x2 <= ma and self.w - 90 >= x2 and x1 >= 90):
+                    #     cc[mask, ...] = 255
+                    if (x1 >= mi and x2 <= ma and self.w - 90 >= x2 and x1 >= 90):
                         cc[mask, ...] = 255
         return cc
 
