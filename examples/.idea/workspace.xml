@@ -46,8 +46,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/RDTSeg.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="450">
-              <caret line="192" column="74" selection-start-line="192" selection-start-column="74" selection-end-line="192" selection-end-column="74" />
+            <state relative-caret-position="412">
+              <caret line="244" column="133" selection-start-line="244" selection-start-column="133" selection-end-line="244" selection-end-column="133" />
               <folding>
                 <element signature="e#0#16#0" expanded="true" />
               </folding>
@@ -374,12 +374,12 @@
       <workItem from="1615900038802" duration="8195000" />
       <workItem from="1616093396454" duration="139744000" />
       <workItem from="1619555596139" duration="5822000" />
-      <workItem from="1620369430421" duration="1891000" />
+      <workItem from="1620369430421" duration="2823000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="336605000" />
+    <option name="totallyTimeSpent" value="337537000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -760,8 +760,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/RDTSeg.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="450">
-          <caret line="192" column="74" selection-start-line="192" selection-start-column="74" selection-end-line="192" selection-end-column="74" />
+        <state relative-caret-position="412">
+          <caret line="244" column="133" selection-start-line="244" selection-start-column="133" selection-end-line="244" selection-end-column="133" />
           <folding>
             <element signature="e#0#16#0" expanded="true" />
           </folding>

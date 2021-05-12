@@ -172,10 +172,12 @@ class RTSeg():
             if x1 >= 90 and x2 <= self.w - 90 and y2 >= 213:
                 self.obj[i][1] += 1
                 for mi, ma in res:
-                    if self.obj[i][4] in self.sides_moving_labels:
-                        if mi <= x1 <= ma or mi <= x2 <= ma:
-                            self.obj[i][2] += 1
-                    elif x1 >= mi and x2 <= ma:
+                    # if self.obj[i][4] in self.sides_moving_labels:
+                    #     if mi <= x1 <= ma or mi <= x2 <= ma:
+                    #         self.obj[i][2] += 1
+                    # elif x1 >= mi and x2 <= ma:
+                    #     self.obj[i][2] += 1
+                    if x1 >= mi and x2 <= ma:
                         self.obj[i][2] += 1
         c = np.ones((self.h, self.w),dtype=np.uint8)
         res = [True] * nobj
@@ -242,7 +244,7 @@ class RTSeg():
                     break
         for i in range(nm):
             if nu_mask[i]:
-                self.obj.append([masks[i][0], 0, 0, idx, masks[i][1],masks[i][2], 0,0]) # mask, appear, dyn, idx, label, box, last_mask, last_d_idx
+                self.obj.append([masks[i][0], 0, 0, idx, masks[i][1],masks[i][2], 0]) # mask, appear, dyn, idx, label, box, last_mask
         # self.track_rate(idx)
         return
 
